@@ -1,0 +1,659 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>craftersmine.Packager.Lib</name>
+    </assembly>
+    <members>
+        <member name="T:craftersmine.Packager.Lib.Core.Analyzer">
+            <summary>
+            Represents an package contents analyzer. This class cannot be inherited
+            </summary>
+        </member>
+        <member name="F:craftersmine.Packager.Lib.Core.Analyzer.prehd">
+            <summary>
+            Prehead of file
+            </summary>
+        </member>
+        <member name="F:craftersmine.Packager.Lib.Core.Analyzer.head">
+            <summary>
+            File header definition
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Analyzer.AnalyzePackage(System.String)">
+            <summary>
+            Analyzes package at sent path
+            </summary>
+            <param name="packagePath">Path of analyzable package file</param>
+            <returns><see cref="T:craftersmine.Packager.Lib.Core.PackageMetadata"/> of package file</returns>
+            <exception cref="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException"></exception>
+            <exception cref="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackageMetadata">
+            <summary>
+            Represents a package metadata
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageMetadata.#ctor(System.String,craftersmine.Packager.Lib.Core.PackageFileWithoutData[],System.DateTime,System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:craftersmine.Packager.Lib.Core.PackageMetadata"/>
+            </summary>
+            <param name="packageName">Internal written package name in file</param>
+            <param name="files">Array of files in package without readed file contents</param>
+            <param name="creationTime">Date and time, when package was created</param>
+            <param name="packagerVersion">Minimal version of packager for this package</param>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageMetadata.PackageFiles">
+            <summary>
+            Array of files in package without file contents
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageMetadata.PackageName">
+            <summary>
+            Internal written package name in file
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageMetadata.CreationTime">
+            <summary>
+            Date and time, when package was created
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageMetadata.PackagerVersion">
+            <summary>
+            Minimal version of packager for this package
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageMetadata.TotalPackageFilesSize">
+            <summary>
+            Total size of all files in package
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackageFileWithoutData">
+            <summary>
+            Represents a minimal package file metadata
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFileWithoutData.#ctor(System.String,System.Int64)">
+            <summary>
+            Creates a new instance of <see cref="T:craftersmine.Packager.Lib.Core.PackageFileWithoutData"/>
+            </summary>
+            <param name="filename">File name</param>
+            <param name="size">Size of file</param>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageFileWithoutData.Filename">
+            <summary>
+            File name
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageFileWithoutData.Filesize">
+            <summary>
+            Size of file
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Exceptions.FileContentsNullException">
+            <summary>
+            Throws if readed file haven't data to be written or null
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.FileContentsNullException.#ctor">
+            <summary>
+            Throws if readed file haven't data to be written or null
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.FileContentsNullException.#ctor(System.String)">
+            <summary>
+            Throws if readed file haven't data to be written or null
+            </summary>
+            <param name="message">Message to show</param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.FileContentsNullException.#ctor(System.String,System.Exception)">
+            <summary>
+            Throws if readed file haven't data to be written or null
+            </summary>
+            <param name="message">Message to show</param>
+            <param name="innerException">Inner <see cref="T:System.Exception"/></param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.FileContentsNullException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Throws if readed file haven't data to be written or null
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException">
+            <summary>
+            Throws if readed file have invalid type or corrupted head
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException.#ctor">
+            <summary>
+            Throws if readed file have invalid type or corrupted head
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException.#ctor(System.String)">
+            <summary>
+            Throws if readed file have invalid type or corrupted head
+            </summary>
+            <param name="message">Message to show</param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException.#ctor(System.String,System.Exception)">
+            <summary>
+            Throws if readed file have invalid type or corrupted head
+            </summary>
+            <param name="message">Message to show</param>
+            <param name="innerException">Inner <see cref="T:System.Exception"/></param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Throws if readed file have invalid type or corrupted head
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException">
+            <summary>
+            Throws if readed package corrupted
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException.#ctor">
+            <summary>
+            Throws if readed package corrupted
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException.#ctor(System.String)">
+            <summary>
+            Throws if readed package corrupted
+            </summary>
+            <param name="message">Message to show</param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Throws if readed package corrupted
+            </summary>
+            <param name="message">Message to show</param>
+            <param name="innerException">Inner <see cref="T:System.Exception"/></param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Throws if readed package corrupted
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.PackageVersion">
+            <summary>
+            Version of extracting or analyzing package
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.#ctor">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.#ctor(System.Int32)">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+            <param name="version">Version of package</param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.#ctor(System.String)">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+            <param name="message">Message to show</param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+            <param name="message">Message to show</param>
+            <param name="innerException">Inner <see cref="T:System.Exception"/></param>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Throws if package have invalid or unsupported packager verion
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Extractor">
+            <summary>
+            Extractor main class. This class cannot be inherited
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Extractor.#ctor(System.String,System.String)">
+            <summary>
+            Initialize extractor class instance
+            </summary>
+            <param name="directoryForExtracted">Directory where output files from package will be stored</param>
+            <param name="packagePath">Package to extract</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.Extractor.PackagePath">
+            <summary>
+            Package full path for extract
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.Extractor.DirectoryForExtracted">
+            <summary>
+            Directory where output files from package will be stored
+            </summary>
+        </member>
+        <member name="F:craftersmine.Packager.Lib.Core.Extractor.prehd">
+            <summary>
+            Prehead of file
+            </summary>
+        </member>
+        <member name="F:craftersmine.Packager.Lib.Core.Extractor.head">
+            <summary>
+            File header definition
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Extractor.ExtractingEventDelegate">
+            <summary>
+            Extracting progress changed event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.Extractor.ExtractingEvent">
+            <summary>
+            Calls if extraction progress changed
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Extractor.ExtractingDoneEventDelegate">
+            <summary>
+            Extracting complete event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.Extractor.ExtractingDoneEvent">
+            <summary>
+            Calls when extraction completed
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Extractor.Extract">
+            <summary>
+            Starts extraction
+            </summary>
+            <exception cref="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidFiletypeException"></exception>
+            <exception cref="T:craftersmine.Packager.Lib.Core.Exceptions.InvalidVersionException"></exception>
+            <exception cref="T:craftersmine.Packager.Lib.Core.Exceptions.PackageCorruptedException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.IO.PathTooLongException"></exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException"></exception>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+            <exception cref="T:System.Security.SecurityException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+            <exception cref="T:System.IO.EndOfStreamException"></exception>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.ExtractingDoneEventArgs">
+            <summary>
+            Data of extraction completed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingDoneEventArgs.IsSuccessful">
+            <summary>
+            Is extraction successful
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingDoneEventArgs.InnerException">
+            <summary>
+            Exception of error if <see cref="P:craftersmine.Packager.Lib.Core.ExtractingDoneEventArgs.IsSuccessful"/> is false. May be <code>null</code>
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.ExtractingEventArgs">
+            <summary>
+             Data of packing progress changed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.CurrentFilename">
+            <summary>
+            Current processing filename
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.CurrentFileByte">
+            <summary>
+            Current processing byte of <see cref="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.TotalFileByte">
+            <summary>
+            Total size in bytes of <see cref="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.TotalAllBytes">
+            <summary>
+            Total size in bytes of all files
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.ExtractingEventArgs.CurrentFileIndex">
+            <summary>
+            Current file index in array, starts from 0
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackageEntry">
+            <summary>
+            Represents a package file entry
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageEntry.#ctor(System.String,System.String,System.Byte[])">
+            <summary>
+            Creates a new instance of <see cref="T:craftersmine.Packager.Lib.Core.PackageEntry"/>
+            </summary>
+            <param name="filename">File name of entry</param>
+            <param name="extention">Extention of entry</param>
+            <param name="contents">Contents of readed file</param>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageEntry.Filename">
+            <summary>
+            File name of entry
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageEntry.Extention">
+            <summary>
+            Extention of entry
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageEntry.Contents">
+            <summary>
+            Contents of readed file
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackageFile">
+            <summary>
+            Represents a package file, ready to be written
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFile.#ctor(System.String,System.DateTime)">
+            <summary>
+            Creates a new instance of <see cref="T:craftersmine.Packager.Lib.Core.PackageFile"/>
+            </summary>
+            <param name="name">Name of package</param>
+            <param name="pkgCreationTime">Overrides a auto-added creation time</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFile.#ctor(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:craftersmine.Packager.Lib.Core.PackageFile"/>
+            </summary>
+            <param name="name">Name of package</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageFile.PackageName">
+            <summary>
+            Name of package
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageFile.Files">
+            <summary>
+            Array of <see cref="T:craftersmine.Packager.Lib.Core.PackageEntry"/> with files ready to be written
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackageFile.PackageCreationTime">
+            <summary>
+            Package creation time
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFile.AddFile(System.String)">
+            <summary>
+            Adds a new file in <see cref="P:craftersmine.Packager.Lib.Core.PackageFile.Files"/> array
+            </summary>
+            <param name="filepath">Full path of addable file</param>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.IO.PathTooLongException"></exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException"></exception>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+            <exception cref="T:System.Security.SecurityException"></exception>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFile.RemoveFile(System.String,System.String)">
+            <summary>
+            Removes a file from <see cref="P:craftersmine.Packager.Lib.Core.PackageFile.Files"/> array
+            </summary>
+            <param name="filename">Name of removable file</param>
+            <param name="extention">Extention of removable file</param>
+            <returns></returns>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.PackageFile.ClearFilelist">
+            <summary>
+            Clears all <see cref="P:craftersmine.Packager.Lib.Core.PackageFile.Files"/> array
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Packager">
+            <summary>
+            Packager main class. This class cannot be inherited
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Packager.#ctor(System.String,craftersmine.Packager.Lib.Core.PackageFile)">
+            <summary>
+            Initialize packager class instance
+            </summary>
+            <param name="directory">Directory where output package will be stored</param>
+            <param name="package">Package to build</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.Packager.Package">
+            <summary>
+            Package file to build
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.Packager.Directory">
+            <summary>
+            Directory where output package will be stored
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.Packager.Pack(System.Int32,System.String)">
+            <summary>
+            Starts packaging
+            </summary>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.IO.PathTooLongException"></exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException"></exception>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+            <exception cref="T:System.Security.SecurityException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+            <exception cref="T:System.IO.EndOfStreamException"></exception>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Packager.PackingEventDelegate">
+            <summary>
+            Packing progress changed event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.Packager.PackingEvent">
+            <summary>
+            Calls if packing progress changed
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.Packager.PackingDoneEventDelegate">
+            <summary>
+            Packing complete event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.Packager.PackingDoneEvent">
+            <summary>
+            Calls when packing completed
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackingDoneEventArgs">
+            <summary>
+            Data of packing completed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingDoneEventArgs.InnerException">
+            <summary>
+            Exception of error if <see cref="P:craftersmine.Packager.Lib.Core.PackingDoneEventArgs.IsSuccessful"/> is false. May be <code>null</code>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingDoneEventArgs.IsSuccessful">
+            <summary>
+            Is packing successful
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackingEventArgs">
+            <summary>
+             Data of packing progress changed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingEventArgs.CurrentFilename">
+            <summary>
+            Current processing filename
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingEventArgs.CurrentFileByte">
+            <summary>
+            Current processing byte of <see cref="P:craftersmine.Packager.Lib.Core.PackingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingEventArgs.TotalFileByte">
+            <summary>
+            Total size in bytes of <see cref="P:craftersmine.Packager.Lib.Core.PackingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingEventArgs.TotalAllBytes">
+            <summary>
+            Total size in bytes of all files
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.PackingEventArgs.CurrentFileIndex">
+            <summary>
+            Current file index in array, starts from 0
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager">
+            <summary>
+            Packager main class. This class cannot be inherited
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.#ctor(System.String,craftersmine.Packager.Lib.Core.PackageFile)">
+            <summary>
+            Initialize packager class instance
+            </summary>
+            <param name="directory">Directory where output package will be stored</param>
+            <param name="package">Package to build</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.Package">
+            <summary>
+            Package file to build
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.Directory">
+            <summary>
+            Directory where output package will be stored
+            </summary>
+        </member>
+        <member name="M:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.Pack">
+            <summary>
+            Starts packaging
+            </summary>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.IO.PathTooLongException"></exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException"></exception>
+            <exception cref="T:System.UnauthorizedAccessException"></exception>
+            <exception cref="T:System.NotSupportedException"></exception>
+            <exception cref="T:System.Security.SecurityException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+            <exception cref="T:System.IO.EndOfStreamException"></exception>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.PackingEventDelegate">
+            <summary>
+            Packing progress changed event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.PackingEvent">
+            <summary>
+            Calls if packing progress changed
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.PackingDoneEventDelegate">
+            <summary>
+            Packing complete event delegate
+            </summary>
+            <param name="sender">Object</param>
+            <param name="e">Event data</param>
+        </member>
+        <member name="E:craftersmine.Packager.Lib.Core.OldVersions.V1.Packager.PackingDoneEvent">
+            <summary>
+            Calls when packing completed
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingDoneEventArgs">
+            <summary>
+            Data of packing completed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingDoneEventArgs.InnerException">
+            <summary>
+            Exception of error if <see cref="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingDoneEventArgs.IsSuccessful"/> is false. May be <code>null</code>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingDoneEventArgs.IsSuccessful">
+            <summary>
+            Is packing successful
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs">
+            <summary>
+             Data of packing progress changed event
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.CurrentFilename">
+            <summary>
+            Current processing filename
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.CurrentFileByte">
+            <summary>
+            Current processing byte of <see cref="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.TotalFileByte">
+            <summary>
+            Total size in bytes of <see cref="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.CurrentFilename"/>
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.TotalAllBytes">
+            <summary>
+            Total size in bytes of all files
+            </summary>
+        </member>
+        <member name="P:craftersmine.Packager.Lib.Core.OldVersions.V1.PackingEventArgs.CurrentFileIndex">
+            <summary>
+            Current file index in array, starts from 0
+            </summary>
+        </member>
+        <member name="T:craftersmine.Packager.Lib.Core.PackageVersions">
+            <summary>
+            All versions of packages. (Only for Extractor or Analyzer)
+            </summary>
+        </member>
+    </members>
+</doc>
