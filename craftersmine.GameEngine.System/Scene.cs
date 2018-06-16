@@ -90,51 +90,96 @@ namespace craftersmine.GameEngine.System
             SetBackgroundTexture(texture, ImageLayout.Stretch);
         }
 
+        /// <summary>
+        /// Adds <see cref="AudioChannel"/> to scene
+        /// </summary>
+        /// <param name="audioChannel"><see cref="AudioChannel"/> to add</param>
         public void AddAudioChannel(AudioChannel audioChannel)
         {
             _audioChannels.Add(audioChannel.ChannelName, audioChannel);
         }
 
+        /// <summary>
+        /// Plays <see cref="AudioChannel"/>
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
         public void PlayAudioChannel(string name)
         {
             _audioChannels[name].Play();
         }
 
+        /// <summary>
+        /// Stops playing <see cref="AudioChannel"/>
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
         public void StopAudioChannel(string name)
         {
             _audioChannels[name].Stop();
         }
 
+        /// <summary>
+        /// Pauses playing <see cref="AudioChannel"/>
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
         public void PauseAudioChannel(string name)
         {
             _audioChannels[name].Pause();
         }
 
+        /// <summary>
+        /// Resumes paused <see cref="AudioChannel"/>
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
         public void ResumeAudioChannel(string name)
         {
             _audioChannels[name].Resume();
         }
 
+        /// <summary>
+        /// Returns true if <see cref="AudioChannel"/> is playing, else false
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
+        /// <returns><see cref="Boolean"/></returns>
         public bool IsAudioChannelPlaying(string name)
         {
             return _audioChannels[name].IsPlaying;
         }
 
+        /// <summary>
+        /// Returns true if <see cref="AudioChannel"/> is paused, else false
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
+        /// <returns><see cref="Boolean"/></returns>
         public bool IsAudioChannelPaused(string name)
         {
             return _audioChannels[name].IsPaused;
         }
 
+        /// <summary>
+        /// Sets <see cref="AudioChannel"/> output device
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
+        /// <param name="deviceNumber">Output device number</param>
         public void SetAudioChannelOutputDevice(string name, int deviceNumber)
         {
             _audioChannels[name].SetOutputDevice(deviceNumber);
         }
 
+        /// <summary>
+        /// Sets <see cref="AudioChannel"/> looping
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
+        /// <param name="repeating">If true, sets <see cref="AudioChannel"/> loop, else false</param>
         public void SetAudioChannelRepeat(string name, bool repeating)
         {
             _audioChannels[name].IsRepeating = repeating;
         }
 
+        /// <summary>
+        /// Sets <see cref="AudioChannel"/> volume
+        /// </summary>
+        /// <param name="name">Name of <see cref="AudioChannel"/></param>
+        /// <param name="volume">Volume of <see cref="AudioChannel"/> in 0.0f to 1.0f range</param>
         public void SetAudioChannelVolume(string name, float volume)
         {
             if (volume > 1.0f)

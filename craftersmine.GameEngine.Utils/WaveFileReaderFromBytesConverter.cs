@@ -18,7 +18,7 @@ namespace craftersmine.GameEngine.Utils
         /// Converts <code>byte</code> array into <see cref="WaveFileReader"/>
         /// </summary>
         /// <param name="byteArrayIn">Input of <code>byte</code> array</param>
-        /// <returns>Returns <see cref="Image"/></returns>
+        /// <returns>Returns <see cref="WaveFileReader"/></returns>
         public static WaveFileReader ByteArrayToWaveFileReader(byte[] byteArrayIn)
         {
             WaveFileReader returnWaveReader = null;

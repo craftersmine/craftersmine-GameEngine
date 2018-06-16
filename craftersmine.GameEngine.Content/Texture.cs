@@ -7,15 +7,29 @@ using System.Threading.Tasks;
 
 namespace craftersmine.GameEngine.Content
 {
+    /// <summary>
+    /// Represents texture
+    /// </summary>
     public class Texture
     {
+        /// <summary>
+        /// Gets <see cref="Texture"/> image
+        /// </summary>
         public Image TextureImage { get; private set; }
 
+        /// <summary>
+        /// Creates new <see cref="Texture"/> instance with <paramref name="textureImage"/>
+        /// </summary>
+        /// <param name="textureImage"><see cref="Image"/> for <see cref="Texture"/></param>
         public Texture(Image textureImage)
         {
             TextureImage = textureImage;
         }
 
+        /// <summary>
+        /// Updates <see cref="Texture"/> image
+        /// </summary>
+        /// <param name="textureImage"><see cref="Image"/> for <see cref="Texture"/></param>
         public void UpdateTexture(Image textureImage)
         {
             TextureImage = textureImage;

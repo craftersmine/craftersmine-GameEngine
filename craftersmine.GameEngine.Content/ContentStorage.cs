@@ -11,11 +11,18 @@ using craftersmine.GameEngine.Utils;
 
 namespace craftersmine.GameEngine.Content
 {
+    /// <summary>
+    /// Represents game content storage
+    /// </summary>
     public sealed class ContentStorage
     {
         private OnDemandPackage pak { get; set; }
         private string packageName { get; set; }
 
+        /// <summary>
+        /// Creates new <see cref="ContentStorage"/> instance with <paramref name="packageName"/>
+        /// </summary>
+        /// <param name="packageName">Package name without extention from "content" root game directory</param>
         public ContentStorage(string packageName)
         {
             this.packageName = packageName;
@@ -28,6 +35,11 @@ namespace craftersmine.GameEngine.Content
             ContentStorageCreated?.Invoke(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Loads <see cref="Texture"/> from package
+        /// </summary>
+        /// <param name="name">Name of <see cref="Texture"/></param>
+        /// <returns><see cref="Texture"/></returns>
         public Texture LoadTexture(string name)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Texture });
@@ -44,6 +56,11 @@ namespace craftersmine.GameEngine.Content
             }
         }
 
+        /// <summary>
+        /// Loads <see cref="Animation"/> from package
+        /// </summary>
+        /// <param name="name">Name of <see cref="Animation"/></param>
+        /// <returns><see cref="Animation"/></returns>
         public Animation LoadAnimation(string name)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Animation });
@@ -87,6 +104,12 @@ namespace craftersmine.GameEngine.Content
             }
         }
 
+        /// <summary>
+        /// Loads <see cref="Font"/> from package
+        /// </summary>
+        /// <param name="name">Name of <see cref="Font"/></param>
+        /// <param name="fontSize">Font size in pt</param>
+        /// <returns><see cref="Font"/></returns>
         public Font LoadFont(string name, float fontSize)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Font });
@@ -103,6 +126,11 @@ namespace craftersmine.GameEngine.Content
             }
         }
 
+        /// <summary>
+        /// Loads <see cref="Audio"/> from package
+        /// </summary>
+        /// <param name="name">Name of <see cref="Audio"/></param>
+        /// <returns><see cref="Audio"/></returns>
         public Audio LoadAudio(string name)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Audio });
@@ -119,19 +147,37 @@ namespace craftersmine.GameEngine.Content
         }
 
         public delegate void ContentStorageCreatedEventDelegate(object sender, EventArgs e);
+        /// <summary>
+        /// Calls at <see cref="ContentStorage"/> was created
+        /// </summary>
         public event ContentStorageCreatedEventDelegate ContentStorageCreated;
 
         public delegate void ContentLoadingEventDelegate(object sender, ContentLoadingEventArgs e);
+        /// <summary>
+        /// Calls at loading any content from this <see cref="ContentStorage"/>
+        /// </summary>
         public event ContentLoadingEventDelegate ContentLoading;
     }
 
+    /// <summary>
+    /// <see cref="ContentStorage.ContentLoading"/> event arguments
+    /// </summary>
     public sealed class ContentLoadingEventArgs : EventArgs
     {
+        /// <summary>
+        /// Gets loading content filename without extention
+        /// </summary>
         public string ContentFileName { get; internal set; }
         //public bool IsExists { get; internal set; }
+        /// <summary>
+        /// Gets loading content file type
+        /// </summary>
         public ContentType ContentType { get; internal set; }
     }
 
+    /// <summary>
+    /// Types of loadable content
+    /// </summary>
     public enum ContentType
     {
         Texture, Animation, Font, Audio

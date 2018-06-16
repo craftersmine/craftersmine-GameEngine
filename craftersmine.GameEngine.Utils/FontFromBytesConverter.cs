@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace craftersmine.GameEngine.Utils
 {
+    /// <summary>
+    /// Gives static method of conversion <code>byte</code> array into <see cref="FontFamily"/>
+    /// </summary>
     public sealed class FontFromBytesConverter
     {
+        /// <summary>
+        /// Converts <code>byte</code> array into <see cref="FontFamily"/>
+        /// </summary>
+        /// <param name="byteArrayIn">Input of <code>byte</code> array</param>
+        /// <returns>Returns <see cref="FontFamily"/></returns>
         public static FontFamily FontFamilyFromBytes(byte[] buffer)
         {
             var handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);

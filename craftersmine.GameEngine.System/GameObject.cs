@@ -215,6 +215,13 @@ namespace craftersmine.GameEngine.System
             StartCurrentAnimation(0);
         }
 
+        /// <summary>
+        /// Sets <see cref="GameObject"/> collider bounds
+        /// </summary>
+        /// <param name="x">Offset by X axis from upper left corner of <see cref="GameObject"/></param>
+        /// <param name="y">Offset by Y axis from upper left corner of <see cref="GameObject"/></param>
+        /// <param name="width">Width of collider</param>
+        /// <param name="height">Height of collider</param>
         public void SetCollider(int x, int y, int width, int height)
         {
             ColliderOffsetX = x;
