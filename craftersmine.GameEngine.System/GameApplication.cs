@@ -48,7 +48,7 @@ namespace craftersmine.GameEngine.System
                 gameWnd.KeyDown += GameWnd_KeyDown;
                 gameWnd.KeyUp += GameWnd_KeyUp;
                 gameWnd.IsActive = true;
-                gameTicker.Tick += Timer_Tick;
+                gameTicker.Tick += GameTicker_Tick;
                 gameTicker.Interval = 16;
                 gameTicker.Start();
                 Application.Run(gameWnd);
@@ -102,7 +102,7 @@ namespace craftersmine.GameEngine.System
             e.Handled = true;
         }
 
-        private static void Timer_Tick(object sender, EventArgs e)
+        private static void GameTicker_Tick(object sender, EventArgs e)
         {
             try
             {
