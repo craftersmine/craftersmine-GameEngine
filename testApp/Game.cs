@@ -22,7 +22,7 @@ namespace testApp
         {
             this.SetBackgroundColor(Color.Tomato);
             cs = new ContentStorage("testassets");
-            config = new GameConfig("Configs", "TestConfig");
+            //config = new GameConfig("Configs", "TestConfig");
             cs.ContentStorageCreated += Cs_ContentStorageCreated;
             cs.ContentLoading += Cs_ContentLoading;
         }
