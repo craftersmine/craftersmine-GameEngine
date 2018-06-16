@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.tex = new System.Windows.Forms.RadioButton();
+            this.anim = new System.Windows.Forms.RadioButton();
+            this.animMd = new System.Windows.Forms.RadioButton();
+            this.font = new System.Windows.Forms.RadioButton();
+            this.aud = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.str = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -47,64 +48,64 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Select content type:";
             // 
-            // radioButton1
+            // tex
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(15, 34);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(61, 17);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Texture";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.tex.AutoSize = true;
+            this.tex.Location = new System.Drawing.Point(15, 34);
+            this.tex.Name = "tex";
+            this.tex.Size = new System.Drawing.Size(61, 17);
+            this.tex.TabIndex = 1;
+            this.tex.TabStop = true;
+            this.tex.Text = "Texture";
+            this.tex.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // anim
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(15, 57);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 17);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Animation";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.anim.AutoSize = true;
+            this.anim.Location = new System.Drawing.Point(15, 57);
+            this.anim.Name = "anim";
+            this.anim.Size = new System.Drawing.Size(71, 17);
+            this.anim.TabIndex = 2;
+            this.anim.TabStop = true;
+            this.anim.Text = "Animation";
+            this.anim.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // animMd
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(15, 80);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(119, 17);
-            this.radioButton3.TabIndex = 3;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Animation Metadata";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.animMd.AutoSize = true;
+            this.animMd.Location = new System.Drawing.Point(15, 80);
+            this.animMd.Name = "animMd";
+            this.animMd.Size = new System.Drawing.Size(119, 17);
+            this.animMd.TabIndex = 3;
+            this.animMd.TabStop = true;
+            this.animMd.Text = "Animation Metadata";
+            this.animMd.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // font
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(15, 103);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(46, 17);
-            this.radioButton4.TabIndex = 4;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Font";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.font.AutoSize = true;
+            this.font.Location = new System.Drawing.Point(15, 103);
+            this.font.Name = "font";
+            this.font.Size = new System.Drawing.Size(46, 17);
+            this.font.TabIndex = 4;
+            this.font.TabStop = true;
+            this.font.Text = "Font";
+            this.font.UseVisualStyleBackColor = true;
             // 
-            // radioButton5
+            // aud
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(15, 126);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(84, 17);
-            this.radioButton5.TabIndex = 5;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Wave Audio";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.aud.AutoSize = true;
+            this.aud.Location = new System.Drawing.Point(15, 126);
+            this.aud.Name = "aud";
+            this.aud.Size = new System.Drawing.Size(84, 17);
+            this.aud.TabIndex = 5;
+            this.aud.TabStop = true;
+            this.aud.Text = "Wave Audio";
+            this.aud.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(131, 167);
+            this.button1.Location = new System.Drawing.Point(131, 195);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
@@ -113,25 +114,37 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(50, 167);
+            this.button2.Location = new System.Drawing.Point(50, 195);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
             this.button2.Text = "Next";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // str
+            // 
+            this.str.AutoSize = true;
+            this.str.Location = new System.Drawing.Point(15, 149);
+            this.str.Name = "str";
+            this.str.Size = new System.Drawing.Size(57, 17);
+            this.str.TabIndex = 8;
+            this.str.TabStop = true;
+            this.str.Text = "Strings";
+            this.str.UseVisualStyleBackColor = true;
+            // 
             // AddContentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(218, 202);
+            this.ClientSize = new System.Drawing.Size(218, 230);
+            this.Controls.Add(this.str);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.radioButton5);
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.aud);
+            this.Controls.Add(this.font);
+            this.Controls.Add(this.animMd);
+            this.Controls.Add(this.anim);
+            this.Controls.Add(this.tex);
             this.Controls.Add(this.label1);
             this.Name = "AddContentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -144,12 +157,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton tex;
+        private System.Windows.Forms.RadioButton anim;
+        private System.Windows.Forms.RadioButton animMd;
+        private System.Windows.Forms.RadioButton font;
+        private System.Windows.Forms.RadioButton aud;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RadioButton str;
     }
 }
