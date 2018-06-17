@@ -19,15 +19,15 @@ namespace craftersmine.GameEngine.Utils
         /// </summary>
         /// <param name="byteArrayIn">Input of <code>byte</code> array</param>
         /// <returns>Returns <see cref="FontFamily"/></returns>
-        public static FontFamily FontFamilyFromBytes(byte[] buffer)
+        public static FontFamily FontFamilyFromBytes(byte[] byteArrayIn)
         {
-            var handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(byteArrayIn, GCHandleType.Pinned);
             try
             {
-                var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, 0);
+                var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(byteArrayIn, 0);
                 using (var pvc = new PrivateFontCollection())
                 {
-                    pvc.AddMemoryFont(ptr, buffer.Length);
+                    pvc.AddMemoryFont(ptr, byteArrayIn.Length);
                     return pvc.Families[0];
                 }
             }

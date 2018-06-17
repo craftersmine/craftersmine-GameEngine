@@ -18,7 +18,7 @@ namespace testApp
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(true);
             
             
             Game gameWindow = new Game("TestGameApp", 1280, 720);
