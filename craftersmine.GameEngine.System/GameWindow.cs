@@ -82,6 +82,7 @@ namespace craftersmine.GameEngine.System
             scene.Visible = false;
             scene.Size = this.ClientSize;
             scenes.Add(scene.Id, scene);
+            scene.OnCreate();
             this.Controls.Add(scene);
         }
         /// <summary>
