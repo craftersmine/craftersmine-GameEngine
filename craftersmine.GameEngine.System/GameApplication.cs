@@ -51,6 +51,8 @@ namespace craftersmine.GameEngine.System
         /// <param name="applicationDataFolder">Path to root of Game at %AppData%</param>
         public static void Run(GameWindow gameWindow, string applicationDataFolder)
         {
+            //Application.SetCompatibleTextRenderingDefault(true);
+            //Application.EnableVisualStyles();
             CrashHandler = new GameCrashHandler();
             try
             {
@@ -160,6 +162,7 @@ namespace craftersmine.GameEngine.System
                         //UpdateBoundingBoxes();
                         UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
+                        gameWnd.CurrentScene.OnUpdate();
                     }
                 }
             }
