@@ -51,6 +51,12 @@
     <Compile Include="AddContentForm.Designer.cs">
       <DependentUpon>AddContentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuilderProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuilderProgressForm.Designer.cs">
+      <DependentUpon>BuilderProgressForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,8 +65,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectFileAndNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectFileAndNameForm.Designer.cs">
+      <DependentUpon>SelectFileAndNameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StaticData.cs" />
     <EmbeddedResource Include="AddContentForm.resx">
       <DependentUpon>AddContentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuilderProgressForm.resx">
+      <DependentUpon>BuilderProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -74,6 +90,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SelectFileAndNameForm.resx">
+      <DependentUpon>SelectFileAndNameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -58,6 +58,7 @@
             this.tex.TabStop = true;
             this.tex.Text = "Texture";
             this.tex.UseVisualStyleBackColor = true;
+            this.tex.CheckedChanged += new System.EventHandler(this.tex_CheckedChanged);
             // 
             // anim
             // 
@@ -69,6 +70,7 @@
             this.anim.TabStop = true;
             this.anim.Text = "Animation";
             this.anim.UseVisualStyleBackColor = true;
+            this.anim.CheckedChanged += new System.EventHandler(this.anim_CheckedChanged);
             // 
             // animMd
             // 
@@ -80,6 +82,7 @@
             this.animMd.TabStop = true;
             this.animMd.Text = "Animation Metadata";
             this.animMd.UseVisualStyleBackColor = true;
+            this.animMd.CheckedChanged += new System.EventHandler(this.animMd_CheckedChanged);
             // 
             // font
             // 
@@ -91,6 +94,7 @@
             this.font.TabStop = true;
             this.font.Text = "Font";
             this.font.UseVisualStyleBackColor = true;
+            this.font.CheckedChanged += new System.EventHandler(this.font_CheckedChanged);
             // 
             // aud
             // 
@@ -102,6 +106,7 @@
             this.aud.TabStop = true;
             this.aud.Text = "Wave Audio";
             this.aud.UseVisualStyleBackColor = true;
+            this.aud.CheckedChanged += new System.EventHandler(this.aud_CheckedChanged);
             // 
             // button1
             // 
@@ -111,6 +116,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -120,6 +126,7 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "Next";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // str
             // 
@@ -131,6 +138,7 @@
             this.str.TabStop = true;
             this.str.Text = "Strings";
             this.str.UseVisualStyleBackColor = true;
+            this.str.CheckedChanged += new System.EventHandler(this.str_CheckedChanged);
             // 
             // AddContentForm
             // 
@@ -146,8 +154,13 @@
             this.Controls.Add(this.anim);
             this.Controls.Add(this.tex);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddContentForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add content...";
             this.ResumeLayout(false);
             this.PerformLayout();
