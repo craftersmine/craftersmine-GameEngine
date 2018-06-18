@@ -103,13 +103,14 @@ namespace craftersmine.GameEngine.Content
                 throw new ContentLoadException("Unable to load \"" + name + "\" animation! Inner exception message: " + ex.Message, ex);
             }
         }
-
+        
         /// <summary>
-        /// Loads <see cref="Font"/> from package
+        /// [CURRENTLY BROKEN] Loads <see cref="Font"/> from package
         /// </summary>
         /// <param name="name">Name of <see cref="Font"/></param>
         /// <param name="fontSize">Font size in pt</param>
         /// <returns><see cref="Font"/></returns>
+        [Obsolete]
         public Font LoadFont(string name, float fontSize)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Font });
