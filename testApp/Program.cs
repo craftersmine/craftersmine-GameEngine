@@ -24,7 +24,6 @@ namespace testApp
             Game gameWindow = new Game("TestGameApp", 1280, 720);
             labelDebug = new Label { BackColor = Color.Transparent, ForeColor = Color.Yellow, AutoSize = true };
             //labelDebug.BringToFront();
-            gameWindow.Controls.Add(labelDebug);
             GameApplication.Run(gameWindow);
         }
     }

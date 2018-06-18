@@ -44,6 +44,7 @@ namespace testApp
 
         public override void OnCreated()
         {
+            this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
             scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
             //Program.labelDebug.Font = cs.LoadFont("se", 9);
@@ -135,7 +136,7 @@ namespace testApp
             this.Width = 32;
             this.X = 100;
             this.Y = 300;
-            this.IsCollidable = true;
+            this.IsCollidable = false;
             this.SetCollider(4, 4, 24, 24);
         }
 
