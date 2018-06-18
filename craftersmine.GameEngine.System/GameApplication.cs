@@ -21,7 +21,7 @@ namespace craftersmine.GameEngine.System
     {
         private static Timer gameTicker = new Timer();
         private static GameWindow gameWnd;
-        private static Logger logger;
+        private static Logger _logger;
 
         /// <summary>
         /// Gets Game Version setted in AssemblyInfo.cs
@@ -58,7 +58,6 @@ namespace craftersmine.GameEngine.System
                 if (!Directory.Exists(AppDataGameRoot))
                     Directory.CreateDirectory(AppDataGameRoot);
                 LoadAssemblyData();
-                logger = new Logger(Path.Combine(AppDataGameRoot, "Logs"), GameName);
                 gameWnd = gameWindow;
                 gameWnd.KeyDown += GameWnd_KeyDown;
                 gameWnd.KeyUp += GameWnd_KeyUp;
@@ -72,6 +71,16 @@ namespace craftersmine.GameEngine.System
             {
                 CrashHandler.Crash(ex);
             }
+        }
+
+        public static void SetCrashHandler(GameCrashHandler crashHandler)
+        {
+            CrashHandler = crashHandler;
+        }
+
+        public static void SetLogger(Logger logger)
+        {
+            _logger = logger;
         }
 
         /// <summary>
@@ -112,7 +121,7 @@ namespace craftersmine.GameEngine.System
         /// <param name="onlyConsole">If <code>true</code> shows only in console and don't writes it to file, else writes to file</param>
         public static void Log(LogEntryType prefix, string contents, bool onlyConsole = false)
         {
-            logger?.Log(prefix, contents, onlyConsole);
+            _logger?.Log(prefix, contents, onlyConsole);
         }
 
         /// <summary>
@@ -122,7 +131,7 @@ namespace craftersmine.GameEngine.System
         /// <param name="prefix">Log entries prefixes</param>
         public static void LogException(Exception exception, LogEntryType prefix = LogEntryType.Crash)
         {
-            logger?.LogException(prefix, exception);
+            _logger?.LogException(prefix, exception);
         }
         
         private static void LoadAssemblyData()
