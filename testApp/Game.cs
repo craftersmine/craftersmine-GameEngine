@@ -9,6 +9,7 @@ using craftersmine.GameEngine.Input;
 using craftersmine.GameEngine.System;
 using craftersmine.GameEngine.Content;
 using System.IO;
+using craftersmine.GameEngine.Utils;
 
 namespace testApp
 {
@@ -46,10 +47,10 @@ namespace testApp
         {
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
-            scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
-            //Program.labelDebug.Font = cs.LoadFont("se", 9);
-            scene.SetAudioChannelVolume("aud", 0.1f);
-            scene.SetAudioChannelRepeat("aud", true);
+            //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
+            Program.labelDebug.Font = cs.LoadFont("andy", 9);
+            //scene.SetAudioChannelVolume("aud", 0.1f);
+            //scene.SetAudioChannelRepeat("aud", true);
             scene.SetBackgroundColor(Color.Black);
             this.AddScene(scene);
             scene.SetBackgroundTexture(cs.LoadTexture("bg"));
@@ -64,7 +65,7 @@ namespace testApp
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
             ShowScene(0);
-            scene.PlayAudioChannel("aud");
+            //scene.PlayAudioChannel("aud");
         }
 
         public override void OnUpdate()
