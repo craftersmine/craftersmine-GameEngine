@@ -63,6 +63,7 @@
             // anim
             // 
             this.anim.AutoSize = true;
+            this.anim.Enabled = false;
             this.anim.Location = new System.Drawing.Point(15, 57);
             this.anim.Name = "anim";
             this.anim.Size = new System.Drawing.Size(71, 17);
@@ -87,12 +88,13 @@
             // font
             // 
             this.font.AutoSize = true;
+            this.font.Enabled = false;
             this.font.Location = new System.Drawing.Point(15, 103);
             this.font.Name = "font";
-            this.font.Size = new System.Drawing.Size(46, 17);
+            this.font.Size = new System.Drawing.Size(188, 17);
             this.font.TabIndex = 4;
             this.font.TabStop = true;
-            this.font.Text = "Font";
+            this.font.Text = "Font [Currently Disabled In Engine]";
             this.font.UseVisualStyleBackColor = true;
             this.font.CheckedChanged += new System.EventHandler(this.font_CheckedChanged);
             // 
