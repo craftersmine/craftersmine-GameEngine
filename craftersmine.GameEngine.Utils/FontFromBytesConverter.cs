@@ -21,19 +21,12 @@ namespace craftersmine.GameEngine.Utils
         /// <returns>Returns <see cref="FontFamily"/></returns>
         public static FontFamily FontFamilyFromBytes(byte[] byteArrayIn)
         {
-            var handle = GCHandle.Alloc(byteArrayIn, GCHandleType.Pinned);
-            try
+            using (var pvc = new PrivateFontCollection())
             {
-                var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(byteArrayIn, 0);
-                using (var pvc = new PrivateFontCollection())
-                {
-                    pvc.AddMemoryFont(ptr, byteArrayIn.Length);
-                    return pvc.Families[0];
-                }
-            }
-            finally
-            {
-                handle.Free();
+                var handlePtr = Marshal.AllocCoTaskMem(byteArrayIn.Length);
+                Marshal.Copy(byteArrayIn, 0, handlePtr, byteArrayIn.Length);
+                pvc.AddMemoryFont(handlePtr, byteArrayIn.Length);
+                return pvc.Families[0];
             }
         }
     }
