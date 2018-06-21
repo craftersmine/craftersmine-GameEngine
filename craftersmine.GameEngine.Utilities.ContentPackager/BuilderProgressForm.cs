@@ -94,8 +94,8 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
                     }
                     ChangeStatus("Packing package...");
                     Packager.Lib.Core.Packager packer = new Packager.Lib.Core.Packager(packageDir, packageFile);
-                    packer.PackingDoneEvent += Packer_PackingDoneEvent;
                     packer.PackingEvent += Packer_PackingEvent;
+                    packer.PackingDoneEvent += Packer_PackingDoneEvent;
                     packer.Pack();
                 }
                 catch (Exception)
@@ -109,11 +109,13 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
                     else this.Close();
                 }
             }));
+            _workingThread.Start();
         }
 
         private void Packer_PackingEvent(object sender, PackingEventArgs e)
         {
-            UpdateProgress2(e.PackingPercentage);
+            int percentage = (int)((e.TotalAllBytes / 100.0d) / e.CurrentFileByte);
+            //UpdateProgress2(percentage);
         }
 
         private void Packer_PackingDoneEvent(object sender, PackingDoneEventArgs e)
