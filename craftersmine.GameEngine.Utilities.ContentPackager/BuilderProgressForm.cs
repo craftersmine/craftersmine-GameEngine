@@ -75,6 +75,9 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
                             case ContentType.Strings:
                                 ext = ".strings";
                                 break;
+                            case ContentType.WaveAudio:
+                                ext = ".wad";
+                                break;
                         }
                         string filename = "unknown";
                         filename = entry.Key.Replace(" [Animation]", "") + ext;
