@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using craftersmine.Packager.Lib.Core;
 using craftersmine.Packager.Lib.Core.Exceptions;
+using System.Threading;
 
 namespace craftersmine.GameEngine.Utilities.ContentPackager
 {
@@ -41,9 +42,9 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
 
         string tempDir = Path.Combine(Path.GetTempPath(), "~cgepackager");
 
-        public async void Pack()
+        public void Pack()
         {
-            await Task.Run(new Action(() => {
+            Thread _workingThread = new Thread(new ThreadStart(() => {
                 try
                 {
                     int totalProgress = StaticData.ContentAssets.Count * 2 + 2;
