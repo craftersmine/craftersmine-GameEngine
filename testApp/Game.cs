@@ -47,8 +47,8 @@ namespace testApp
         {
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
-            //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
-            Program.labelDebug.Font = cs.LoadFont("andy", 9);
+            scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
+            //Program.labelDebug.Font = cs.LoadFont("andy", 9);
             //scene.SetAudioChannelVolume("aud", 0.1f);
             //scene.SetAudioChannelRepeat("aud", true);
             scene.SetBackgroundColor(Color.Black);
