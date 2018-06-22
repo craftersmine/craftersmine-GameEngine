@@ -253,7 +253,7 @@ namespace craftersmine.GameEngine.System
         /// Calls if object collided with another object
         /// </summary>
         /// <param name="collidedObjectInternalName">Collided object name</param>
-        public virtual void OnCollide(string collidedObjectInternalName)
+        public virtual void OnCollide(GameObject collidedObject)
         {
 
         }

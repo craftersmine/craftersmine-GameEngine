@@ -189,12 +189,12 @@ namespace craftersmine.GameEngine.System
                     {
                         if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
                         {
-                            gObj.OnCollide(gObjCollision.InternalName);
+                            gObj.OnCollide(gObjCollision);
                             gObj.IsCollided = true;
                         }
                         else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
                         {
-                            gObjCollision.OnCollide(gObj.InternalName);
+                            gObjCollision.OnCollide(gObj);
                             gObjCollision.IsCollided = true;
                         }
                         else
