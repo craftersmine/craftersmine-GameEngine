@@ -149,7 +149,7 @@ namespace testApp
 
         public override void OnCollide(GameObject collidedObject)
         {
-            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, this.InternalName + " Collided with " + collidedObject.InternalName, true);
+            GameApplication.Log(LogEntryType.Info, this.InternalName + " Collided with " + collidedObject.InternalName, true);
             if (collidedObject.InternalName == "obj2")
                 this.IsCollided = true;
         }
