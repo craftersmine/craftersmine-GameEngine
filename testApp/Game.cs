@@ -47,7 +47,7 @@ namespace testApp
         {
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
-            scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
+            //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
             //Program.labelDebug.Font = cs.LoadFont("andy", 9);
             //scene.SetAudioChannelVolume("aud", 0.1f);
             //scene.SetAudioChannelRepeat("aud", true);
@@ -63,6 +63,8 @@ namespace testApp
             obj2.ApplyTexture(cs.LoadTexture("obj2"));
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
+
+            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Background, 200);
 
             ShowScene(0);
             //scene.PlayAudioChannel("aud");
@@ -137,7 +139,7 @@ namespace testApp
             this.Width = 32;
             this.X = 100;
             this.Y = 300;
-            this.IsCollidable = false;
+            this.IsCollidable = true;
             this.SetCollider(4, 4, 24, 24);
         }
 
