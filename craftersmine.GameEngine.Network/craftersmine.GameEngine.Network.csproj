@@ -45,7 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientServerObject.cs">
+    <Compile Include="NetworkGameObject.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NetworkClient.cs" />
