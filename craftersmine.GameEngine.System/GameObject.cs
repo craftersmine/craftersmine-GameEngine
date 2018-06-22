@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -327,6 +328,76 @@ namespace craftersmine.GameEngine.System
                     this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
                 else this.Image = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
             }
+            if (IsTinted)
+            {
+                if (TintTickCounter == TintDuration)
+                {
+                    switch (TintTarget)
+                    {
+                        case TintTargets.Background:
+                            this.BackgroundImage = UntintedImage;
+                            this.IsTinted = false;
+                            break;
+                    }
+                }
+                TintTickCounter++;
+            }
+        }
+
+        internal int TintTickCounter { get; set; }
+        internal int TintDuration { get; set; }
+        internal Image UntintedImage { get; set; }
+
+        /// <summary>
+        /// Gets tinting game object texture layer
+        /// </summary>
+        public TintTargets TintTarget { get; internal set; }
+        /// <summary>
+        /// Gets true if game object texture layer is currently tinted
+        /// </summary>
+        public bool IsTinted { get; internal set; }
+
+        /// <summary>
+        /// Tints game object texture with RGB color for <paramref name="tickDuration"/> game ticks count
+        /// </summary>
+        /// <param name="r">Red color component (0.0d - 1.0d)</param>
+        /// <param name="g">Green color component (0.0d - 1.0d)</param>
+        /// <param name="b">Blue color component (0.0d - 1.0d)</param>
+        /// <param name="target">Tinting game object texture layer</param>
+        /// <param name="tickDuration">Duration of tint in game ticks</param>
+        public void Tint(double r, double g, double b, TintTargets target, int tickDuration)
+        {
+            this.TintTickCounter = 0;
+            TintTarget = target;
+            this.TintDuration = tickDuration;
+            switch (target)
+            {
+                case TintTargets.Background:
+                    Bitmap bitmap = new Bitmap(this.BackgroundImage);
+                    UntintedImage = this.BackgroundImage;
+                    for (int imageX = 0; imageX < bitmap.Width; imageX++)
+                    {
+                        for (int imageY = 0; imageY < bitmap.Height; imageY++)
+                        {
+                            Color targetColor = bitmap.GetPixel(imageX, imageY);
+                            if (targetColor.A != 0)
+                            {
+                                double rMixed = targetColor.R + (1 - targetColor.R / 255.0d) * (r * 255.0d);
+                                double gMixed = targetColor.G + (1 - targetColor.G / 255.0d) * (g * 255.0d);
+                                double bMixed = targetColor.B + (1 - targetColor.B / 255.0d) * (b * 255.0d);
+                                bitmap.SetPixel(imageX, imageY, Color.FromArgb(targetColor.A, (int)rMixed, (int)gMixed, (int)bMixed));
+                            }
+                        }
+                    }
+                    this.BackgroundImage = bitmap;
+                    this.IsTinted = true;
+                    break;
+            }
+        }
+
+        public enum TintTargets
+        {
+            Background, Foreground
         }
     }
 }
