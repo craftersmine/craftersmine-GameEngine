@@ -81,6 +81,10 @@
       <Project>{543eaf2f-ba62-4b8b-bacc-3003b71dfc43}</Project>
       <Name>craftersmine.GameEngine.Input</Name>
     </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Network\craftersmine.GameEngine.Network.csproj">
+      <Project>{637af39a-f790-4972-9b91-847201da4e26}</Project>
+      <Name>craftersmine.GameEngine.Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\craftersmine.GameEngine.System\craftersmine.GameEngine.System.csproj">
       <Project>{02380c18-d3ec-4759-a4b9-bceed9904721}</Project>
       <Name>craftersmine.GameEngine.System</Name>

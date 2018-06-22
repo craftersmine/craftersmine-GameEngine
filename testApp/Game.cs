@@ -10,6 +10,7 @@ using craftersmine.GameEngine.System;
 using craftersmine.GameEngine.Content;
 using System.IO;
 using craftersmine.GameEngine.Utils;
+using craftersmine.GameEngine.Network;
 
 namespace testApp
 {
@@ -130,7 +131,7 @@ namespace testApp
         }
     }
 
-    public class Obj1 : GameObject
+    public class Obj1 : NetworkGameObject
     {
         public Obj1() : base(0, "obj1")
         {
@@ -141,14 +142,15 @@ namespace testApp
             this.Y = 300;
             this.IsCollidable = true;
             this.SetCollider(4, 4, 24, 24);
+            this.IsTransmittingLocation = true;
         }
 
         public int InitialSpeed { get; } = 5;
 
-        public override void OnCollide(string collidedObjectInternalName)
+        public override void OnCollide(GameObject collidedObject)
         {
-            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, this.InternalName + " Collided with " + collidedObjectInternalName, true);
-            if (collidedObjectInternalName == "obj2")
+            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, this.InternalName + " Collided with " + collidedObject.InternalName, true);
+            if (collidedObject.InternalName == "obj2")
                 this.IsCollided = true;
         }
     }
