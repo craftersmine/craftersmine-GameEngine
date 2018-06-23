@@ -45,12 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameClient.cs" />
     <Compile Include="NetworkGameObject.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NetworkClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebRequest.cs" />
+    <Compile Include="WebRequestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\craftersmine.GameEngine.System\craftersmine.GameEngine.System.csproj">
