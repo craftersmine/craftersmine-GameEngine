@@ -575,6 +575,108 @@ namespace craftersmine.GameEngine.Input
                     break;
             }
         }
+
+        public const int ThumbstickMaxValue = 32767;
+        //public const int ThumbstickMinValue = -32767;
+        public const int TriggerMaxValue = 255;
+        //public const int TriggerMinValue = -255;
+
+        /// <summary>
+        /// Sets dead zone of <paramref name="deadZoneControl"/> control in range 0.0f - 1.0f of <paramref name="playerNumber"/>
+        /// </summary>
+        /// <param name="playerNumber">Number of gamepad</param>
+        /// <param name="deadZoneControl">Gamepad control which changing deadzone</param>
+        /// <param name="deadzone">Deadzone value in range 0.0f - 1.0f</param>
+        public static void SetDeadzone(Player playerNumber, DeadZoneControl deadZoneControl, float deadzone)
+        {
+            switch (playerNumber)
+            {
+                case Player.First:
+                    switch (deadZoneControl)
+                    {
+                        case DeadZoneControl.LeftThumbstick:
+                            int deadZoneLS = ((int)(ThumbstickMaxValue * deadzone));
+                            fstPlayer.LStick_DeadZone = deadZoneLS;
+                            break;
+                        case DeadZoneControl.RightThumbstick:
+                            int deadZoneRS = ((int)(ThumbstickMaxValue * deadzone));
+                            fstPlayer.RStick_DeadZone = deadZoneRS;
+                            break;
+                        case DeadZoneControl.LeftTrigger:
+                            int deadZoneLT = ((int)(TriggerMaxValue * deadzone));
+                            fstPlayer.LTrigger_Threshold = deadZoneLT;
+                            break;
+                        case DeadZoneControl.RightTrigger:
+                            int deadZoneRT = ((int)(TriggerMaxValue * deadzone));
+                            fstPlayer.RTrigger_Threshold = deadZoneRT;
+                            break;
+                    }
+                    break;
+                case Player.Second:
+                    switch (deadZoneControl)
+                    {
+                        case DeadZoneControl.LeftThumbstick:
+                            int deadZoneLS = ((int)(ThumbstickMaxValue * deadzone));
+                            secPlayer.LStick_DeadZone = deadZoneLS;
+                            break;
+                        case DeadZoneControl.RightThumbstick:
+                            int deadZoneRS = ((int)(ThumbstickMaxValue * deadzone));
+                            secPlayer.RStick_DeadZone = deadZoneRS;
+                            break;
+                        case DeadZoneControl.LeftTrigger:
+                            int deadZoneLT = ((int)(TriggerMaxValue * deadzone));
+                            secPlayer.LTrigger_Threshold = deadZoneLT;
+                            break;
+                        case DeadZoneControl.RightTrigger:
+                            int deadZoneRT = ((int)(TriggerMaxValue * deadzone));
+                            secPlayer.RTrigger_Threshold = deadZoneRT;
+                            break;
+                    }
+                    break;
+                case Player.Third:
+                    switch (deadZoneControl)
+                    {
+                        case DeadZoneControl.LeftThumbstick:
+                            int deadZoneLS = ((int)(ThumbstickMaxValue * deadzone));
+                            trdPlayer.LStick_DeadZone = deadZoneLS;
+                            break;
+                        case DeadZoneControl.RightThumbstick:
+                            int deadZoneRS = ((int)(ThumbstickMaxValue * deadzone));
+                            trdPlayer.RStick_DeadZone = deadZoneRS;
+                            break;
+                        case DeadZoneControl.LeftTrigger:
+                            int deadZoneLT = ((int)(TriggerMaxValue * deadzone));
+                            trdPlayer.LTrigger_Threshold = deadZoneLT;
+                            break;
+                        case DeadZoneControl.RightTrigger:
+                            int deadZoneRT = ((int)(TriggerMaxValue * deadzone));
+                            trdPlayer.RTrigger_Threshold = deadZoneRT;
+                            break;
+                    }
+                    break;
+                case Player.Fourth:
+                    switch (deadZoneControl)
+                    {
+                        case DeadZoneControl.LeftThumbstick:
+                            int deadZoneLS = ((int)(ThumbstickMaxValue * deadzone));
+                            fthPlayer.LStick_DeadZone = deadZoneLS;
+                            break;
+                        case DeadZoneControl.RightThumbstick:
+                            int deadZoneRS = ((int)(ThumbstickMaxValue * deadzone));
+                            fthPlayer.RStick_DeadZone = deadZoneRS;
+                            break;
+                        case DeadZoneControl.LeftTrigger:
+                            int deadZoneLT = ((int)(TriggerMaxValue * deadzone));
+                            fthPlayer.LTrigger_Threshold = deadZoneLT;
+                            break;
+                        case DeadZoneControl.RightTrigger:
+                            int deadZoneRT = ((int)(TriggerMaxValue * deadzone));
+                            fthPlayer.RTrigger_Threshold = deadZoneRT;
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 
     /// <summary>
