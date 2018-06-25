@@ -10,7 +10,7 @@ namespace craftersmine.GameEngine.Objects
 {
     public class ParticleEmitter : GameObject
     {
-        public ParticleEmitter(int id, string internalName) : base(id, internalName)
+        public ParticleEmitter()
         {
 
         }
