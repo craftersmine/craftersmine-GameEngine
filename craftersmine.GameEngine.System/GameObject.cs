@@ -23,11 +23,11 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Game object identifier
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; set; }
         /// <summary>
         /// Internal game object name
         /// </summary>
-        public string InternalName { get; private set; }
+        public string InternalName { get; set; }
         /// <summary>
         /// Position of object by X axis
         /// </summary>
@@ -79,11 +79,9 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         /// <param name="id">Game object identifier</param>
         /// <param name="internalName">Internal game object name</param>
-        public GameObject(int id, string internalName)
+        public GameObject()
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
-            Id = id;
-            InternalName = internalName;
             IsCollidable = true;
             this.DoubleBuffered = true;
             this.MouseClick += GameObject_MouseClick;
