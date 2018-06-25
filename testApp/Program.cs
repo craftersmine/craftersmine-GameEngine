@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,12 +20,12 @@ namespace testApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
-            
-            
+
             Game gameWindow = new Game("TestGameApp", 1280, 720);
             labelDebug = new Label { BackColor = Color.Transparent, ForeColor = Color.Yellow, AutoSize = true };
             //labelDebug.BringToFront();
             GameApplication.Run(gameWindow);
+            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, "Game exited!");
         }
     }
 }

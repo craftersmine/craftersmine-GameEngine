@@ -22,7 +22,7 @@ namespace testApp
 
         public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
         {
-            this.SetBackgroundColor(Color.Tomato);
+            this.SetBackgroundColor(Color.Black);
             cs = new ContentStorage("testassets");
             //config = new GameConfig("Configs", "TestConfig");
             cs.ContentStorageCreated += Cs_ContentStorageCreated;
@@ -31,7 +31,7 @@ namespace testApp
 
         private void Cs_ContentLoading(object sender, ContentLoadingEventArgs e)
         {
-            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, "Loading content with name \"" + e.ContentFileName + "\" type of " + e.ContentType.ToString());
+            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, "Loading content from " + e.PackageName + " with name \"" + e.ContentFileName + "\" type of " + e.ContentType.ToString());
         }
 
         private void Cs_ContentStorageCreated(object sender, EventArgs e)
@@ -46,12 +46,15 @@ namespace testApp
 
         public override void OnCreated()
         {
+            GameApplication.SetLogger(new craftersmine.GameEngine.Utils.Logger(Path.Combine(GameApplication.AppDataGameRoot, "Logs"), "testGame"));
+            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, "Initializing Game...");
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
             //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
             //Program.labelDebug.Font = cs.LoadFont("andy", 9);
             //scene.SetAudioChannelVolume("aud", 0.1f);
             //scene.SetAudioChannelRepeat("aud", true);
+            Gamepad.SetDeadzone(Player.First, DeadZoneControl.LeftTrigger, 0.0f);
             scene.SetBackgroundColor(Color.Black);
             this.AddScene(scene);
             scene.SetBackgroundTexture(cs.LoadTexture("bg"));
@@ -60,12 +63,12 @@ namespace testApp
 
             scene.AddGameObject(obj1);
             scene.AddGameObject(obj2);
-            obj1.ApplyTexture(cs.LoadTexture("obj1"));
-            obj2.ApplyTexture(cs.LoadTexture("obj2"));
+            obj1.ApplyTexture(cs.LoadTexture("obj1"), false);
+            obj2.ApplyTexture(cs.LoadTexture("obj2"), false);
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
-            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Background, 200);
+            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Foreground, 200);
 
             ShowScene(0);
             //scene.PlayAudioChannel("aud");
@@ -129,18 +132,24 @@ namespace testApp
             if (obj1.IsCollided)
                 scene.RemoveGameObject(obj1);
         }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+        }
     }
 
     public class Obj1 : NetworkGameObject
     {
-        public Obj1() : base(0, "obj1")
+        public Obj1()
         {
+            this.InternalName = "obj1";
             this.BackColor = Color.Transparent;
             this.Height = 32;
             this.Width = 32;
             this.X = 100;
             this.Y = 300;
-            this.IsCollidable = true;
+            this.IsCollidable = false;
             this.SetCollider(4, 4, 24, 24);
             this.IsTransmittingLocation = true;
         }
@@ -157,8 +166,9 @@ namespace testApp
 
     public class Obj2 : GameObject
     {
-        public Obj2() : base(1, "obj2")
+        public Obj2()
         {
+            this.InternalName = "obj2";
             this.BackColor = Color.Transparent;
             this.Height = 32;
             this.Width = 32;
