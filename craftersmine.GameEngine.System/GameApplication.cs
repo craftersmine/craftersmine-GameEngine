@@ -100,8 +100,7 @@ namespace craftersmine.GameEngine.System
         public static void Exit(int exitCode)
         {
             gameTicker.Stop();
-            gameWnd.Close();
-            Log(LogEntryType.Info, "Game exited!");
+            Log(LogEntryType.Info, "Game exited! Exit code: " + exitCode);
             Environment.Exit(exitCode);
         }
 
