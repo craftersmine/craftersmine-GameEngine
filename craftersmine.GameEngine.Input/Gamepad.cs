@@ -687,6 +687,11 @@ namespace craftersmine.GameEngine.Input
         First, Second, Third, Fourth
     }
 
+    public enum DeadZoneControl
+    {
+        LeftThumbstick, RightThumbstick, LeftTrigger, RightTrigger
+    }
+
     /// <summary>
     /// Vibrating motors
     /// </summary>
