@@ -46,8 +46,10 @@ namespace testApp
 
         public override void OnCreated()
         {
-            GameApplication.SetLogger(new craftersmine.GameEngine.Utils.Logger(Path.Combine(GameApplication.AppDataGameRoot, "Logs"), "testGame"));
-            GameApplication.Log(craftersmine.GameEngine.Utils.LogEntryType.Info, "Initializing Game...");
+            GameApplication.SetLogger(new Logger(Path.Combine(GameApplication.AppDataGameRoot, "Logs"), "testGame"));
+            GameApplication.Log(LogEntryType.Info, "Initializing Game...");
+            GameClient gameClient = new GameClient(this);
+            gameClient.Connect("127.0.0.1", 2000);
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
             //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
@@ -63,8 +65,8 @@ namespace testApp
 
             scene.AddGameObject(obj1);
             scene.AddGameObject(obj2);
-            obj1.ApplyTexture(cs.LoadTexture("obj1"), false);
-            obj2.ApplyTexture(cs.LoadTexture("obj2"), false);
+            obj1.ApplyTexture(cs.LoadTexture("obj1"));
+            obj2.ApplyTexture(cs.LoadTexture("obj2"));
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
