@@ -145,6 +145,10 @@ namespace craftersmine.GameEngine.System
         /// Gets current game tick
         /// </summary>
         /// <returns><see cref="int"/> value of current tick</returns>
+        public static int GetGameTick()
+        {
+            return gameWnd.Tick;
+        }
 
         public delegate void OnGameTickEventDelegate(object sender, EventArgs e);
         /// <summary>
