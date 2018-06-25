@@ -210,8 +210,8 @@ namespace craftersmine.GameEngine.Input
                                 sticksFst.LeftStickAxisY = fstPlayer.LStick_N.Y;
                                 sticksFst.RightStickAxisX = fstPlayer.RStick_N.X;
                                 sticksFst.RightStickAxisY = fstPlayer.RStick_N.Y;
-                                sticksFst.LeftStickDeadZone = fstPlayer.LStick_DeadZone;
-                                sticksFst.RightStickDeadZone = fstPlayer.RStick_DeadZone;
+                                sticksFst.LeftStickDeadZone = fstPlayer.LStick_DeadZone / ThumbstickMaxValue;
+                                sticksFst.RightStickDeadZone = fstPlayer.RStick_DeadZone / ThumbstickMaxValue;
                             }
                         break;
                     case Player.Second:
@@ -221,8 +221,8 @@ namespace craftersmine.GameEngine.Input
                                 sticksSec.LeftStickAxisY = secPlayer.LStick_N.Y;
                                 sticksSec.RightStickAxisX = secPlayer.RStick_N.X;
                                 sticksSec.RightStickAxisY = secPlayer.RStick_N.Y;
-                                sticksSec.LeftStickDeadZone = secPlayer.LStick_DeadZone;
-                                sticksSec.RightStickDeadZone = secPlayer.RStick_DeadZone;
+                                sticksSec.LeftStickDeadZone = secPlayer.LStick_DeadZone / ThumbstickMaxValue;
+                                sticksSec.RightStickDeadZone = secPlayer.RStick_DeadZone / ThumbstickMaxValue;
                             }
                         break;
                     case Player.Third:
@@ -232,8 +232,8 @@ namespace craftersmine.GameEngine.Input
                                 sticksTrd.LeftStickAxisY = trdPlayer.LStick_N.Y;
                                 sticksTrd.RightStickAxisX = trdPlayer.RStick_N.X;
                                 sticksTrd.RightStickAxisY = trdPlayer.RStick_N.Y;
-                                sticksTrd.LeftStickDeadZone = trdPlayer.LStick_DeadZone;
-                                sticksTrd.RightStickDeadZone = trdPlayer.RStick_DeadZone;
+                                sticksTrd.LeftStickDeadZone = trdPlayer.LStick_DeadZone / ThumbstickMaxValue;
+                                sticksTrd.RightStickDeadZone = trdPlayer.RStick_DeadZone / ThumbstickMaxValue;
                             }
                         break;
                     case Player.Fourth:
@@ -243,8 +243,8 @@ namespace craftersmine.GameEngine.Input
                                 sticksFth.LeftStickAxisY = fthPlayer.LStick_N.Y;
                                 sticksFth.RightStickAxisX = fthPlayer.RStick_N.X;
                                 sticksFth.RightStickAxisY = fthPlayer.RStick_N.Y;
-                                sticksFth.LeftStickDeadZone = fthPlayer.LStick_DeadZone;
-                                sticksFth.RightStickDeadZone = fthPlayer.RStick_DeadZone;
+                                sticksFth.LeftStickDeadZone = fthPlayer.LStick_DeadZone / ThumbstickMaxValue;
+                                sticksFth.RightStickDeadZone = fthPlayer.RStick_DeadZone / ThumbstickMaxValue;
                             }
                         break;
                 }
@@ -275,8 +275,8 @@ namespace craftersmine.GameEngine.Input
                             {
                                 trigsFst.LT = fstPlayer.LTrigger_N;
                                 trigsFst.RT = fstPlayer.RTrigger_N;
-                                trigsFst.LTThreshold = fstPlayer.LTrigger_Threshold;
-                                trigsFst.RTThreshold = fstPlayer.RTrigger_Threshold;
+                                trigsFst.LTThreshold = fstPlayer.LTrigger_Threshold / TriggerMaxValue;
+                                trigsFst.RTThreshold = fstPlayer.RTrigger_Threshold / TriggerMaxValue;
                             }
                         break;
                     case Player.Second:
@@ -284,8 +284,8 @@ namespace craftersmine.GameEngine.Input
                             {
                                 trigsSec.LT = secPlayer.LTrigger_N;
                                 trigsSec.RT = secPlayer.RTrigger_N;
-                                trigsSec.LTThreshold = secPlayer.LTrigger_Threshold;
-                                trigsSec.RTThreshold = secPlayer.RTrigger_Threshold;
+                                trigsSec.LTThreshold = secPlayer.LTrigger_Threshold / TriggerMaxValue;
+                                trigsSec.RTThreshold = secPlayer.RTrigger_Threshold / TriggerMaxValue;
                             }
                         break;
                     case Player.Third:
@@ -293,8 +293,8 @@ namespace craftersmine.GameEngine.Input
                             {
                                 trigsTrd.LT = trdPlayer.LTrigger_N;
                                 trigsTrd.RT = trdPlayer.RTrigger_N;
-                                trigsTrd.LTThreshold = trdPlayer.LTrigger_Threshold;
-                                trigsTrd.RTThreshold = trdPlayer.RTrigger_Threshold;
+                                trigsTrd.LTThreshold = trdPlayer.LTrigger_Threshold / TriggerMaxValue;
+                                trigsTrd.RTThreshold = trdPlayer.RTrigger_Threshold / TriggerMaxValue;
                             }
                         break;
                     case Player.Fourth:
@@ -302,8 +302,8 @@ namespace craftersmine.GameEngine.Input
                             {
                                 trigsFth.LT = fthPlayer.LTrigger_N;
                                 trigsFth.RT = fthPlayer.RTrigger_N;
-                                trigsFth.LTThreshold = fthPlayer.LTrigger_Threshold;
-                                trigsFth.RTThreshold = fthPlayer.RTrigger_Threshold;
+                                trigsFth.LTThreshold = fthPlayer.LTrigger_Threshold / TriggerMaxValue;
+                                trigsFth.RTThreshold = fthPlayer.RTrigger_Threshold / TriggerMaxValue;
                             }
                         break;
                 }
@@ -576,9 +576,9 @@ namespace craftersmine.GameEngine.Input
             }
         }
 
-        public const int ThumbstickMaxValue = 32767;
+        public const float ThumbstickMaxValue = 32767.0f;
         //public const int ThumbstickMinValue = -32767;
-        public const int TriggerMaxValue = 255;
+        public const float TriggerMaxValue = 255.0f;
         //public const int TriggerMinValue = -255;
 
         /// <summary>
