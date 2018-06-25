@@ -119,7 +119,7 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public virtual void OnExit()
         {
-
+            GameApplication.Exit(0);
         }
     }
 }
