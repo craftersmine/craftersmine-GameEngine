@@ -721,30 +721,66 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public struct Buttons
     {
+        /// <summary>
+        /// The green "A" button
+        /// </summary>
         [DefaultValue(false)]
         public bool A { get; internal set; }
+        /// <summary>
+        /// The red "B" button
+        /// </summary>
         [DefaultValue(false)]
         public bool B { get; internal set; }
+        /// <summary>
+        /// The blue "X" button
+        /// </summary>
         [DefaultValue(false)]
         public bool X { get; internal set; }
+        /// <summary>
+        /// The yellow "Y" button
+        /// </summary>
         [DefaultValue(false)]
         public bool Y { get; internal set; }
 
+        /// <summary>
+        /// The left 3D thumbstick button
+        /// </summary>
         [DefaultValue(false)]
         public bool LeftStick { get; internal set; }
+        /// <summary>
+        /// The right 3D thumbstick button
+        /// </summary>
         [DefaultValue(false)]
         public bool RightStick { get; internal set; }
 
+        /// <summary>
+        /// The left bumper "LB" button
+        /// </summary>
         [DefaultValue(false)]
         public bool LB { get; internal set; }
+        /// <summary>
+        /// The right bumper "RB" button
+        /// </summary>
         [DefaultValue(false)]
         public bool RB { get; internal set; }
 
+        /// <summary>
+        /// The Start "&gt;" button
+        /// </summary>
         [DefaultValue(false)]
         public bool Start { get; internal set; }
+        /// <summary>
+        /// The Back "&lt;" button
+        /// </summary>
         [DefaultValue(false)]
         public bool Back { get; internal set; }
+        /// <summary>
+        /// The Xbox One Controller Change View button (same as Back button on Xbox 360 Controller)
+        /// </summary>
         public bool ChangeView { get { return Back; } internal set { Back = value; } }
+        /// <summary>
+        /// The Xbox One Controller Menu button (same as Start button on Xbox 360 Controller)
+        /// </summary>
         public bool Menu { get { return Start; } internal set { Start = value; } }
     }
 
@@ -753,12 +789,24 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public struct DPad
     {
+        /// <summary>
+        /// The up direction on Directional Pad
+        /// </summary>
         [DefaultValue(false)]
         public bool Up { get; internal set; }
+        /// <summary>
+        /// The left direction on Directional Pad
+        /// </summary>
         [DefaultValue(false)]
         public bool Left { get; internal set; }
+        /// <summary>
+        /// The down direction on Directional Pad
+        /// </summary>
         [DefaultValue(false)]
         public bool Down { get; internal set; }
+        /// <summary>
+        /// The right direction on Directional Pad
+        /// </summary>
         [DefaultValue(false)]
         public bool Right { get; internal set; }
     }
@@ -768,12 +816,27 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public struct Sticks
     {
+        /// <summary>
+        /// Position of left thumbstick at X axis (range -1.0f - 1.0f)
+        /// </summary>
         public float LeftStickAxisX { get; internal set; }
+        /// <summary>
+        /// Position of left thumbstick at Y axis (range -1.0f - 1.0f)
+        /// </summary>
         public float LeftStickAxisY { get; internal set; }
-        
+
+        /// <summary>
+        /// Position of right thumbstick at X axis (range -1.0f - 1.0f)
+        /// </summary>
         public float RightStickAxisX { get; internal set; }
+        /// <summary>
+        /// Position of right thumbstick at Y axis (range -1.0f - 1.0f)
+        /// </summary>
         public float RightStickAxisY { get; internal set; }
 
+        /// <summary>
+        /// Left thumbstick deadzone
+        /// </summary>
         public float LeftStickDeadZone { get; internal set; }
         public float RightStickDeadZone { get; internal set; }
     }
