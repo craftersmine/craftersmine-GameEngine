@@ -17,7 +17,7 @@ namespace craftersmine.GameEngine.Content
     public sealed class ContentStorage
     {
         private OnDemandPackage pak { get; set; }
-        private string packageName { get; set; }
+        public string PackageName { get; internal set; }
 
         /// <summary>
         /// Creates new <see cref="ContentStorage"/> instance with <paramref name="packageName"/>
@@ -25,13 +25,13 @@ namespace craftersmine.GameEngine.Content
         /// <param name="packageName">Package name without extention from "content" root game directory</param>
         public ContentStorage(string packageName)
         {
-            this.packageName = packageName;
+            PackageName = packageName;
             CreateContentStorage();
         }
         
         private void CreateContentStorage()
         {
-            pak = new OnDemandPackage(Path.Combine(Environment.CurrentDirectory, "content", packageName + ".cmpkg"));
+            pak = new OnDemandPackage(Path.Combine(Environment.CurrentDirectory, "content", PackageName + ".cmpkg"));
             ContentStorageCreated?.Invoke(this, new EventArgs());
         }
 
@@ -42,7 +42,7 @@ namespace craftersmine.GameEngine.Content
         /// <returns><see cref="Texture"/></returns>
         public Texture LoadTexture(string name)
         {
-            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Texture });
+            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Texture, PackageName = this.PackageName });
             try
             {
                 byte[] imageRaw = pak.ReadBytes(name + ".tex");
@@ -52,7 +52,7 @@ namespace craftersmine.GameEngine.Content
             }
             catch (Exception ex)
             {
-                throw new ContentLoadException("Unable to load \"" + name + "\" texture! Inner exception message: " + ex.Message, ex);
+                throw new ContentLoadException("Unable to load \"" + name + "\" texture from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
 
@@ -63,7 +63,7 @@ namespace craftersmine.GameEngine.Content
         /// <returns><see cref="Animation"/></returns>
         public Animation LoadAnimation(string name)
         {
-            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Animation });
+            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Animation, PackageName = this.PackageName });
             try
             {
                 Texture texture = LoadTexture(name);
@@ -79,19 +79,19 @@ namespace craftersmine.GameEngine.Content
                     {
                         case "frameticktrigger":
                             if (!int.TryParse(split[1], out animFrmDuration))
-                                throw new ContentLoadException("Unable to load animation metadata! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
                             break;
                         case "framecount":
                             if (!int.TryParse(split[1], out animFrmCount))
-                                throw new ContentLoadException("Unable to load animation metadata! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
                             break;
                         case "framewidth":
                             if (!int.TryParse(split[1], out frameWidth))
-                                throw new ContentLoadException("Unable to load animation metadata! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
                             break;
                         case "isbackground":
                             if (!bool.TryParse(split[1], out isBackground))
-                                throw new ContentLoadException("Unable to load animation metadata! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Boolean value");
+                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Boolean value");
                             break;
                     }
                 }
@@ -100,7 +100,7 @@ namespace craftersmine.GameEngine.Content
             }
             catch (Exception ex)
             {
-                throw new ContentLoadException("Unable to load \"" + name + "\" animation! Inner exception message: " + ex.Message, ex);
+                throw new ContentLoadException("Unable to load \"" + name + "\" animation from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
         
@@ -113,7 +113,7 @@ namespace craftersmine.GameEngine.Content
         [Obsolete]
         public Font LoadFont(string name, float fontSize)
         {
-            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Font });
+            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Font, PackageName = this.PackageName });
             try
             {
                 byte[] fontDataRaw = pak.ReadBytes(name + ".fnt");
@@ -123,7 +123,7 @@ namespace craftersmine.GameEngine.Content
             }
             catch (Exception ex)
             {
-                throw new ContentLoadException("Unable to load \"" + name + "\" font! Inner exception message: " + ex.Message, ex);
+                throw new ContentLoadException("Unable to load \"" + name + "\" font from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
 
@@ -134,7 +134,7 @@ namespace craftersmine.GameEngine.Content
         /// <returns><see cref="Audio"/></returns>
         public Audio LoadAudio(string name)
         {
-            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Audio });
+            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Audio, PackageName = this.PackageName });
             try
             {
                 byte[] audioDataRaw = pak.ReadBytes(name + ".wad");
@@ -143,7 +143,7 @@ namespace craftersmine.GameEngine.Content
             }
             catch (Exception ex)
             {
-                throw new ContentLoadException("Unable to load \"" + name + "\" audio! Inner exception message: " + ex.Message, ex);
+                throw new ContentLoadException("Unable to load \"" + name + "\" audio from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
 
@@ -169,7 +169,8 @@ namespace craftersmine.GameEngine.Content
         /// Gets loading content filename without extention
         /// </summary>
         public string ContentFileName { get; internal set; }
-        //public bool IsExists { get; internal set; }
+
+        public string PackageName { get; internal set; }
         /// <summary>
         /// Gets loading content file type
         /// </summary>
