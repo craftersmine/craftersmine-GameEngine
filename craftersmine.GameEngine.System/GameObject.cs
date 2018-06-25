@@ -65,8 +65,14 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public bool IsCollidable { get; set; }
 
+        /// <summary>
+        /// Gets value indicating that object is animated
+        /// </summary>
         public bool IsAnimated { get; private set; }
         
+        /// <summary>
+        /// Game object current animation
+        /// </summary>
         public Animation ObjectAnimation { get; set; }
 
         /// <summary>
@@ -75,10 +81,8 @@ namespace craftersmine.GameEngine.System
         public Rectangle BoundingBox { get; set; }
 
         /// <summary>
-        /// Creates new <see cref="GameObject"/>
+        /// Creates new <see cref="GameObject"/> instance
         /// </summary>
-        /// <param name="id">Game object identifier</param>
-        /// <param name="internalName">Internal game object name</param>
         public GameObject()
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
@@ -250,7 +254,7 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Calls if object collided with another object
         /// </summary>
-        /// <param name="collidedObjectInternalName">Collided object name</param>
+        /// <param name="collidedObject">Collided object data</param>
         public virtual void OnCollide(GameObject collidedObject)
         {
 
@@ -393,9 +397,19 @@ namespace craftersmine.GameEngine.System
             }
         }
 
+        /// <summary>
+        /// Target of tint
+        /// </summary>
         public enum TintTargets
         {
-            Background, Foreground
+            /// <summary>
+            /// Background layer tint
+            /// </summary>
+            Background,
+            /// <summary>
+            /// Foreground layer tint
+            /// </summary>
+            Foreground
         }
     }
 }

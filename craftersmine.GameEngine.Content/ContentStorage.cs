@@ -17,6 +17,9 @@ namespace craftersmine.GameEngine.Content
     public sealed class ContentStorage
     {
         private OnDemandPackage pak { get; set; }
+        /// <summary>
+        /// Gets content package name
+        /// </summary>
         public string PackageName { get; internal set; }
 
         /// <summary>
@@ -169,7 +172,9 @@ namespace craftersmine.GameEngine.Content
         /// Gets loading content filename without extention
         /// </summary>
         public string ContentFileName { get; internal set; }
-
+        /// <summary>
+        /// Gets current package name
+        /// </summary>
         public string PackageName { get; internal set; }
         /// <summary>
         /// Gets loading content file type
@@ -182,6 +187,21 @@ namespace craftersmine.GameEngine.Content
     /// </summary>
     public enum ContentType
     {
-        Texture, Animation, Font, Audio
+        /// <summary>
+        /// Texture content type
+        /// </summary>
+        Texture,
+        /// <summary>
+        /// Animation metadata content type
+        /// </summary>
+        Animation,
+        /// <summary>
+        /// Font content type
+        /// </summary>
+        Font,
+        /// <summary>
+        /// Wave audio content type
+        /// </summary>
+        Audio
     }
 }

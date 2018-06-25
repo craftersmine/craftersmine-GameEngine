@@ -684,12 +684,42 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public enum Player
     {
-        First, Second, Third, Fourth
+        /// <summary>
+        /// First player gamepad
+        /// </summary>
+        First,
+        /// <summary>
+        /// Second player gamepad
+        /// </summary>
+        Second,
+        /// <summary>
+        /// Third player gamepad
+        /// </summary>
+        Third,
+        /// <summary>
+        /// Fourth player gamepad
+        /// </summary>
+        Fourth
     }
 
     public enum DeadZoneControl
     {
-        LeftThumbstick, RightThumbstick, LeftTrigger, RightTrigger
+        /// <summary>
+        /// Left thumbstick deadzone
+        /// </summary>
+        LeftThumbstick,
+        /// <summary>
+        /// Right thumbstick deadzone
+        /// </summary>
+        RightThumbstick,
+        /// <summary>
+        /// Left trigger threshold
+        /// </summary>
+        LeftTrigger,
+        /// <summary>
+        /// Right trigger threshold
+        /// </summary>
+        RightTrigger
     }
 
     /// <summary>
@@ -697,7 +727,18 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public enum VibrateMotors
     {
-        Both, HiFrequency, LowFrequency
+        /// <summary>
+        /// Hi frequency and Low frequency motors
+        /// </summary>
+        Both,
+        /// <summary>
+        /// Only Hi frequency motor
+        /// </summary>
+        HiFrequency,
+        /// <summary>
+        /// Only Low frequency motor
+        /// </summary>
+        LowFrequency
     }
 
     /// <summary>
@@ -705,7 +746,22 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public enum BatteryChargeLevel
     {
-        Low, Medium, High, Empty
+        /// <summary>
+        /// Low battery level
+        /// </summary>
+        Low,
+        /// <summary>
+        /// Medium battery level
+        /// </summary>
+        Medium,
+        /// <summary>
+        /// High battery level
+        /// </summary>
+        High,
+        /// <summary>
+        /// Empty battery
+        /// </summary>
+        Empty
     }
 
     /// <summary>
@@ -713,7 +769,26 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public enum BatteryType
     {
-        NoBattery, Rechargable, Alkaline, Wired, Unknown
+        /// <summary>
+        /// No inserted battery
+        /// </summary>
+        NoBattery,
+        /// <summary>
+        /// Rechargable battery inserted (like NiMH, Li-ion, etc)
+        /// </summary>
+        Rechargable,
+        /// <summary>
+        /// Alkaline battery inserted
+        /// </summary>
+        Alkaline,
+        /// <summary>
+        /// Wired connection
+        /// </summary>
+        Wired,
+        /// <summary>
+        /// Unknown battery type
+        /// </summary>
+        Unknown
     }
 
     /// <summary>
@@ -838,6 +913,9 @@ namespace craftersmine.GameEngine.Input
         /// Left thumbstick deadzone
         /// </summary>
         public float LeftStickDeadZone { get; internal set; }
+        /// <summary>
+        /// Right thumbstick deadzone
+        /// </summary>
         public float RightStickDeadZone { get; internal set; }
     }
 
@@ -846,10 +924,22 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public struct Triggers
     {
+        /// <summary>
+        /// Level of left trigger "LT" pressure
+        /// </summary>
         public float LT { get; internal set; }
+        /// <summary>
+        /// Level of right trigger "RT" pressure
+        /// </summary>
         public float RT { get; internal set; }
 
+        /// <summary>
+        /// Threshold of "LT" pressure triggering
+        /// </summary>
         public float LTThreshold { get; internal set; }
+        /// <summary>
+        /// Threshold of "RT" pressure triggering
+        /// </summary>
         public float RTThreshold { get; internal set; }
     }
 
@@ -858,9 +948,21 @@ namespace craftersmine.GameEngine.Input
     /// </summary>
     public struct BatteryInfo
     {
+        /// <summary>
+        /// Battery charge level
+        /// </summary>
         public BatteryChargeLevel Charge { get; internal set; }
+        /// <summary>
+        /// Battery type
+        /// </summary>
         public BatteryType BatteryType { get; internal set; }
+        /// <summary>
+        /// Is connected via USB
+        /// </summary>
         public bool IsWiredConnection { get; internal set; }
+        /// <summary>
+        /// Is battery connected
+        /// </summary>
         public bool IsConnected { get; internal set; }
     }
 }

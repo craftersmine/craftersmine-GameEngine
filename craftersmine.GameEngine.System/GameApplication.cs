@@ -73,11 +73,19 @@ namespace craftersmine.GameEngine.System
             }
         }
 
+        /// <summary>
+        /// Sets game crash handler
+        /// </summary>
+        /// <param name="crashHandler"><see cref="GameCrashHandler"/> instance</param>
         public static void SetCrashHandler(GameCrashHandler crashHandler)
         {
             CrashHandler = crashHandler;
         }
 
+        /// <summary>
+        /// Sets game logger
+        /// </summary>
+        /// <param name="logger"><see cref="Logger"/> instance</param>
         public static void SetLogger(Logger logger)
         {
             _logger = logger;
@@ -132,6 +140,13 @@ namespace craftersmine.GameEngine.System
         {
             _logger?.LogException(prefix, exception);
         }
+        /// <summary>
+        /// Gets current game tick
+        /// </summary>
+        /// <returns><see cref="int"/> value of current tick</returns>
+        /// <summary>
+        /// Calls on game tick event
+        /// </summary>
         
         private static void LoadAssemblyData()
         {
