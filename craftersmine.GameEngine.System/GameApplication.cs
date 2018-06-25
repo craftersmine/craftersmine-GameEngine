@@ -140,13 +140,17 @@ namespace craftersmine.GameEngine.System
         {
             _logger?.LogException(prefix, exception);
         }
+
         /// <summary>
         /// Gets current game tick
         /// </summary>
         /// <returns><see cref="int"/> value of current tick</returns>
+
+        public delegate void OnGameTickEventDelegate(object sender, EventArgs e);
         /// <summary>
         /// Calls on game tick event
         /// </summary>
+        public static event OnGameTickEventDelegate OnGameTickEvent;
         
         private static void LoadAssemblyData()
         {
@@ -183,6 +187,7 @@ namespace craftersmine.GameEngine.System
                         UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
                         gameWnd.CurrentScene.OnUpdate();
+                        OnGameTickEvent?.Invoke(null, null);
                     }
                 }
             }
