@@ -16,7 +16,7 @@ namespace craftersmine.GameEngine.Network
         public bool IsTransmittingSize { get; set; }
         public bool IsReceivingSize { get; set; }
 
-        public NetworkGameObject(int id, string internalName) : base(id, internalName)
+        public NetworkGameObject()
         {
 
         }
