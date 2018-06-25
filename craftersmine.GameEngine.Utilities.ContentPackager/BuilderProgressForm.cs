@@ -21,9 +21,11 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
         public BuilderProgressForm()
         {
             InitializeComponent();
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "craftersmine Package (*.cmpkg)|*.cmpkg";
-            saveFileDialog.Title = "Select file saving path...";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "craftersmine Package (*.cmpkg)|*.cmpkg",
+                Title = "Select file saving path..."
+            };
             switch (saveFileDialog.ShowDialog())
             {
                 case DialogResult.Cancel:
