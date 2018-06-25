@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "craftersmine.GameEngine.Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "craftersmine.GameEngine.Utilities.ContentPackager", "craftersmine.GameEngine.Utilities.ContentPackager\craftersmine.GameEngine.Utilities.ContentPackager.csproj", "{422EADE1-CCD0-46A8-9B27-42AEB4890C48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testServer", "testServer\testServer.csproj", "{873C5BBF-608E-4536-B7D2-126FF01A785C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{422EADE1-CCD0-46A8-9B27-42AEB4890C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{422EADE1-CCD0-46A8-9B27-42AEB4890C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{422EADE1-CCD0-46A8-9B27-42AEB4890C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{873C5BBF-608E-4536-B7D2-126FF01A785C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{873C5BBF-608E-4536-B7D2-126FF01A785C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{873C5BBF-608E-4536-B7D2-126FF01A785C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{873C5BBF-608E-4536-B7D2-126FF01A785C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C47D1541-1037-410C-9640-EAD514E9C052} = {488232BC-D704-4143-AD93-4A402A973609}
 		{422EADE1-CCD0-46A8-9B27-42AEB4890C48} = {E320A887-44AD-4847-9F47-64C8311CE9B5}
+		{873C5BBF-608E-4536-B7D2-126FF01A785C} = {488232BC-D704-4143-AD93-4A402A973609}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22319D8A-0F14-4D08-8718-984C735D2CF9}
