@@ -15,6 +15,8 @@ namespace craftersmine.GameEngine.Network
         public bool IsSyncingTexture { get; set; }
         public bool IsTransmittingSize { get; set; }
         public bool IsReceivingSize { get; set; }
+        public int NetworkId { get; internal set; }
+        public string NetworkObjectName { get; set; }
 
         public NetworkGameObject()
         {

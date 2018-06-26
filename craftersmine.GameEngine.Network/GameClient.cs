@@ -72,6 +72,45 @@ namespace craftersmine.GameEngine.Network
             client.OnOpen += Client_OnOpen;
             client.Compression = CompressionMethod.None;
             client.Connect();
+            GameApplication.OnGameTickEvent += GameUpdateEvent;
+        }
+
+        private void GameUpdateEvent(object sender, EventArgs e)
+        {
+            if (_gameWindow.CurrentScene != null)
+            {
+                UpdateTransmittingObjects();
+            }
+        }
+
+        private void UpdateTransmittingObjects()
+        {
+            foreach (var transObject in _gameWindow.CurrentScene.Controls.OfType<NetworkGameObject>())
+            {
+                if (transObject.IsTransmittingLocation)
+                {
+                    SendEnginePacket("");
+                }
+            }
+        }
+
+        internal void SendEnginePacket(string packetData)
+        {
+            string packetCtor = "$CGENG#PACKET:" + packetData + ":PACKETEND";
+            client.SendAsync(packetCtor, new Action<bool>((s) => { }));
+        }
+
+        public void SendPacket(string packetData)
+        {
+            SendEnginePacket("USERPACKET@" + packetData);
+        }
+
+        public void RequestObjectsIds()
+        {
+            if (_gameWindow.CurrentScene != null)
+            {
+                SendEnginePacket("REQOBJECTSIDS@" + _gameWindow.CurrentScene.Id);
+            }
         }
 
         private void Client_OnOpen(object sender, EventArgs e)
@@ -82,7 +121,36 @@ namespace craftersmine.GameEngine.Network
         private void Client_OnMessage(object sender, MessageEventArgs e)
         {
             GameApplication.Log(Utils.LogEntryType.Connection, "Received message: " + e.Data);
+            string[] splitPacketBase = e.Data.Split(':');
+            if (splitPacketBase[0] == "$CGENG#PACKET" && splitPacketBase[2] == "PACKETEND")
+            {
+                string[] splitPacket = splitPacketBase[1].Split('@');
+                string packetType = splitPacket[0];
+                string packetContents = splitPacket[1];
+                switch (packetType)
+                {
+                    case "INITIALIZEHANDSHAKE":
+                        OnInitializeHandshake?.Invoke(this, null);
+                        break;
+                    case "REQOBJECTSIDSRESPONCE":
+                        if (_gameWindow.CurrentScene != null)
+                        {
+                            string[] objectData = packetContents.Split('=');
+                            foreach (var nObject in _gameWindow.CurrentScene.Controls.OfType<NetworkGameObject>())
+                            {
+                                if (nObject.InternalName == objectData[0] && nObject.NetworkObjectName == objectData[1] && nObject.Id == int.Parse(objectData[2]))
+                                {
+                                    nObject.NetworkId = int.Parse(objectData[3]);
+                                }
+                            }
+                        }
+                        break;
+                }
+            }
         }
+
+        public delegate void OnInitializeHandshakeEventDelegate(object sender, EventArgs e);
+        public static event OnInitializeHandshakeEventDelegate OnInitializeHandshake;
 
         private void Client_OnError(object sender, ErrorEventArgs e)
         {
