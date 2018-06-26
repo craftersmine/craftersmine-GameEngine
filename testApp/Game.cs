@@ -16,7 +16,7 @@ namespace testApp
 {
     class Game : GameWindow
     {
-        Scene scene = new Scene(0);
+        Scene scene = new Scene() { Id = 0 };
         public static ContentStorage cs;
         public static GameConfig config;
 
