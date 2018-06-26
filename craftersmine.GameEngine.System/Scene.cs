@@ -20,15 +20,13 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Identifier of scene in game
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="Scene"/>
         /// </summary>
-        /// <param name="id">Scene identifier in game</param>
-        public Scene(int id)
+        public Scene()
         {
-            Id = id;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
         }
