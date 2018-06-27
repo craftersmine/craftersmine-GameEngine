@@ -15,7 +15,7 @@ namespace craftersmine.GameEngine.System
     /// <summary>
     /// Main part of game. Represents an entity, item or other object in game.
     /// </summary>
-    public class GameObject : PictureBox
+    public class GameObject : Control
     {
         private Dictionary<string, Texture> _textures = new Dictionary<string, Texture>();
         private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>();
