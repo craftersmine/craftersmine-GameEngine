@@ -37,6 +37,9 @@
     <Reference Include="NAudio">
       <HintPath>..\libs\NAudio.dll</HintPath>
     </Reference>
+    <Reference Include="RazorGDI">
+      <HintPath>..\libs\RazorGDI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -77,6 +80,9 @@
       <Project>{3A2A3F01-1741-4B4B-8252-446F20A57C52}</Project>
       <Name>craftersmine.GameEngine.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
