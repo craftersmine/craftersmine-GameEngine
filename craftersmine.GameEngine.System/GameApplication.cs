@@ -231,15 +231,6 @@ namespace craftersmine.GameEngine.System
             }
         }
 
-        [Obsolete]
-        private static void UpdateBoundingBoxes()
-        {
-            foreach (GameObject gObj in gameWnd.CurrentScene.Controls.OfType<GameObject>())
-            {
-                gObj.UpdateCollider(gObj.BoundingBox.X, gObj.BoundingBox.Y, gObj.BoundingBox.Width, gObj.BoundingBox.Height);
-            }
-        }
-
         private static void CallGameObjectsUpdates()
         {
             foreach (GameObject gObj in gameWnd.CurrentScene.Controls.OfType<GameObject>())
