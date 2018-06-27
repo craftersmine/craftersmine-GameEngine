@@ -15,7 +15,7 @@ namespace craftersmine.GameEngine.System
     /// <summary>
     /// Main part of game. Represents an entity, item or other object in game.
     /// </summary>
-    public class GameObject : PictureBox
+    public class GameObject : Control
     {
         private Dictionary<string, Texture> _textures = new Dictionary<string, Texture>();
         private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>();
@@ -34,7 +34,7 @@ namespace craftersmine.GameEngine.System
         public int X { get { return Location.X; }
             set
             {
-                UpdateCollider(value, this.Y, this.Width, this.Height);
+                UpdateCollider();
                 Location = new Point(value, this.Y);
             }
         }
@@ -44,13 +44,15 @@ namespace craftersmine.GameEngine.System
         public int Y { get { return Location.Y; }
             set
             {
-                UpdateCollider(this.X, value, this.Width, this.Height);
+                UpdateCollider();
                 Location = new Point(this.X, value);
             }
         }
 
         internal int ColliderOffsetX { get; set; }
         internal int ColliderOffsetY { get; set; }
+        internal int ColliderWidth { get; set; }
+        internal int ColliderHeight { get; set; }
 
         /// <summary>
         /// <code>true</code> if object collided with other object, else <code>false</code>
@@ -112,30 +114,17 @@ namespace craftersmine.GameEngine.System
         /// Applies <see cref="Texture"/> to this object
         /// </summary>
         /// <param name="texture"><see cref="Texture"/> data</param>
-        /// <param name="isBackground">Use <paramref name="isBackground"/> = <code>true</code>, if game object is static or have another texture layer instead <code>false</code></param>
-        public void ApplyTexture(Texture texture, bool isBackground = true)
-        {
-            if (isBackground)
-                this.BackgroundImage = texture.TextureImage;
-            else this.Image = texture.TextureImage;
-        }
-
-        /// <summary>
-        /// Applies <see cref="Texture"/> to this object at foreground layer
-        /// </summary>
-        /// <param name="texture"><see cref="Texture"/> data</param>
         public void ApplyTexture(Texture texture)
         {
-            ApplyTexture(texture, true);
+            this.BackgroundImage = texture.TextureImage;
         }
         /// <summary>
         /// Applies <see cref="Texture"/> from object texture storage to this object at foreground layer if <paramref name="isBackground"/> false, else at background
         /// </summary>
         /// <param name="name"><see cref="Texture"/> name</param>
-        /// <param name="isBackground">If <code>true</code> applies to background, else to foreground</param>
-        public void ApplyAddedTexture(string name, bool isBackground = true)
+        public void ApplyAddedTexture(string name)
         {
-            ApplyTexture(_textures[name], isBackground);
+            ApplyTexture(_textures[name]);
         }
         /// <summary>
         /// Adds <see cref="Texture"/> to object storage
@@ -188,9 +177,7 @@ namespace craftersmine.GameEngine.System
             if (ObjectAnimation != null)
             {
                 ObjectAnimation.CurrentFrame = 0;
-                if (ObjectAnimation.IsBackgroundAnimation)
-                    this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
-                else this.Image = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
+                this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
             }
         }
         /// <summary>
@@ -229,12 +216,14 @@ namespace craftersmine.GameEngine.System
         {
             ColliderOffsetX = x;
             ColliderOffsetY = y;
-            UpdateCollider(this.X, this.Y, width, height);
+            ColliderWidth = width;
+            ColliderHeight = height;
+            UpdateCollider();
         }
 
-        internal void UpdateCollider(int x, int y, int width, int height)
+        internal void UpdateCollider()
         {
-            BoundingBox = new Rectangle(x + ColliderOffsetX, y + ColliderOffsetY, width, height);
+            BoundingBox = new Rectangle(this.X + ColliderOffsetX, this.Y + ColliderOffsetY, ColliderWidth, ColliderHeight);
         }
 
         /// <summary>
@@ -316,6 +305,7 @@ namespace craftersmine.GameEngine.System
         
         internal void InternalUpdate()
         {
+            UpdateCollider();
             if (IsAnimated)
             {
                 ObjectAnimation.CountedTicks++;
@@ -326,9 +316,7 @@ namespace craftersmine.GameEngine.System
                         ObjectAnimation.CurrentFrame = 0;
                     else ObjectAnimation.CurrentFrame++;
                 }
-                if (ObjectAnimation.IsBackgroundAnimation)
-                    this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
-                else this.Image = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
+                this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
             }
             if (IsTinted)
             {

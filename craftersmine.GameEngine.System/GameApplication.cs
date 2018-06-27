@@ -187,6 +187,7 @@ namespace craftersmine.GameEngine.System
                     gameWnd.OnUpdate();
                     if (gameWnd.CurrentScene != null)
                     {
+                        gameWnd.CurrentScene.Draw();
                         CallGameObjectsUpdates();
                         UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
@@ -204,9 +205,9 @@ namespace craftersmine.GameEngine.System
 
         private static void UpdateCollisions()
         {
-            foreach (GameObject gObj in gameWnd.CurrentScene.Controls.OfType<GameObject>())
+            foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
             {
-                foreach (GameObject gObjCollision in gameWnd.CurrentScene.Controls.OfType<GameObject>())
+                foreach (GameObject gObjCollision in gameWnd.CurrentScene.GameObjects)
                 {
                     if (gObj != gObjCollision)
                     {
@@ -214,9 +215,13 @@ namespace craftersmine.GameEngine.System
                         {
                             gObj.OnCollide(gObjCollision);
                             gObj.IsCollided = true;
+                            gObjCollision.OnCollide(gObj);
+                            gObjCollision.IsCollided = true;
                         }
                         else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
                         {
+                            gObj.OnCollide(gObjCollision);
+                            gObj.IsCollided = true;
                             gObjCollision.OnCollide(gObj);
                             gObjCollision.IsCollided = true;
                         }
@@ -231,18 +236,9 @@ namespace craftersmine.GameEngine.System
             }
         }
 
-        [Obsolete]
-        private static void UpdateBoundingBoxes()
-        {
-            foreach (GameObject gObj in gameWnd.CurrentScene.Controls.OfType<GameObject>())
-            {
-                gObj.UpdateCollider(gObj.BoundingBox.X, gObj.BoundingBox.Y, gObj.BoundingBox.Width, gObj.BoundingBox.Height);
-            }
-        }
-
         private static void CallGameObjectsUpdates()
         {
-            foreach (GameObject gObj in gameWnd.CurrentScene.Controls.OfType<GameObject>())
+            foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
             {
                 gObj.OnUpdate();
                 gObj.InternalUpdate();

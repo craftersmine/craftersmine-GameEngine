@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using craftersmine.GameEngine.Content;
 using craftersmine.GameEngine.Objects;
+using RazorGDI;
 
 namespace craftersmine.GameEngine.System
 {
@@ -16,6 +17,10 @@ namespace craftersmine.GameEngine.System
     public class Scene : Panel
     {
         private Dictionary<string, AudioChannel> _audioChannels = new Dictionary<string, AudioChannel>();
+        internal List<GameObject> GameObjects = new List<GameObject>();
+        internal RazorPainterControl BaseCanvas { get; set; }
+
+        public Texture BackgroundTexture { get; internal set; }
 
         /// <summary>
         /// Identifier of scene in game
@@ -27,8 +32,15 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public Scene()
         {
+            BaseCanvas = new RazorPainterControl();
+            BaseCanvas.BackColor = Color.Transparent;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
+            BaseCanvas.BackgroundImage = new Bitmap(this.Width, this.Height);
+            //sceneCanvas = Graphics.FromImage(this.BackgroundImage);
+            //sceneCanvas.Clip = new Region(new Rectangle(0, 0, this.Width, this.Height));
+            //sceneCanvas = this.CreateGraphics();
+            this.Controls.Add(BaseCanvas);
         }
 
         /// <summary>
@@ -37,9 +49,10 @@ namespace craftersmine.GameEngine.System
         /// <param name="gameObject"></param>
         public void AddGameObject(GameObject gameObject)
         {
-            gameObject.BringToFront();
-            gameObject.OnCreate();
-            this.Controls.Add(gameObject);
+            //gameObject.BringToFront();
+            //gameObject.OnCreate();
+            //this.Controls.Add(gameObject);
+            GameObjects.Add(gameObject);
         }
         /// <summary>
         /// Removes <paramref name="gameObject"/> from this scene
@@ -48,7 +61,8 @@ namespace craftersmine.GameEngine.System
         public void RemoveGameObject(GameObject gameObject)
         {
             gameObject.OnDestroy();
-            this.Controls.Remove(gameObject);
+            //this.Controls.Remove(gameObject);
+            GameObjects.Remove(gameObject);
         }
         /// <summary>
         /// Sets background color of scene
@@ -57,6 +71,7 @@ namespace craftersmine.GameEngine.System
         public void SetBackgroundColor(Color color)
         {
             this.BackColor = color;
+            //sceneCanvas = this.CreateGraphics();
         }
         /// <summary>
         /// Sets background color of scene in RGB format
@@ -67,6 +82,7 @@ namespace craftersmine.GameEngine.System
         public void SetBackgroundColor(int red, int green, int blue)
         {
             this.BackColor = Color.FromArgb(red, green, blue);
+            //sceneCanvas = this.CreateGraphics();
         }
 
         /// <summary>
@@ -76,8 +92,10 @@ namespace craftersmine.GameEngine.System
         /// <param name="textureLayout">Texture layout on scene</param>
         public void SetBackgroundTexture(Texture texture, ImageLayout textureLayout)
         {
+            this.BackgroundTexture = texture;
             this.BackgroundImage = texture.TextureImage;
             this.BackgroundImageLayout = textureLayout;
+            //sceneCanvas = this.CreateGraphics();
         }
         /// <summary>
         /// Sets scene background texture from <see cref="Texture"/> with <see cref="ImageLayout.Stretch"/> layout
@@ -205,7 +223,7 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public virtual void OnCreate()
         {
-
+            BaseCanvas.Size = new Size(this.Width, this.Height);
         }
         /// <summary>
         /// Calls at game update
@@ -213,6 +231,24 @@ namespace craftersmine.GameEngine.System
         public virtual void OnUpdate()
         {
 
+        }
+
+        internal void Draw()
+        {
+            lock (BaseCanvas.RazorLock)
+            {
+                BaseCanvas.RazorGFX.Clear(Color.Transparent);
+                BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
+                //sceneCanvas = GameObjectCanvas.CreateGraphics();
+                //SetBackgroundTexture(BackgroundTexture);
+                //sceneCanvas.DrawImage(BackgroundTexture.TextureImage, new Point(0, 0));
+                foreach (var gObj in GameObjects)
+                {
+                    if (gObj.BackgroundImage != null)
+                        BaseCanvas.RazorGFX.DrawImage(gObj.BackgroundImage, gObj.X, gObj.Y, gObj.Width, gObj.Height);
+                }
+                BaseCanvas.RazorPaint();
+            }
         }
     }
 }

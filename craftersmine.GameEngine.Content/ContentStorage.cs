@@ -74,7 +74,6 @@ namespace craftersmine.GameEngine.Content
                 int animFrmDuration = 0;
                 int animFrmCount = 0;
                 int frameWidth = 0;
-                bool isBackground = true;
                 foreach (var ln in animationMetadata)
                 {
                     string[] split = ln.Split('=');
@@ -92,13 +91,9 @@ namespace craftersmine.GameEngine.Content
                             if (!int.TryParse(split[1], out frameWidth))
                                 throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
                             break;
-                        case "isbackground":
-                            if (!bool.TryParse(split[1], out isBackground))
-                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Boolean value");
-                            break;
                     }
                 }
-                Animation animation = new Animation(texture, animFrmCount, animFrmDuration, frameWidth, isBackground);
+                Animation animation = new Animation(texture, animFrmCount, animFrmDuration, frameWidth);
                 return animation;
             }
             catch (Exception ex)
