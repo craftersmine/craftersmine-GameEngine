@@ -38,10 +38,6 @@ namespace craftersmine.GameEngine.Content
         /// Gets width of one frame of <see cref="Animation"/>
         /// </summary>
         public int FrameWidth { get; internal set; }
-        /// <summary>
-        /// Gets true if <see cref="Animation"/> applies at background layer of game object, else false
-        /// </summary>
-        public bool IsBackgroundAnimation { get; internal set; }
 
         /// <summary>
         /// Creates new <see cref="Animation"/> instance
@@ -50,14 +46,12 @@ namespace craftersmine.GameEngine.Content
         /// <param name="frames">Total <see cref="Animation"/> frame count</param>
         /// <param name="frameTickTrigger">Sets trigger for what every tick count will <see cref="Animation"/> frame changed</param>
         /// <param name="frameWidth">Width of <see cref="Animation"/> frame</param>
-        /// <param name="isBackground">true if <see cref="Animation"/> applies at background layer of game object, else false</param>
-        public Animation(Texture texture, int frames, int frameTickTrigger, int frameWidth, bool isBackground)
+        public Animation(Texture texture, int frames, int frameTickTrigger, int frameWidth)
         {
             AnimationTexture = texture;
             AnimationFramesCount = frames;
             FrameTickTrigger = frameTickTrigger;
             FrameWidth = frameWidth;
-            IsBackgroundAnimation = isBackground;
             PrepareAnimation();
         }
 
