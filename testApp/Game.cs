@@ -18,7 +18,6 @@ namespace testApp
     {
         Scene scene = new Scene() { Id = 0 };
         public static ContentStorage cs;
-        public static GameConfig config;
 
         public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
         {
@@ -70,7 +69,8 @@ namespace testApp
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
-            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Foreground, 200);
+            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Background, 200);
+            obj1.ApplyAnimation(cs.LoadAnimation("anim"));
 
             ShowScene(0);
             //scene.PlayAudioChannel("aud");
