@@ -34,7 +34,7 @@ namespace craftersmine.GameEngine.System
         public int X { get { return Location.X; }
             set
             {
-                UpdateCollider(value, this.Y, this.Width, this.Height);
+                UpdateCollider();
                 Location = new Point(value, this.Y);
             }
         }
@@ -44,13 +44,15 @@ namespace craftersmine.GameEngine.System
         public int Y { get { return Location.Y; }
             set
             {
-                UpdateCollider(this.X, value, this.Width, this.Height);
+                UpdateCollider();
                 Location = new Point(this.X, value);
             }
         }
 
         internal int ColliderOffsetX { get; set; }
         internal int ColliderOffsetY { get; set; }
+        internal int ColliderWidth { get; set; }
+        internal int ColliderHeight { get; set; }
 
         /// <summary>
         /// <code>true</code> if object collided with other object, else <code>false</code>
@@ -303,6 +305,7 @@ namespace craftersmine.GameEngine.System
         
         internal void InternalUpdate()
         {
+            UpdateCollider();
             if (IsAnimated)
             {
                 ObjectAnimation.CountedTicks++;
