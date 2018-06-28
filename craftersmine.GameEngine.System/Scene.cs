@@ -37,9 +37,6 @@ namespace craftersmine.GameEngine.System
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
             BaseCanvas.BackgroundImage = new Bitmap(this.Width, this.Height);
-            //sceneCanvas = Graphics.FromImage(this.BackgroundImage);
-            //sceneCanvas.Clip = new Region(new Rectangle(0, 0, this.Width, this.Height));
-            //sceneCanvas = this.CreateGraphics();
             this.Controls.Add(BaseCanvas);
             BaseCanvas.MouseClick += BaseCanvas_MouseClick;
             BaseCanvas.MouseUp += BaseCanvas_MouseUp;
@@ -72,7 +69,7 @@ namespace craftersmine.GameEngine.System
             foreach (var gObj in GameObjects)
             {
                 if (clickPoint.IntersectsWith(gObj.BoundingBox))
-                    gObj.OnMouseClick(e.Button);
+                    gObj.OnMouseClick(e.X, e.Y, e.Button);
             }
         }
 
