@@ -165,7 +165,7 @@ namespace testApp
                 this.IsCollided = true;
         }
 
-        public override void OnMouseClick(MouseButtons mouseButtons)
+        public override void OnMouseClick(int xPos, int yPos, MouseButtons mouseButtons)
         {
             MessageBox.Show("Clicked on " + this.InternalName + " with " + mouseButtons.ToString() + " button");
         }
