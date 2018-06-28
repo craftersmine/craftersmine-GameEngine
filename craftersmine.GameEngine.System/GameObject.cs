@@ -90,25 +90,7 @@ namespace craftersmine.GameEngine.System
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
             IsCollidable = true;
             this.DoubleBuffered = true;
-            this.MouseClick += GameObject_MouseClick;
-            this.MouseEnter += GameObject_MouseEnter;
-            this.MouseHover += GameObject_MouseHover;
-            this.MouseLeave += GameObject_MouseLeave;
-            this.MouseMove += GameObject_MouseMove;
-            this.MouseUp += GameObject_MouseUp;
         }
-        
-        private void GameObject_MouseUp(object sender, MouseEventArgs e) => OnMouseUp(e.Button);
-
-        private void GameObject_MouseMove(object sender, MouseEventArgs e) => OnMouseMove(e.X, e.Y, e.Button);
-
-        private void GameObject_MouseLeave(object sender, EventArgs e) => OnMouseLeave();
-
-        private void GameObject_MouseHover(object sender, EventArgs e) => OnMouseHover();
-
-        private void GameObject_MouseEnter(object sender, EventArgs e) => OnMouseEnter();
-
-        private void GameObject_MouseClick(object sender, MouseEventArgs e) => OnMouseClick(e.Button);
 
         /// <summary>
         /// Applies <see cref="Texture"/> to this object
@@ -252,9 +234,11 @@ namespace craftersmine.GameEngine.System
         /// Calls at click on object
         /// </summary>
         /// <param name="mouseButtons">Clicked mouse button</param>
-        public virtual void OnMouseClick(MouseButtons mouseButtons)
+        /// <param name="xPos">Position of mouse click in global X axis</param>
+        /// <param name="yPos">Position of mouse click in global Y axis</param>
+        public virtual void OnMouseClick(int xPos, int yPos, MouseButtons mouseButtons)
         {
-            IsClicked = true;
+
         }
         /// <summary>
         /// Calls at click release on object
@@ -262,34 +246,13 @@ namespace craftersmine.GameEngine.System
         /// <param name="mouseButtons">Released mouse button</param>
         public virtual void OnMouseUp(MouseButtons mouseButtons)
         {
-            IsClicked = false;
-        }
-        /// <summary>
-        /// Calls while mouse on object
-        /// </summary>
-        public virtual void OnMouseHover()
-        {
-
-        }
-        /// <summary>
-        /// Calls if mouse entered in object bounding box
-        /// </summary>
-        public virtual void OnMouseEnter()
-        {
-
-        }
-        /// <summary>
-        /// Calls if mouse leaved from object bounding box
-        /// </summary>
-        public virtual void OnMouseLeave()
-        {
 
         }
         /// <summary>
         /// Calls while mouse moved in object bounding box
         /// </summary>
-        /// <param name="xPos">Position of mouse in X axis</param>
-        /// <param name="yPos">Position of mouse in Y axis</param>
+        /// <param name="xPos">Position of mouse in global X axis</param>
+        /// <param name="yPos">Position of mouse in global Y axis</param>
         /// <param name="mouseButtons">Clicked mouse buttons</param>
         public virtual void OnMouseMove(int xPos, int yPos, MouseButtons mouseButtons)
         {

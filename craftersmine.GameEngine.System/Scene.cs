@@ -41,6 +41,39 @@ namespace craftersmine.GameEngine.System
             //sceneCanvas.Clip = new Region(new Rectangle(0, 0, this.Width, this.Height));
             //sceneCanvas = this.CreateGraphics();
             this.Controls.Add(BaseCanvas);
+            BaseCanvas.MouseClick += BaseCanvas_MouseClick;
+            BaseCanvas.MouseUp += BaseCanvas_MouseUp;
+            BaseCanvas.MouseMove += BaseCanvas_MouseMove;
+        }
+
+        private void BaseCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            Rectangle clickPoint = new Rectangle(e.X, e.Y, 1, 1);
+            foreach (var gObj in GameObjects)
+            {
+                if (clickPoint.IntersectsWith(gObj.BoundingBox))
+                    gObj.OnMouseMove(e.X, e.Y, e.Button);
+            }
+        }
+
+        private void BaseCanvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            Rectangle clickPoint = new Rectangle(e.X, e.Y, 1, 1);
+            foreach (var gObj in GameObjects)
+            {
+                if (clickPoint.IntersectsWith(gObj.BoundingBox))
+                    gObj.OnMouseUp(e.Button);
+            }
+        }
+
+        private void BaseCanvas_MouseClick(object sender, MouseEventArgs e)
+        {
+            Rectangle clickPoint = new Rectangle(e.X, e.Y, 1, 1);
+            foreach (var gObj in GameObjects)
+            {
+                if (clickPoint.IntersectsWith(gObj.BoundingBox))
+                    gObj.OnMouseClick(e.Button);
+            }
         }
 
         /// <summary>
