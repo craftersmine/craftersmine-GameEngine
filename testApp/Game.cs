@@ -69,8 +69,8 @@ namespace testApp
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
-            obj1.Tint(1d, 0, 0, GameObject.TintTargets.Background, 200);
-            obj1.ApplyAnimation(cs.LoadAnimation("anim"));
+            obj1.Tint(1d, 0, 1.0d, 200);
+            //obj1.ApplyAnimation(cs.LoadAnimation("anim"));
 
             ShowScene(0);
             //scene.PlayAudioChannel("aud");
@@ -163,6 +163,21 @@ namespace testApp
             GameApplication.Log(LogEntryType.Info, this.InternalName + " Collided with " + collidedObject.InternalName, true);
             if (collidedObject.InternalName == "obj2")
                 this.IsCollided = true;
+        }
+
+        public override void OnMouseClick(MouseButtons mouseButtons)
+        {
+            MessageBox.Show("Clicked on " + this.InternalName + " with " + mouseButtons.ToString() + " button");
+        }
+
+        public override void OnMouseMove(int xPos, int yPos, MouseButtons mouseButtons)
+        {
+            GameApplication.Log(LogEntryType.Info, "Mouse position X: " + xPos + " Y: " + yPos);
+        }
+
+        public override void OnMouseUp(MouseButtons mouseButtons)
+        {
+            GameApplication.Log(LogEntryType.Info, "Mouse button up event called!");
         }
     }
 
