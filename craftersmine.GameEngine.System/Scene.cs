@@ -79,9 +79,6 @@ namespace craftersmine.GameEngine.System
         /// <param name="gameObject"></param>
         public void AddGameObject(GameObject gameObject)
         {
-            //gameObject.BringToFront();
-            //gameObject.OnCreate();
-            //this.Controls.Add(gameObject);
             GameObjects.Add(gameObject);
         }
         /// <summary>
@@ -91,7 +88,6 @@ namespace craftersmine.GameEngine.System
         public void RemoveGameObject(GameObject gameObject)
         {
             gameObject.OnDestroy();
-            //this.Controls.Remove(gameObject);
             GameObjects.Remove(gameObject);
         }
         /// <summary>
@@ -101,7 +97,6 @@ namespace craftersmine.GameEngine.System
         public void SetBackgroundColor(Color color)
         {
             this.BackColor = color;
-            //sceneCanvas = this.CreateGraphics();
         }
         /// <summary>
         /// Sets background color of scene in RGB format
@@ -112,7 +107,6 @@ namespace craftersmine.GameEngine.System
         public void SetBackgroundColor(int red, int green, int blue)
         {
             this.BackColor = Color.FromArgb(red, green, blue);
-            //sceneCanvas = this.CreateGraphics();
         }
 
         /// <summary>
@@ -125,7 +119,6 @@ namespace craftersmine.GameEngine.System
             this.BackgroundTexture = texture;
             this.BackgroundImage = texture.TextureImage;
             this.BackgroundImageLayout = textureLayout;
-            //sceneCanvas = this.CreateGraphics();
         }
         /// <summary>
         /// Sets scene background texture from <see cref="Texture"/> with <see cref="ImageLayout.Stretch"/> layout
@@ -269,9 +262,6 @@ namespace craftersmine.GameEngine.System
             {
                 BaseCanvas.RazorGFX.Clear(Color.Transparent);
                 BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
-                //sceneCanvas = GameObjectCanvas.CreateGraphics();
-                //SetBackgroundTexture(BackgroundTexture);
-                //sceneCanvas.DrawImage(BackgroundTexture.TextureImage, new Point(0, 0));
                 foreach (var gObj in GameObjects)
                 {
                     if (gObj.BackgroundImage != null)
