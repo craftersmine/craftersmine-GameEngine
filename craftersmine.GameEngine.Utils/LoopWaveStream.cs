@@ -55,6 +55,13 @@ namespace craftersmine.GameEngine.Utils
             set { sourceStream.Position = value; }
         }
 
+        /// <summary>
+        /// Reads bytes in buffer from offset at count
+        /// </summary>
+        /// <param name="buffer">Byte buffer</param>
+        /// <param name="offset">Offset</param>
+        /// <param name="count">Count of reading bytes</param>
+        /// <returns></returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
             int totalBytesRead = 0;
