@@ -261,7 +261,8 @@ namespace craftersmine.GameEngine.System
             lock (BaseCanvas.RazorLock)
             {
                 BaseCanvas.RazorGFX.Clear(Color.Transparent);
-                BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
+                if (this.BackgroundImage != null)
+                    BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
                 foreach (var gObj in GameObjects)
                 {
                     if (gObj.BackgroundImage != null)
