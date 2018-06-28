@@ -58,7 +58,7 @@ namespace testApp
             Gamepad.SetDeadzone(Player.First, DeadZoneControl.LeftTrigger, 0.0f);
             scene.SetBackgroundColor(Color.Black);
             this.AddScene(scene);
-            scene.SetBackgroundTexture(cs.LoadTexture("bg"));
+            //scene.SetBackgroundTexture(cs.LoadTexture("bg"));
 
             scene.Controls.Add(labelDebugKeyboard);
 
