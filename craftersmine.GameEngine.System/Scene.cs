@@ -21,6 +21,8 @@ namespace craftersmine.GameEngine.System
         private Dictionary<string, AudioChannel> _audioChannels = new Dictionary<string, AudioChannel>();
         internal List<GameObject> GameObjects = new List<GameObject>();
         internal RazorPainterControl BaseCanvas { get; set; }
+        private Pen texBoundingsRects = new Pen(Color.Gold);
+        private Pen collBoundingsRects = new Pen(Color.Red);
 
         /// <summary>
         /// Gets scene background texture
@@ -31,6 +33,11 @@ namespace craftersmine.GameEngine.System
         /// Identifier of scene in game
         /// </summary>
         public int Id { get; set; }
+
+
+        public bool DrawGameObjectTextureBoundings { get; set; }
+
+        public bool DrawGameObjectCollisionBoundings { get; set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="Scene"/>
@@ -277,6 +284,10 @@ namespace craftersmine.GameEngine.System
                     if (gObj.CurrentTexture != null)
                     {
                         DrawTexture(gObj.CurrentTexture, gObj.X, gObj.Y, gObj.Width, gObj.Height, gObj);
+                        if (DrawGameObjectTextureBoundings)
+                            BaseCanvas.RazorGFX.DrawRectangle(texBoundingsRects, new Rectangle(gObj.X, gObj.Y, gObj.Width, gObj.Height));
+                        if (DrawGameObjectCollisionBoundings)
+                            BaseCanvas.RazorGFX.DrawRectangle(collBoundingsRects, gObj.BoundingBox);
                     }
                 }
                 BaseCanvas.RazorPaint();
