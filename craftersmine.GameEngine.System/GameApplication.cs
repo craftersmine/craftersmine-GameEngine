@@ -51,7 +51,6 @@ namespace craftersmine.GameEngine.System
         /// <param name="applicationDataFolder">Path to root of Game at %AppData%</param>
         public static void Run(GameWindow gameWindow, string applicationDataFolder)
         {
-            CrashHandler = new GameCrashHandler();
             try
             {
                 AppDataGameRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), applicationDataFolder);
@@ -69,7 +68,9 @@ namespace craftersmine.GameEngine.System
             }
             catch (Exception ex)
             {
-                CrashHandler.Crash(ex);
+                if (CrashHandler != null)
+                    CrashHandler.Crash(ex);
+                else throw ex;
             }
         }
 
