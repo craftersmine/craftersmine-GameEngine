@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,8 @@ namespace craftersmine.GameEngine.System
         /// Current showing scene
         /// </summary>
         public Scene CurrentScene { get; internal set; }
+
+        public InterpolationMode TextureInterpolation { get; internal set; }
         
         /// <summary>
         /// Creates a new instance of <see cref="GameWindow"/>
@@ -81,6 +84,7 @@ namespace craftersmine.GameEngine.System
         {
             scene.Visible = false;
             scene.Size = this.ClientSize;
+            scene.TextureInterpolationMode = TextureInterpolation;
             scenes.Add(scene.Id, scene);
             scene.OnCreate();
             this.Controls.Add(scene);
@@ -98,6 +102,15 @@ namespace craftersmine.GameEngine.System
             }
             scenes[id].Visible = true;
             CurrentScene = scenes[id];
+        }
+
+        public void SetTextureInterpolationMode(InterpolationMode mode)
+        {
+            TextureInterpolation = mode;
+            foreach (var scn in scenes)
+            {
+                scn.Value.TextureInterpolationMode = TextureInterpolation;
+            }
         }
 
         /// <summary>
