@@ -43,14 +43,14 @@ namespace craftersmine.GameEngine.Content
         /// </summary>
         /// <param name="name">Name of <see cref="Texture"/></param>
         /// <returns><see cref="Texture"/></returns>
-        public Texture LoadTexture(string name)
+        public Texture LoadTexture(string name, TextureLayout textureLayout)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Texture, PackageName = this.PackageName });
             try
             {
                 byte[] imageRaw = pak.ReadBytes(name + ".tex");
                 Image image = ImageFromBytesConverter.ByteArrayToImage(imageRaw);
-                Texture tex = new Texture(image);
+                Texture tex = new Texture(image, textureLayout);
                 return tex;
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace craftersmine.GameEngine.Content
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Animation, PackageName = this.PackageName });
             try
             {
-                Texture texture = LoadTexture(name);
+                Texture texture = LoadTexture(name, TextureLayout.Stretch);
                 string[] animationMetadata = pak.ReadLines(name + ".amd");
                 int animFrmDuration = 0;
                 int animFrmCount = 0;

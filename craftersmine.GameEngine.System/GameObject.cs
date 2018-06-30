@@ -19,6 +19,9 @@ namespace craftersmine.GameEngine.System
     {
         private Dictionary<string, Texture> _textures = new Dictionary<string, Texture>();
         private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>();
+        private TextureLayout textureLayout { get; set; }
+
+        public Texture CurrentTexture { get; internal set; }
 
         /// <summary>
         /// Game object identifier
@@ -98,7 +101,8 @@ namespace craftersmine.GameEngine.System
         /// <param name="texture"><see cref="Texture"/> data</param>
         public void ApplyTexture(Texture texture)
         {
-            this.BackgroundImage = texture.TextureImage;
+            this.CurrentTexture = texture;
+            this.textureLayout = texture.TextureLayout;
         }
         /// <summary>
         /// Applies <see cref="Texture"/> from object texture storage to this object at foreground layer if <paramref name="isBackground"/> false, else at background
@@ -159,7 +163,7 @@ namespace craftersmine.GameEngine.System
             if (ObjectAnimation != null)
             {
                 ObjectAnimation.CurrentFrame = 0;
-                this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
+                this.CurrentTexture = new Texture(ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame), TextureLayout.Stretch);
             }
         }
         /// <summary>
@@ -279,13 +283,13 @@ namespace craftersmine.GameEngine.System
                         ObjectAnimation.CurrentFrame = 0;
                     else ObjectAnimation.CurrentFrame++;
                 }
-                this.BackgroundImage = ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame);
+                this.CurrentTexture = new Texture(ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame), TextureLayout.Stretch);
             }
             if (IsTinted)
             {
                 if (TintTickCounter == TintDuration)
                 {
-                    this.BackgroundImage = UntintedImage;
+                    this.CurrentTexture = new Texture(UntintedImage, textureLayout);
                     this.IsTinted = false;
                 }
                 TintTickCounter++;
@@ -312,8 +316,8 @@ namespace craftersmine.GameEngine.System
         {
             this.TintTickCounter = 0;
             this.TintDuration = tickDuration;
-            Bitmap bitmap = new Bitmap(this.BackgroundImage);
-            UntintedImage = this.BackgroundImage;
+            Bitmap bitmap = new Bitmap(this.CurrentTexture.TextureImage);
+            UntintedImage = this.CurrentTexture.TextureImage;
             for (int imageX = 0; imageX < bitmap.Width; imageX++)
             {
                 for (int imageY = 0; imageY < bitmap.Height; imageY++)
@@ -328,7 +332,7 @@ namespace craftersmine.GameEngine.System
                     }
                 }
             }
-            this.BackgroundImage = bitmap;
+            this.CurrentTexture = new Texture(bitmap, textureLayout);
             this.IsTinted = true;
         }
     }

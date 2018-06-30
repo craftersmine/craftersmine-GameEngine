@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +22,11 @@ namespace craftersmine.GameEngine.System
         internal List<GameObject> GameObjects = new List<GameObject>();
         internal RazorPainterControl BaseCanvas { get; set; }
 
+        /// <summary>
+        /// Gets scene background texture
+        /// </summary>
         public Texture BackgroundTexture { get; internal set; }
-
+        
         /// <summary>
         /// Identifier of scene in game
         /// </summary>
@@ -81,6 +86,7 @@ namespace craftersmine.GameEngine.System
         {
             GameObjects.Add(gameObject);
         }
+
         /// <summary>
         /// Removes <paramref name="gameObject"/> from this scene
         /// </summary>
@@ -261,14 +267,52 @@ namespace craftersmine.GameEngine.System
             lock (BaseCanvas.RazorLock)
             {
                 BaseCanvas.RazorGFX.Clear(this.BackColor);
-                if (this.BackgroundImage != null)
-                    BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
+                if (this.BackgroundTexture != null)
+                {
+                    //BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
+                    DrawTexture(BackgroundTexture, 0, 0, this.Width, this.Height, null);
+                }
                 foreach (var gObj in GameObjects)
                 {
-                    if (gObj.BackgroundImage != null)
-                        BaseCanvas.RazorGFX.DrawImage(gObj.BackgroundImage, gObj.X, gObj.Y, gObj.Width, gObj.Height);
+                    if (gObj.CurrentTexture != null)
+                    {
+                        DrawTexture(gObj.CurrentTexture, gObj.X, gObj.Y, gObj.Width, gObj.Height, gObj);
+                    }
                 }
                 BaseCanvas.RazorPaint();
+            }
+        }
+
+        private void DrawTexture(Texture texture, int xPos, int yPos, int width, int height, GameObject gameObject)
+        {
+            Rectangle textureBounding = new Rectangle(xPos, yPos, width, height);
+            switch (texture.TextureLayout)
+            {
+                case TextureLayout.Stretch:
+                    BaseCanvas.RazorGFX.DrawImage(texture.TextureImage, textureBounding);
+                    break;
+                case TextureLayout.Tile:
+                    int xCount = width / texture.TextureImage.Width + 1;
+                    int yCount = height / texture.TextureImage.Height + 1;
+                    Bitmap tiledTex = new Bitmap(width, height);
+                    Graphics painter = Graphics.FromImage(tiledTex);
+                    painter.InterpolationMode = TextureInterpolationMode;
+                    for (int x = 0; x < xCount; x++)
+                        for (int y = 0; y < yCount; y++)
+                        {
+                            painter.DrawImage(texture.TextureImage, texture.TextureImage.Width * x, texture.TextureImage.Height * y);
+                        }
+                    BaseCanvas.RazorGFX.DrawImage(tiledTex, xPos, yPos);
+                    break;
+                case TextureLayout.Center:
+                    int xCenter = (width / 2) - (texture.TextureImage.Width / 2);
+                    int yCenter = (height / 2) - (texture.TextureImage.Height / 2);
+                    textureBounding.X = xCenter;
+                    textureBounding.Y = yCenter;
+                    textureBounding.Width = texture.TextureImage.Width;
+                    textureBounding.Height = texture.TextureImage.Height;
+                    BaseCanvas.RazorGFX.DrawImage(texture.TextureImage, textureBounding);
+                    break;
             }
         }
     }

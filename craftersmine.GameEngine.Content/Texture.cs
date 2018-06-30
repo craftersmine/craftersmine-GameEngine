@@ -17,22 +17,33 @@ namespace craftersmine.GameEngine.Content
         /// </summary>
         public Image TextureImage { get; private set; }
 
+        public TextureLayout TextureLayout { get; private set; }
+
         /// <summary>
         /// Creates new <see cref="Texture"/> instance with <paramref name="textureImage"/>
         /// </summary>
         /// <param name="textureImage"><see cref="Image"/> for <see cref="Texture"/></param>
-        public Texture(Image textureImage)
+        public Texture(Image textureImage, TextureLayout textureLayout)
         {
             TextureImage = textureImage;
+            TextureLayout = textureLayout;
         }
 
         /// <summary>
         /// Updates <see cref="Texture"/> image
         /// </summary>
         /// <param name="textureImage"><see cref="Image"/> for <see cref="Texture"/></param>
-        public void UpdateTexture(Image textureImage)
+        public void UpdateTexture(Image textureImage, TextureLayout textureLayout)
         {
             TextureImage = textureImage;
+            TextureLayout = textureLayout;
         }
+    }
+
+    public enum TextureLayout
+    {
+        Stretch, 
+        Tile,
+        Center
     }
 }
