@@ -45,15 +45,15 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public Scene()
         {
-            BaseCanvas = new RazorPainterControl();
-            BaseCanvas.BackColor = Color.Transparent;
+            this.BaseCanvas = new RazorPainterControl();
+            this.BaseCanvas.BackColor = Color.Transparent;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
-            BaseCanvas.BackgroundImage = new Bitmap(this.Width, this.Height);
+            this.BaseCanvas.BackgroundImage = new Bitmap(this.Width, this.Height);
             this.Controls.Add(BaseCanvas);
-            BaseCanvas.MouseClick += BaseCanvas_MouseClick;
-            BaseCanvas.MouseUp += BaseCanvas_MouseUp;
-            BaseCanvas.MouseMove += BaseCanvas_MouseMove;
+            this.BaseCanvas.MouseClick += BaseCanvas_MouseClick;
+            this.BaseCanvas.MouseUp += BaseCanvas_MouseUp;
+            this.BaseCanvas.MouseMove += BaseCanvas_MouseMove;
         }
 
         private void BaseCanvas_MouseMove(object sender, MouseEventArgs e)
@@ -305,17 +305,43 @@ namespace craftersmine.GameEngine.System
                     BaseCanvas.RazorGFX.DrawImage(texture.TextureImage, textureBounding);
                     break;
                 case TextureLayout.Tile:
-                    int xCount = width / texture.TextureImage.Width + 1;
-                    int yCount = height / texture.TextureImage.Height + 1;
-                    Bitmap tiledTex = new Bitmap(width, height);
-                    Graphics painter = Graphics.FromImage(tiledTex);
-                    painter.InterpolationMode = TextureInterpolationMode;
-                    for (int x = 0; x < xCount; x++)
-                        for (int y = 0; y < yCount; y++)
+                    if (gameObject != null)
+                    {
+                        if (!gameObject.IsTiledTextureCached)
                         {
-                            painter.DrawImage(texture.TextureImage, texture.TextureImage.Width * x, texture.TextureImage.Height * y);
+                            int xCount = width / texture.TextureImage.Width + 1;
+                            int yCount = height / texture.TextureImage.Height + 1;
+                            Bitmap tiledTex = new Bitmap(width, height);
+                            Graphics painter = Graphics.FromImage(tiledTex);
+                            painter.InterpolationMode = TextureInterpolationMode;
+                            for (int x = 0; x < xCount; x++)
+                                for (int y = 0; y < yCount; y++)
+                                {
+                                    painter.DrawImage(texture.TextureImage, texture.TextureImage.Width * x, texture.TextureImage.Height * y);
+                                }
+                            gameObject.TiledTextureCache = tiledTex;
+                            gameObject.IsTiledTextureCached = true;
+                            BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache, xPos, yPos);
                         }
-                    BaseCanvas.RazorGFX.DrawImage(tiledTex, xPos, yPos);
+                        else
+                        {
+                            BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache, xPos, yPos);
+                        }
+                    }
+                    else
+                    {
+                        int xCount = width / texture.TextureImage.Width + 1;
+                        int yCount = height / texture.TextureImage.Height + 1;
+                        Bitmap tiledTex = new Bitmap(width, height);
+                        Graphics painter = Graphics.FromImage(tiledTex);
+                        painter.InterpolationMode = TextureInterpolationMode;
+                        for (int x = 0; x < xCount; x++)
+                            for (int y = 0; y < yCount; y++)
+                            {
+                                painter.DrawImage(texture.TextureImage, texture.TextureImage.Width * x + 1, texture.TextureImage.Height * y + 1);
+                            }
+                        BaseCanvas.RazorGFX.DrawImage(tiledTex, xPos, yPos);
+                    }
                     break;
                 case TextureLayout.Center:
                     int xCenter = (width / 2) - (texture.TextureImage.Width / 2);

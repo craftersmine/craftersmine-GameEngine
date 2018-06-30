@@ -23,6 +23,9 @@ namespace craftersmine.GameEngine.System
 
         public Texture CurrentTexture { get; internal set; }
 
+        public bool IsTiledTextureCached { get; internal set; }
+        public Image TiledTextureCache { get; internal set; }
+
         /// <summary>
         /// Game object identifier
         /// </summary>
@@ -290,6 +293,8 @@ namespace craftersmine.GameEngine.System
                 if (TintTickCounter == TintDuration)
                 {
                     this.CurrentTexture = new Texture(UntintedImage, textureLayout);
+                    if (this.IsTiledTextureCached)
+                        this.TiledTextureCache = this.CurrentTexture.TextureImage;
                     this.IsTinted = false;
                 }
                 TintTickCounter++;
@@ -318,6 +323,11 @@ namespace craftersmine.GameEngine.System
             this.TintDuration = tickDuration;
             Bitmap bitmap = new Bitmap(this.CurrentTexture.TextureImage);
             UntintedImage = this.CurrentTexture.TextureImage;
+            if (this.IsTiledTextureCached)
+            {
+                bitmap = new Bitmap(this.TiledTextureCache);
+                UntintedImage = this.TiledTextureCache;
+            }
             for (int imageX = 0; imageX < bitmap.Width; imageX++)
             {
                 for (int imageY = 0; imageY < bitmap.Height; imageY++)
