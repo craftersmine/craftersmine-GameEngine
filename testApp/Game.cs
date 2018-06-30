@@ -18,11 +18,14 @@ namespace testApp
     {
         Scene scene = new Scene() { Id = 0, DrawGameObjectCollisionBoundings = true, DrawGameObjectTextureBoundings = true };
         public static ContentStorage cs;
+        public static ContentStorage gc1;
+        GameObject[] bordersGrads;
 
         public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
         {
             this.SetBackgroundColor(Color.Black);
             cs = new ContentStorage("testassets");
+            gc1 = new ContentStorage("gamecontent1");
             //config = new GameConfig("Configs", "TestConfig");
             cs.ContentStorageCreated += Cs_ContentStorageCreated;
             cs.ContentLoading += Cs_ContentLoading;
@@ -70,9 +73,34 @@ namespace testApp
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
             obj1.Tint(1d, 0, 1.0d, 200);
-            obj1.ApplyAnimation(cs.LoadAnimation("anim"));
+            //obj1.ApplyAnimation(cs.LoadAnimation("anim"));
 
             ShowScene(0);
+            bordersGrads = new GameObject[4];
+            for (int c = 0; c < 4; c++)
+            {
+                switch (c)
+                {
+                    case 0:
+                        bordersGrads[c] = new GameObject() { Height = this.Height, Width = 64, X = 0, Y = 0, IsCollidable = false };
+                        bordersGrads[c].ApplyTexture(gc1.LoadTexture("bordergrad-left", TextureLayout.Tile));
+                        break;
+                    case 1:
+                        bordersGrads[c] = new GameObject() { Height = 64, Width = this.Width, X = 0, Y = 0, IsCollidable = false };
+                        bordersGrads[c].ApplyTexture(gc1.LoadTexture("bordergrad-up", TextureLayout.Tile));
+                        break;
+                    case 2:
+                        bordersGrads[c] = new GameObject() { Height = this.Height, Width = 64, X = this.Width - 64, Y = 0, IsCollidable = false };
+                        bordersGrads[c].ApplyTexture(gc1.LoadTexture("bordergrad-right", TextureLayout.Tile));
+                        break;
+                    case 3:
+                        bordersGrads[c] = new GameObject() { Height = 64, Width = this.Width, X = 0, Y = this.Height - 64, IsCollidable = false };
+                        bordersGrads[c].ApplyTexture(gc1.LoadTexture("bordergrad-down", TextureLayout.Tile));
+                        break;
+                }
+                scene.AddGameObject(bordersGrads[c]);
+                bordersGrads[c].BringToFront();
+            }
             //scene.PlayAudioChannel("aud");
         }
 

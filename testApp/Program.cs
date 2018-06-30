@@ -20,7 +20,7 @@ namespace testApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true);
-
+            GameApplication.SetCrashHandler(new GameCrashHandler(true));
             Game gameWindow = new Game("TestGameApp", 1280, 720);
             labelDebug = new Label { BackColor = Color.Transparent, ForeColor = Color.Yellow, AutoSize = true };
             //labelDebug.BringToFront();
