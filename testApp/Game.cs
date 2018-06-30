@@ -16,7 +16,7 @@ namespace testApp
 {
     class Game : GameWindow
     {
-        Scene scene = new Scene() { Id = 0 };
+        Scene scene = new Scene() { Id = 0, DrawGameObjectCollisionBoundings = true, DrawGameObjectTextureBoundings = true };
         public static ContentStorage cs;
 
         public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
@@ -58,19 +58,19 @@ namespace testApp
             Gamepad.SetDeadzone(Player.First, DeadZoneControl.LeftTrigger, 0.0f);
             scene.SetBackgroundColor(Color.Black);
             this.AddScene(scene);
-            //scene.SetBackgroundTexture(cs.LoadTexture("bg"));
+            scene.SetBackgroundTexture(cs.LoadTexture("bg", TextureLayout.Stretch));
 
             scene.Controls.Add(labelDebugKeyboard);
 
             scene.AddGameObject(obj1);
             scene.AddGameObject(obj2);
-            obj1.ApplyTexture(cs.LoadTexture("obj1"));
-            obj2.ApplyTexture(cs.LoadTexture("obj2"));
+            obj1.ApplyTexture(cs.LoadTexture("obj1", TextureLayout.Tile));
+            obj2.ApplyTexture(cs.LoadTexture("obj2", TextureLayout.Stretch));
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
 
             obj1.Tint(1d, 0, 1.0d, 200);
-            //obj1.ApplyAnimation(cs.LoadAnimation("anim"));
+            obj1.ApplyAnimation(cs.LoadAnimation("anim"));
 
             ShowScene(0);
             //scene.PlayAudioChannel("aud");
@@ -147,8 +147,8 @@ namespace testApp
         {
             this.InternalName = "obj1";
             this.BackColor = Color.Transparent;
-            this.Height = 32;
-            this.Width = 32;
+            this.Height = 48;
+            this.Width = 48;
             this.X = 100;
             this.Y = 300;
             this.IsCollidable = false;
