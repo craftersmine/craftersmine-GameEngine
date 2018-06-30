@@ -34,6 +34,7 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public int Id { get; set; }
 
+        public InterpolationMode TextureInterpolationMode { get; internal set; }
 
         public bool DrawGameObjectTextureBoundings { get; set; }
 
@@ -273,6 +274,7 @@ namespace craftersmine.GameEngine.System
         {
             lock (BaseCanvas.RazorLock)
             {
+                BaseCanvas.RazorGFX.InterpolationMode = TextureInterpolationMode;
                 BaseCanvas.RazorGFX.Clear(this.BackColor);
                 if (this.BackgroundTexture != null)
                 {
