@@ -14,6 +14,9 @@ namespace craftersmine.GameEngine.System
     /// </summary>
     public class GameWindow : Form
     {
+        private bool drawIDbg;
+        private bool drawGObjColl;
+
         /// <summary>
         /// Current game tick
         /// </summary>
@@ -41,6 +44,14 @@ namespace craftersmine.GameEngine.System
 
         public InterpolationMode TextureInterpolation { get; internal set; }
         
+        public bool DrawGameObjectTextureBoundings { get; set; }
+
+        public bool DrawGameObjectCollisionBoundings { get; set; }
+
+        //public bool DrawInputDebug { get; set; }
+
+        public bool DrawUtilizationDebug { get; set; }
+
         /// <summary>
         /// Creates a new instance of <see cref="GameWindow"/>
         /// </summary>
