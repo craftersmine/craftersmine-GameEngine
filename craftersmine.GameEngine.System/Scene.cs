@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 using craftersmine.GameEngine.Content;
 using craftersmine.GameEngine.Objects;
 using RazorGDI;
@@ -23,6 +24,7 @@ namespace craftersmine.GameEngine.System
         internal RazorPainterControl BaseCanvas { get; set; }
         private Pen texBoundingsRects = new Pen(Color.Gold);
         private Pen collBoundingsRects = new Pen(Color.Red);
+        private SolidBrush dbgText = new SolidBrush(Color.MediumSpringGreen);
 
         /// <summary>
         /// Gets scene background texture
@@ -35,10 +37,6 @@ namespace craftersmine.GameEngine.System
         public int Id { get; set; }
 
         public InterpolationMode TextureInterpolationMode { get; internal set; }
-
-        public bool DrawGameObjectTextureBoundings { get; set; }
-
-        public bool DrawGameObjectCollisionBoundings { get; set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="Scene"/>
@@ -288,6 +286,11 @@ namespace craftersmine.GameEngine.System
                         DrawGameObjectTexture(gObj);
                     }
                 }
+                if (GameApplication.DrawUtilizationDebugger)
+                {
+                    string ctor = $"Current Game Tick: {GameApplication.GetGameTick()}{Environment.NewLine}Game Tickrate: {GameApplication.CurrentGameTickrate} tps{Environment.NewLine}";
+                    BaseCanvas.RazorGFX.DrawString(ctor, new Font("Segoe UI", 8.0f), dbgText, 0, 0);
+                }
                 BaseCanvas.RazorPaint();
             }
         }
@@ -322,9 +325,9 @@ namespace craftersmine.GameEngine.System
                             break;
                     }
                 }
-                if (DrawGameObjectTextureBoundings)
+                if (GameApplication.DrawTextureBoundings)
                     BaseCanvas.RazorGFX.DrawRectangle(texBoundingsRects, new Rectangle(gameObject.X, gameObject.Y, gameObject.Width, gameObject.Height));
-                if (DrawGameObjectCollisionBoundings)
+                if (GameApplication.DrawColliderBoundings)
                     BaseCanvas.RazorGFX.DrawRectangle(collBoundingsRects, gameObject.BoundingBox);
             }
             else
