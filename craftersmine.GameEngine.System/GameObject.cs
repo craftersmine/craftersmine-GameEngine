@@ -104,6 +104,8 @@ namespace craftersmine.GameEngine.System
         /// <param name="texture"><see cref="Texture"/> data</param>
         public void ApplyTexture(Texture texture)
         {
+            if (texture.TextureLayout == TextureLayout.Tile)
+                this.IsTiledTextureCached = false;
             this.CurrentTexture = texture;
             this.textureLayout = texture.TextureLayout;
         }
