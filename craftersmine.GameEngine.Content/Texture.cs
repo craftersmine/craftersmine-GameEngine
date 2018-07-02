@@ -42,6 +42,7 @@ namespace craftersmine.GameEngine.Content
 
     public enum TextureLayout
     {
+        Default,
         Stretch, 
         Tile,
         Center
