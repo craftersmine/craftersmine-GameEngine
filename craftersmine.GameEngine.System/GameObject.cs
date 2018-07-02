@@ -24,7 +24,7 @@ namespace craftersmine.GameEngine.System
         public Texture CurrentTexture { get; internal set; }
 
         public bool IsTiledTextureCached { get; internal set; }
-        public Image TiledTextureCache { get; internal set; }
+        public Texture TiledTextureCache { get; internal set; }
 
         /// <summary>
         /// Game object identifier
@@ -288,62 +288,6 @@ namespace craftersmine.GameEngine.System
                 }
                 this.CurrentTexture = new Texture(ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame), TextureLayout.Stretch);
             }
-            if (IsTinted)
-            {
-                if (TintTickCounter == TintDuration)
-                {
-                    this.CurrentTexture = new Texture(UntintedImage, textureLayout);
-                    if (this.IsTiledTextureCached)
-                        this.TiledTextureCache = this.CurrentTexture.TextureImage;
-                    this.IsTinted = false;
-                }
-                TintTickCounter++;
-            }
-        }
-
-        internal int TintTickCounter { get; set; }
-        internal int TintDuration { get; set; }
-        internal Image UntintedImage { get; set; }
-        /// <summary>
-        /// Gets true if game object texture layer is currently tinted
-        /// </summary>
-        public bool IsTinted { get; internal set; }
-
-        /// <summary>
-        /// Tints game object texture with RGB color for <paramref name="tickDuration"/> game ticks count
-        /// </summary>
-        /// <param name="r">Red color component (0.0d - 1.0d)</param>
-        /// <param name="g">Green color component (0.0d - 1.0d)</param>
-        /// <param name="b">Blue color component (0.0d - 1.0d)</param>
-        /// <param name="target">Tinting game object texture layer</param>
-        /// <param name="tickDuration">Duration of tint in game ticks</param>
-        public void Tint(double r, double g, double b, int tickDuration)
-        {
-            this.TintTickCounter = 0;
-            this.TintDuration = tickDuration;
-            Bitmap bitmap = new Bitmap(this.CurrentTexture.TextureImage);
-            UntintedImage = this.CurrentTexture.TextureImage;
-            if (this.IsTiledTextureCached)
-            {
-                bitmap = new Bitmap(this.TiledTextureCache);
-                UntintedImage = this.TiledTextureCache;
-            }
-            for (int imageX = 0; imageX < bitmap.Width; imageX++)
-            {
-                for (int imageY = 0; imageY < bitmap.Height; imageY++)
-                {
-                    Color targetColor = bitmap.GetPixel(imageX, imageY);
-                    if (targetColor.A != 0)
-                    {
-                        double rMixed = targetColor.R + (1 - targetColor.R / 255.0d) * (r * 255.0d);
-                        double gMixed = targetColor.G + (1 - targetColor.G / 255.0d) * (g * 255.0d);
-                        double bMixed = targetColor.B + (1 - targetColor.B / 255.0d) * (b * 255.0d);
-                        bitmap.SetPixel(imageX, imageY, Color.FromArgb(targetColor.A, (int)rMixed, (int)gMixed, (int)bMixed));
-                    }
-                }
-            }
-            this.CurrentTexture = new Texture(bitmap, textureLayout);
-            this.IsTinted = true;
         }
     }
 }
