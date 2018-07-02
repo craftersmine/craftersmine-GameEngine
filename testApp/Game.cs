@@ -50,8 +50,8 @@ namespace testApp
         {
             GameApplication.SetLogger(new Logger(Path.Combine(GameApplication.AppDataGameRoot, "Logs"), "testGame"));
             GameApplication.Log(LogEntryType.Info, "Initializing Game...");
-            GameClient gameClient = new GameClient(this);
-            gameClient.Connect("127.0.0.1", 2000);
+            //GameClient gameClient = new GameClient(this);
+            //gameClient.Connect("127.0.0.1", 2000);
             this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
             //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
@@ -71,8 +71,7 @@ namespace testApp
             obj2.ApplyTexture(cs.LoadTexture("obj2", TextureLayout.Stretch));
 
             obj2.AddAnimation("anim", cs.LoadAnimation("anim"));
-
-            obj1.Tint(1d, 0, 1.0d, 200);
+            
             //obj1.ApplyAnimation(cs.LoadAnimation("anim"));
 
             ShowScene(0);
@@ -99,7 +98,6 @@ namespace testApp
                         break;
                 }
                 scene.AddGameObject(bordersGrads[c]);
-                bordersGrads[c].BringToFront();
             }
             //scene.PlayAudioChannel("aud");
         }
