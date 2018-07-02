@@ -21,7 +21,17 @@ namespace craftersmine.GameEngine.System
     {
         private static Timer gameTicker = new Timer();
         private static GameWindow gameWnd;
+        private static Timer tickrateCounter = new Timer();
         private static Logger _logger;
+        private static int tickrateCounted = 0;
+        private static PerformanceCounter cpuCounter;
+        private static PerformanceCounter ramCounter;
+
+        public static int CurrentGameTickrate { get; internal set; }
+
+        //public static int CPUUtilization { get { return (int)cpuCounter.NextValue(); } }
+        
+        //public static int RAMUsage { get { return (int)GC.GetTotalMemory(true); } }
 
         /// <summary>
         /// Gets Game Version setted in AssemblyInfo.cs
@@ -53,6 +63,8 @@ namespace craftersmine.GameEngine.System
         {
             try
             {
+                cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+                ramCounter = new PerformanceCounter("Memory", "Available MBytes");
                 AppDataGameRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), applicationDataFolder);
                 if (!Directory.Exists(AppDataGameRoot))
                     Directory.CreateDirectory(AppDataGameRoot);
@@ -62,8 +74,11 @@ namespace craftersmine.GameEngine.System
                 gameWnd.KeyUp += GameWnd_KeyUp;
                 gameWnd.IsActive = true;
                 gameTicker.Tick += GameTicker_Tick;
+                tickrateCounter.Tick += TickrateCounter_Tick;
                 gameTicker.Interval = 16;
+                tickrateCounter.Interval = 1000;
                 gameTicker.Start();
+                tickrateCounter.Start();
                 Application.Run(gameWnd);
             }
             catch (Exception ex)
@@ -72,6 +87,12 @@ namespace craftersmine.GameEngine.System
                     CrashHandler.Crash(ex);
                 else throw ex;
             }
+        }
+
+        private static void TickrateCounter_Tick(object sender, EventArgs e)
+        {
+            CurrentGameTickrate = tickrateCounted;
+            tickrateCounted = 0;
         }
 
         /// <summary>
@@ -109,6 +130,7 @@ namespace craftersmine.GameEngine.System
         public static void Exit(int exitCode)
         {
             gameTicker.Stop();
+            tickrateCounter.Stop();
             Log(LogEntryType.Info, "Game exited! Exit code: " + exitCode);
             Environment.Exit(exitCode);
         }
@@ -151,6 +173,11 @@ namespace craftersmine.GameEngine.System
             return gameWnd.Tick;
         }
 
+        public static bool DrawColliderBoundings { get { return gameWnd.DrawGameObjectCollisionBoundings; } set { gameWnd.DrawGameObjectCollisionBoundings = value; } }
+        public static bool DrawTextureBoundings { get { return gameWnd.DrawGameObjectTextureBoundings; } set { gameWnd.DrawGameObjectTextureBoundings = value; } }
+        //public static bool DrawInputDebugger { get { return gameWnd.DrawInputDebug; } set { gameWnd.DrawInputDebug = value; } }
+        public static bool DrawUtilizationDebugger { get { return gameWnd.DrawUtilizationDebug; } set { gameWnd.DrawUtilizationDebug = value; } }
+
         public delegate void OnGameTickEventDelegate(object sender, EventArgs e);
         /// <summary>
         /// Calls on game tick event
@@ -181,6 +208,7 @@ namespace craftersmine.GameEngine.System
             try
             {
                 gameWnd.Tick++;
+                tickrateCounted++;
                 if (gameWnd.Tick == 10)
                     gameWnd.OnCreated();
                 else if (gameWnd.Tick > 10)
