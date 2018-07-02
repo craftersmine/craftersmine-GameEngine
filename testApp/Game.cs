@@ -16,7 +16,7 @@ namespace testApp
 {
     class Game : GameWindow
     {
-        Scene scene = new Scene() { Id = 0, DrawGameObjectCollisionBoundings = true, DrawGameObjectTextureBoundings = true };
+        Scene scene = new Scene() { Id = 0 };
         public static ContentStorage cs;
         public static ContentStorage gc1;
         GameObject[] bordersGrads;
@@ -52,7 +52,7 @@ namespace testApp
             GameApplication.Log(LogEntryType.Info, "Initializing Game...");
             //GameClient gameClient = new GameClient(this);
             //gameClient.Connect("127.0.0.1", 2000);
-            this.Controls.Add(Program.labelDebug);
+            //this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
             //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
             //Program.labelDebug.Font = cs.LoadFont("andy", 9);

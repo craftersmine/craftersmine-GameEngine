@@ -22,6 +22,9 @@ namespace testApp
             Application.SetCompatibleTextRenderingDefault(true);
             GameApplication.SetCrashHandler(new GameCrashHandler(true));
             Game gameWindow = new Game("TestGameApp", 1280, 720);
+            gameWindow.DrawGameObjectCollisionBoundings = true;
+            gameWindow.DrawGameObjectTextureBoundings = true;
+            gameWindow.DrawUtilizationDebug = true;
             labelDebug = new Label { BackColor = Color.Transparent, ForeColor = Color.Yellow, AutoSize = true };
             //labelDebug.BringToFront();
             GameApplication.Run(gameWindow);
