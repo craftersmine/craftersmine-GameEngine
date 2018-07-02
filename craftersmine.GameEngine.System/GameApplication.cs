@@ -188,12 +188,12 @@ namespace craftersmine.GameEngine.System
                     gameWnd.OnUpdate();
                     if (gameWnd.CurrentScene != null)
                     {
-                        gameWnd.CurrentScene.Draw();
+                        gameWnd.CurrentScene.OnUpdate();
                         CallGameObjectsUpdates();
                         UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
-                        gameWnd.CurrentScene.OnUpdate();
                         OnGameTickEvent?.Invoke(null, null);
+                        gameWnd.CurrentScene.Draw();
                     }
                 }
             }
@@ -214,25 +214,20 @@ namespace craftersmine.GameEngine.System
                     {
                         if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
                         {
-                            gObj.OnCollide(gObjCollision);
-                            gObj.IsCollided = true;
                             gObjCollision.OnCollide(gObj);
                             gObjCollision.IsCollided = true;
                         }
                         else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
                         {
-                            gObj.OnCollide(gObjCollision);
-                            gObj.IsCollided = true;
                             gObjCollision.OnCollide(gObj);
                             gObjCollision.IsCollided = true;
                         }
-                        else
-                        {
-                            gObj.IsCollided = false;
-                            gObjCollision.IsCollided = false;
-                        }
+                        //else
+                        //{
+                        //    gObj.IsCollided = false;
+                        //    gObjCollision.IsCollided = false;
+                        //}
                     }
-
                 }
             }
         }
