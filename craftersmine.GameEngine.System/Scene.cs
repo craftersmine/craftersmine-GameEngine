@@ -91,6 +91,7 @@ namespace craftersmine.GameEngine.System
         public void AddGameObject(GameObject gameObject)
         {
             GameObjects.Add(gameObject);
+            gameObject.OnCreate();
         }
 
         /// <summary>
@@ -99,8 +100,8 @@ namespace craftersmine.GameEngine.System
         /// <param name="gameObject"></param>
         public void RemoveGameObject(GameObject gameObject)
         {
-            gameObject.OnDestroy();
             GameObjects.Remove(gameObject);
+            gameObject.OnDestroy();
         }
         /// <summary>
         /// Sets background color of scene
