@@ -293,11 +293,11 @@ namespace craftersmine.GameEngine.System
         public void TintScene(float r, float g, float b, float transparency)
         {
             if (r > 1.0f || r < 0.0f)
-                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+                throw new ArgumentException("Color component RED must be in 0.0f to 1.0f range.", "r");
             if (g > 1.0f || g < 0.0f)
-                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+                throw new ArgumentException("Color component GREEN must be in 0.0f to 1.0f range.", "g");
             if (b > 1.0f || b < 0.0f)
-                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+                throw new ArgumentException("Color component BLUE must be in 0.0f to 1.0f range.", "b");
             int rN = (int)(r * 255);
             int gN = (int)(g * 255);
             int bN = (int)(b * 255);
