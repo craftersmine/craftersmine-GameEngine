@@ -20,6 +20,8 @@ namespace testApp
         public static ContentStorage cs;
         public static ContentStorage gc1;
         GameObject[] bordersGrads;
+        bool IsTinting = false;
+        float TintVal = 0.0f;
 
         public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
         {
@@ -159,6 +161,29 @@ namespace testApp
 
             if (obj1.IsCollided)
                 scene.RemoveGameObject(obj1);
+
+            if (GameApplication.GetGameTick() == 100)
+            {
+                IsTinting = true;
+            }
+            if (IsTinting && GameApplication.GetGameTick() < 130 && GameApplication.GetGameTick() > 100)
+            {
+                TintVal += 0.05f;
+                if (TintVal < 1.0f)
+                    scene.TintScene(Color.Black, TintVal);
+                else
+                {
+                    scene.TintScene(Color.Black, 1.0f);
+                    IsTinting = false;
+                }
+            }
+            if (!IsTinting && GameApplication.GetGameTick() > 130)
+            {
+                TintVal -= 0.05f;
+                if (TintVal > 0.0f)
+                    scene.TintScene(Color.Black, TintVal);
+                else scene.TintScene(Color.Black, 0.0f);
+            }
         }
 
         public override void OnExit()
