@@ -20,14 +20,20 @@ namespace craftersmine.GameEngine.System
     public sealed class GameApplication
     {
         private static Timer gameTicker = new Timer();
+        private static Timer gameDrawer = new Timer();
         private static GameWindow gameWnd;
         private static Timer tickrateCounter = new Timer();
         private static Logger _logger;
         private static int tickrateCounted = 0;
+        private static int framerateCounted = 0;
         private static PerformanceCounter cpuCounter;
         private static PerformanceCounter ramCounter;
 
         public static int CurrentGameTickrate { get; internal set; }
+
+        public static int CurrentGameFramerate { get; internal set; }
+
+        public static bool IsProcessActive { get; internal set; }
 
         //public static int CPUUtilization { get { return (int)cpuCounter.NextValue(); } }
         
@@ -75,10 +81,14 @@ namespace craftersmine.GameEngine.System
                 gameWnd.IsActive = true;
                 gameTicker.Tick += GameTicker_Tick;
                 tickrateCounter.Tick += TickrateCounter_Tick;
+                gameDrawer.Tick += GameDrawer_Tick;
                 gameTicker.Interval = 16;
-                tickrateCounter.Interval = 1000;
+                tickrateCounter.Interval = 1500;
+                gameDrawer.Interval = 16;
                 gameTicker.Start();
+                gameDrawer.Start();
                 tickrateCounter.Start();
+                IsProcessActive = true;
                 Application.Run(gameWnd);
             }
             catch (Exception ex)
@@ -89,10 +99,32 @@ namespace craftersmine.GameEngine.System
             }
         }
 
+        private static void GameDrawer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gameWnd.Tick > 10)
+                {
+                    if (gameWnd.CurrentScene != null)
+                    {
+                        framerateCounted++;
+                        gameWnd.CurrentScene.Draw();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                gameTicker.Stop();
+                CrashHandler?.Crash(ex);
+            }
+        }
+
         private static void TickrateCounter_Tick(object sender, EventArgs e)
         {
             CurrentGameTickrate = tickrateCounted;
             tickrateCounted = 0;
+            CurrentGameFramerate = framerateCounted;
+            framerateCounted = 0;
         }
 
         /// <summary>
@@ -129,6 +161,7 @@ namespace craftersmine.GameEngine.System
         /// <param name="exitCode">Application exit code</param>
         public static void Exit(int exitCode)
         {
+            IsProcessActive = false;
             gameTicker.Stop();
             tickrateCounter.Stop();
             Log(LogEntryType.Info, "Game exited! Exit code: " + exitCode);
@@ -178,6 +211,24 @@ namespace craftersmine.GameEngine.System
         //public static bool DrawInputDebugger { get { return gameWnd.DrawInputDebug; } set { gameWnd.DrawInputDebug = value; } }
         public static bool DrawUtilizationDebugger { get { return gameWnd.DrawUtilizationDebug; } set { gameWnd.DrawUtilizationDebug = value; } }
 
+        public static void SetGameTickTime(int tickTime)
+        {
+            if (tickTime > 0)
+            {
+                gameTicker.Interval = tickTime;
+            }
+            else throw new ArgumentException("Tick time must be more than 0", "tickTime");
+        }
+
+        public static void SetGameFrameTime(int frameTime)
+        {
+            if (frameTime > 0)
+            {
+                gameDrawer.Interval = frameTime;
+            }
+            else throw new ArgumentException("Frame time must be more than 0", "frameTime");
+        }
+
         public delegate void OnGameTickEventDelegate(object sender, EventArgs e);
         /// <summary>
         /// Calls on game tick event
@@ -221,14 +272,13 @@ namespace craftersmine.GameEngine.System
                         UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
                         OnGameTickEvent?.Invoke(null, null);
-                        gameWnd.CurrentScene.Draw();
                     }
                 }
             }
             catch (Exception ex)
             {
                 gameTicker.Stop();
-                CrashHandler.Crash(ex);
+                CrashHandler?.Crash(ex);
             }
         }
 
@@ -242,19 +292,19 @@ namespace craftersmine.GameEngine.System
                     {
                         if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
                         {
-                            gObjCollision.OnCollide(gObj);
-                            gObjCollision.IsCollided = true;
+                            gObj.OnCollide(gObj);
+                            gObj.IsCollided = true;
                         }
                         else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
                         {
                             gObjCollision.OnCollide(gObj);
                             gObjCollision.IsCollided = true;
                         }
-                        //else
-                        //{
-                        //    gObj.IsCollided = false;
-                        //    gObjCollision.IsCollided = false;
-                        //}
+                        else
+                        {
+                            gObj.IsCollided = false;
+                            gObjCollision.IsCollided = false;
+                        }
                     }
                 }
             }
