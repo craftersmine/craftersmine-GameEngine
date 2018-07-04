@@ -66,6 +66,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameConfig.cs" />
+    <Compile Include="UIObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\craftersmine.GameEngine.Content\craftersmine.GameEngine.Content.csproj">
