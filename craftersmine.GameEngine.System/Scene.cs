@@ -20,11 +20,14 @@ namespace craftersmine.GameEngine.System
     public class Scene : Panel
     {
         private Dictionary<string, AudioChannel> _audioChannels = new Dictionary<string, AudioChannel>();
-        internal List<GameObject> GameObjects = new List<GameObject>();
+        internal List<GameObject> GameObjects { get; } = new List<GameObject>();
         internal RazorPainterControl BaseCanvas { get; set; }
         private Pen texBoundingsRects = new Pen(Color.Gold);
         private Pen collBoundingsRects = new Pen(Color.Red);
         private SolidBrush dbgText = new SolidBrush(Color.MediumSpringGreen);
+
+        internal List<RectangleObject> Rectangles { get; } = new List<RectangleObject>();
+        internal List<UI.Label> Labels { get; } = new List<UI.Label>();
 
         private SolidBrush tintBrush;
         private Rectangle tinter;
@@ -302,6 +305,26 @@ namespace craftersmine.GameEngine.System
             TintScene(clr, transparency);
         }
 
+        public void AddLabel(UI.Label label)
+        {
+            Labels.Add(label);
+        }
+
+        public void RemoveLabel(UI.Label label)
+        {
+            Labels.Remove(label);
+        }
+
+        public void AddRectangle(RectangleObject rectangle)
+        {
+            Rectangles.Add(rectangle);
+        }
+
+        public void RemoveRectangle(RectangleObject rectangle)
+        {
+            Rectangles.Remove(rectangle);
+        }
+
         internal void Draw()
         {
             lock (BaseCanvas.RazorLock)
@@ -317,6 +340,27 @@ namespace craftersmine.GameEngine.System
                     if (gObj.CurrentTexture != null)
                     {
                         DrawGameObjectTexture(gObj);
+                    }
+                }
+                foreach (var rect in Rectangles)
+                {
+                    if (rect.Rect != null)
+                    {
+                        if (rect.FillColor != Color.Transparent || rect.FillColor.A > 0)
+                            BaseCanvas.RazorGFX.FillRectangle(rect.FillBrush, rect.Rect);
+                        BaseCanvas.RazorGFX.DrawRectangle(rect.BorderPen, rect.Rect);
+                    }
+                    else GameApplication.Log(Utils.LogEntryType.Warning, "GameEngine unable to draw rectangle!");
+                }
+                foreach (var label in Labels)
+                {
+                    if (label.Text != null || label.Text != "" || label.Text != string.Empty)
+                    {
+                        if (!label.Bounds.IsEmpty)
+                            if (label.LabelColor != Color.Transparent || label.LabelColor.A > 0)
+                            {
+                                BaseCanvas.RazorGFX.DrawString(label.Text, label.Font, label.LabelBrush, label.Bounds);
+                            }
                     }
                 }
                 if (tinter.Width != 0 && tinter.Height != 0)
