@@ -26,6 +26,9 @@ namespace craftersmine.GameEngine.System
         private Pen collBoundingsRects = new Pen(Color.Red);
         private SolidBrush dbgText = new SolidBrush(Color.MediumSpringGreen);
 
+        private SolidBrush tintBrush;
+        private Rectangle tinter;
+
         /// <summary>
         /// Gets scene background texture
         /// </summary>
@@ -269,6 +272,36 @@ namespace craftersmine.GameEngine.System
 
         }
 
+        public void RemoveTint()
+        {
+            tinter.Size = new Size(0, 0);
+        }
+
+        public void TintScene(Color color, float transparency)
+        {
+            if (transparency > 1.0f || transparency < 0.0f)
+                throw new ArgumentException("Transparency parameter must be in 0.0f to 1.0f range.", "transparency");
+            int aN = (int)(transparency * 255);
+            Color tClr = Color.FromArgb(aN, color);
+            tintBrush = new SolidBrush(tClr);
+            tinter = new Rectangle(0, 0, this.Width, this.Height);
+        }
+
+        public void TintScene(float r, float g, float b, float transparency)
+        {
+            if (r > 1.0f || r < 0.0f)
+                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+            if (g > 1.0f || g < 0.0f)
+                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+            if (b > 1.0f || b < 0.0f)
+                throw new ArgumentException("Color component must be in 0.0f to 1.0f range.", "r");
+            int rN = (int)(r * 255);
+            int gN = (int)(g * 255);
+            int bN = (int)(b * 255);
+            Color clr = Color.FromArgb(rN, gN, bN);
+            TintScene(clr, transparency);
+        }
+
         internal void Draw()
         {
             lock (BaseCanvas.RazorLock)
@@ -277,7 +310,6 @@ namespace craftersmine.GameEngine.System
                 BaseCanvas.RazorGFX.Clear(this.BackColor);
                 if (this.BackgroundTexture != null)
                 {
-                    //BaseCanvas.RazorGFX.DrawImage(BackgroundTexture.TextureImage, 0, 0);
                     DrawTexture(BackgroundTexture, 0, 0, this.Width, this.Height);
                 }
                 foreach (var gObj in GameObjects)
@@ -286,6 +318,10 @@ namespace craftersmine.GameEngine.System
                     {
                         DrawGameObjectTexture(gObj);
                     }
+                }
+                if (tinter.Width != 0 && tinter.Height != 0)
+                {
+                    BaseCanvas.RazorGFX.FillRectangle(tintBrush, tinter);
                 }
                 if (GameApplication.DrawUtilizationDebugger)
                 {
