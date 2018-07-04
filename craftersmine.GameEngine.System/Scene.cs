@@ -369,7 +369,7 @@ namespace craftersmine.GameEngine.System
                 }
                 if (GameApplication.DrawUtilizationDebugger)
                 {
-                    string ctor = $"Current Game Tick: {GameApplication.GetGameTick()}{Environment.NewLine}Game Tickrate: {GameApplication.CurrentGameTickrate} tps{Environment.NewLine}";
+                    string ctor = $"Current Game Tick: {GameApplication.GetGameTick()}{Environment.NewLine}Game Tickrate: {GameApplication.CurrentGameTickrate} tps{Environment.NewLine}Game Framerate: {GameApplication.CurrentGameFramerate} fps{Environment.NewLine}";
                     BaseCanvas.RazorGFX.DrawString(ctor, new Font("Segoe UI", 8.0f), dbgText, 0, 0);
                 }
                 BaseCanvas.RazorPaint();
