@@ -29,10 +29,17 @@ namespace craftersmine.GameEngine.System
         private static PerformanceCounter cpuCounter;
         private static PerformanceCounter ramCounter;
 
+        /// <summary>
+        /// Gets current game tickrate (TPS)
+        /// </summary>
         public static int CurrentGameTickrate { get; internal set; }
-
+        /// <summary>
+        /// Gets current game framerate (FPS)
+        /// </summary>
         public static int CurrentGameFramerate { get; internal set; }
-
+        /// <summary>
+        /// Gets is current game process is active
+        /// </summary>
         public static bool IsProcessActive { get; internal set; }
 
         //public static int CPUUtilization { get { return (int)cpuCounter.NextValue(); } }
@@ -206,11 +213,24 @@ namespace craftersmine.GameEngine.System
             return gameWnd.Tick;
         }
 
+        /// <summary>
+        /// Gets or sets is game objects colliders draws
+        /// </summary>
         public static bool DrawColliderBoundings { get { return gameWnd.DrawGameObjectCollisionBoundings; } set { gameWnd.DrawGameObjectCollisionBoundings = value; } }
+        /// <summary>
+        /// Gets or sets is game objects texture boundings draws
+        /// </summary>
         public static bool DrawTextureBoundings { get { return gameWnd.DrawGameObjectTextureBoundings; } set { gameWnd.DrawGameObjectTextureBoundings = value; } }
         //public static bool DrawInputDebugger { get { return gameWnd.DrawInputDebug; } set { gameWnd.DrawInputDebug = value; } }
+        /// <summary>
+        /// Gets or sets is game tick and frame rates draws
+        /// </summary>
         public static bool DrawUtilizationDebugger { get { return gameWnd.DrawUtilizationDebug; } set { gameWnd.DrawUtilizationDebug = value; } }
 
+        /// <summary>
+        /// Sets time of one game update call
+        /// </summary>
+        /// <param name="tickTime">Time of update call</param>
         public static void SetGameTickTime(int tickTime)
         {
             if (tickTime > 0)
@@ -220,6 +240,10 @@ namespace craftersmine.GameEngine.System
             else throw new ArgumentException("Tick time must be more than 0", "tickTime");
         }
 
+        /// <summary>
+        /// Sets time of one drawing frame
+        /// </summary>
+        /// <param name="frameTime">Time of frame draw</param>
         public static void SetGameFrameTime(int frameTime)
         {
             if (frameTime > 0)
@@ -229,6 +253,11 @@ namespace craftersmine.GameEngine.System
             else throw new ArgumentException("Frame time must be more than 0", "frameTime");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void OnGameTickEventDelegate(object sender, EventArgs e);
         /// <summary>
         /// Calls on game tick event
@@ -284,28 +313,40 @@ namespace craftersmine.GameEngine.System
 
         private static void UpdateCollisions()
         {
-            foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
+            if (gameWnd.CurrentScene != null)
             {
-                foreach (GameObject gObjCollision in gameWnd.CurrentScene.GameObjects)
+                try
                 {
-                    if (gObj != gObjCollision)
+                    foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
                     {
-                        if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
-                        {
-                            gObj.OnCollide(gObj);
-                            gObj.IsCollided = true;
-                        }
-                        else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
-                        {
-                            gObjCollision.OnCollide(gObj);
-                            gObjCollision.IsCollided = true;
-                        }
-                        else
-                        {
-                            gObj.IsCollided = false;
-                            gObjCollision.IsCollided = false;
-                        }
+                        //foreach (GameObject gObjCollision in gameWnd.CurrentScene.GameObjects)
+                        //{
+                        //    if (gObj != gObjCollision)
+                        //    {
+                        //        if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
+                        //        {
+                        //            gObj.OnCollide(gObj);
+                        //            gObj.IsCollided = true;
+                        //        }
+                        //        else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
+                        //        {
+                        //            gObjCollision.OnCollide(gObj);
+                        //            gObjCollision.IsCollided = true;
+                        //        }
+                        //        else
+                        //        {
+                        //            gObj.IsCollided = false;
+                        //            gObjCollision.IsCollided = false;
+                        //        }
+                        //    }
+                        //}
+                        gObj.IsCollided = false;
+                        gObj.CheckCollisions(gameWnd.CurrentScene.GameObjects);
                     }
+                }
+                catch (InvalidOperationException)
+                {
+                    //FIX: Suppressing InvalidOperationException caused by changing collection
                 }
             }
         }

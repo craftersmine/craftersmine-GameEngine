@@ -21,9 +21,18 @@ namespace craftersmine.GameEngine.System
         private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>();
         private TextureLayout textureLayout { get; set; }
 
+        /// <summary>
+        /// Gets current <see cref="GameObject"/> texture
+        /// </summary>
         public Texture CurrentTexture { get; internal set; }
 
+        /// <summary>
+        /// Gets is <see cref="GameObject"/> tiled texture cached in memory
+        /// </summary>
         public bool IsTiledTextureCached { get; internal set; }
+        /// <summary>
+        /// Gets current cached tiled texture from memory
+        /// </summary>
         public Texture TiledTextureCache { get; internal set; }
 
         /// <summary>
@@ -61,13 +70,13 @@ namespace craftersmine.GameEngine.System
         internal int ColliderHeight { get; set; }
 
         /// <summary>
-        /// <code>true</code> if object collided with other object, else <code>false</code>
+        /// Gets <code>true</code> if object collided with other object, else <code>false</code>
         /// </summary>
-        public bool IsCollided { get; set; }
+        public bool IsCollided { get; internal set; }
         /// <summary>
-        /// <code>true</code> if mouse clicked on this object, else <code>false</code>
+        /// Gets <code>true</code> if mouse clicked on this object, else <code>false</code>
         /// </summary>
-        public bool IsClicked { get; set; }
+        public bool IsClicked { get; internal set; }
         /// <summary>
         /// Sets or gets a value indicating whether the collision event should be handled with another object 
         /// </summary>
@@ -87,6 +96,11 @@ namespace craftersmine.GameEngine.System
         /// Game object collision bounding box
         /// </summary>
         public Rectangle BoundingBox { get; set; }
+
+        /// <summary>
+        /// Gets is mouse pointer in <see cref="GameObject"/> collision bounding box
+        /// </summary>
+        public bool IsMouseOnObject { get; internal set; }
 
         /// <summary>
         /// Creates new <see cref="GameObject"/> instance
@@ -240,7 +254,7 @@ namespace craftersmine.GameEngine.System
 
         }
         /// <summary>
-        /// Calls at click on object
+        /// Calls at click on object collision bounding box
         /// </summary>
         /// <param name="mouseButtons">Clicked mouse button</param>
         /// <param name="xPos">Position of mouse click in global X axis</param>
@@ -258,7 +272,7 @@ namespace craftersmine.GameEngine.System
 
         }
         /// <summary>
-        /// Calls while mouse moved in object bounding box
+        /// Calls while mouse moved in object collision bounding box
         /// </summary>
         /// <param name="xPos">Position of mouse in global X axis</param>
         /// <param name="yPos">Position of mouse in global Y axis</param>
@@ -273,6 +287,10 @@ namespace craftersmine.GameEngine.System
         public virtual void OnUpdate()
         {
 
+        }
+        /// <summary>
+        /// Calls at mouse pointer is in object collision bounding box
+        /// </summary>
         }
         
         internal void InternalUpdate()

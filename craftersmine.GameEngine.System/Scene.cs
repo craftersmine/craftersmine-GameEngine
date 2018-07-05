@@ -275,11 +275,19 @@ namespace craftersmine.GameEngine.System
 
         }
 
+        /// <summary>
+        /// Removes tint from scene
+        /// </summary>
         public void RemoveTint()
         {
             tinter.Size = new Size(0, 0);
         }
 
+        /// <summary>
+        /// Adds tint of scene with specified color and transparency value
+        /// </summary>
+        /// <param name="color">Tint color</param>
+        /// <param name="transparency">Tint transparency value</param>
         public void TintScene(Color color, float transparency)
         {
             if (transparency > 1.0f || transparency < 0.0f)
@@ -290,6 +298,13 @@ namespace craftersmine.GameEngine.System
             tinter = new Rectangle(0, 0, this.Width, this.Height);
         }
 
+        /// <summary>
+        /// Adds tint of scene with specified color RGB components and transparency value
+        /// </summary>
+        /// <param name="r">Tint Red color component</param>
+        /// <param name="g">Tint Green color component</param>
+        /// <param name="b">Tint Blue color component</param>
+        /// <param name="transparency">Tint transparency value</param>
         public void TintScene(float r, float g, float b, float transparency)
         {
             if (r > 1.0f || r < 0.0f)
@@ -305,24 +320,42 @@ namespace craftersmine.GameEngine.System
             TintScene(clr, transparency);
         }
 
+        /// <summary>
+        /// Adds label object at scene
+        /// </summary>
+        /// <param name="label">Label to add</param>
         public void AddLabel(UI.Label label)
         {
             Labels.Add(label);
         }
 
+        /// <summary>
+        /// Removes label from scene
+        /// </summary>
+        /// <param name="label">Label to remove</param>
         public void RemoveLabel(UI.Label label)
         {
-            Labels.Remove(label);
+            if (Labels.Contains(label))
+                Labels.Remove(label);
         }
 
+        /// <summary>
+        /// Adds rectangle object at scene
+        /// </summary>
+        /// <param name="rectangle">Rectangle object</param>
         public void AddRectangle(RectangleObject rectangle)
         {
             Rectangles.Add(rectangle);
         }
 
+        /// <summary>
+        /// Removes rectangle object from scene
+        /// </summary>
+        /// <param name="rectangle">Rectangle object</param>
         public void RemoveRectangle(RectangleObject rectangle)
         {
-            Rectangles.Remove(rectangle);
+            if (Rectangles.Contains(rectangle))
+                Rectangles.Remove(rectangle);
         }
 
         internal void Draw()
