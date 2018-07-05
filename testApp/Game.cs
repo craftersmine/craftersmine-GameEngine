@@ -235,8 +235,6 @@ namespace testApp
         {
             GameApplication.Log(LogEntryType.Info, "Mouse button up event called!");
         }
-
-        public override void 
     }
 
     public class Obj2 : GameObject
