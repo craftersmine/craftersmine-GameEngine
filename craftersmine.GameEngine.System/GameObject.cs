@@ -291,6 +291,9 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Calls at mouse pointer is in object collision bounding box
         /// </summary>
+        public virtual void OnMouseLeave()
+        {
+
         }
         
         internal void InternalUpdate()

@@ -66,7 +66,15 @@ namespace craftersmine.GameEngine.System
             foreach (var gObj in GameObjects)
             {
                 if (clickPoint.IntersectsWith(gObj.BoundingBox))
+                {
                     gObj.OnMouseMove(e.X, e.Y, e.Button);
+                    gObj.IsMouseOnObject = true;
+                }
+                else
+                {
+                    if (gObj.IsMouseOnObject)
+                        gObj.OnMouseLeave();
+                }
             }
         }
 
