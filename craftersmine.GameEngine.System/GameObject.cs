@@ -309,5 +309,20 @@ namespace craftersmine.GameEngine.System
                 this.CurrentTexture = new Texture(ObjectAnimation.GetFrame(ObjectAnimation.CurrentFrame), TextureLayout.Stretch);
             }
         }
+
+        internal void CheckCollisions(List<GameObject> gameObjects)
+        {
+            foreach (GameObject gObj in gameObjects)
+            {
+                if (this != gObj)
+                {
+                    if (this.BoundingBox.IntersectsWith(gObj.BoundingBox))
+                    {
+                        this.IsCollided = true;
+                        this.OnCollide(gObj);
+                    }
+                }
+            }
+        }
     }
 }
