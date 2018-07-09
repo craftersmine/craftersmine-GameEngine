@@ -315,38 +315,13 @@ namespace craftersmine.GameEngine.System
         {
             if (gameWnd.CurrentScene != null)
             {
-                try
+                for (int i = 0; i < gameWnd.CurrentScene.GameObjects.Count; i++)
                 {
-                    foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
+                    if (gameWnd.CurrentScene.GameObjects[i].IsCollidable)
                     {
-                        //foreach (GameObject gObjCollision in gameWnd.CurrentScene.GameObjects)
-                        //{
-                        //    if (gObj != gObjCollision)
-                        //    {
-                        //        if (gObj.BoundingBox.IntersectsWith(gObjCollision.BoundingBox) && gObj.IsCollidable)
-                        //        {
-                        //            gObj.OnCollide(gObj);
-                        //            gObj.IsCollided = true;
-                        //        }
-                        //        else if (gObjCollision.BoundingBox.IntersectsWith(gObj.BoundingBox) && gObjCollision.IsCollidable)
-                        //        {
-                        //            gObjCollision.OnCollide(gObj);
-                        //            gObjCollision.IsCollided = true;
-                        //        }
-                        //        else
-                        //        {
-                        //            gObj.IsCollided = false;
-                        //            gObjCollision.IsCollided = false;
-                        //        }
-                        //    }
-                        //}
-                        gObj.IsCollided = false;
-                        gObj.CheckCollisions(gameWnd.CurrentScene.GameObjects);
+                        gameWnd.CurrentScene.GameObjects[i].IsCollided = false;
+                        gameWnd.CurrentScene.GameObjects[i].CheckCollisions(gameWnd.CurrentScene.GameObjects);
                     }
-                }
-                catch (InvalidOperationException)
-                {
-                    //FIX: Suppressing InvalidOperationException caused by changing collection
                 }
             }
         }
