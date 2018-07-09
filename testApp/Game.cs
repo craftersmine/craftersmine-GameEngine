@@ -202,7 +202,6 @@ namespace testApp
         public Obj1()
         {
             this.InternalName = "obj1";
-            this.BackColor = Color.Transparent;
             this.Height = 48;
             this.Width = 48;
             this.X = 100;
@@ -236,7 +235,10 @@ namespace testApp
             GameApplication.Log(LogEntryType.Info, "Mouse button up event called!");
         }
 
-        public override void 
+        public override void OnMouseLeave()
+        {
+            base.OnMouseLeave();
+        }
     }
 
     public class Obj2 : GameObject
@@ -244,7 +246,6 @@ namespace testApp
         public Obj2()
         {
             this.InternalName = "obj2";
-            this.BackColor = Color.Transparent;
             this.Height = 32;
             this.Width = 32;
             this.X = 200;
