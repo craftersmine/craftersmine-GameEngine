@@ -15,7 +15,7 @@ namespace craftersmine.GameEngine.System
     /// <summary>
     /// Main part of game. Represents an entity, item or other object in game.
     /// </summary>
-    public class GameObject : Control
+    public class GameObject
     {
         private Dictionary<string, Texture> _textures = new Dictionary<string, Texture>();
         private Dictionary<string, Animation> _animations = new Dictionary<string, Animation>();
@@ -43,26 +43,33 @@ namespace craftersmine.GameEngine.System
         /// Internal game object name
         /// </summary>
         public string InternalName { get; set; }
+
+        private int xCoord = 0;
+        private int yCoord = 0;
+
         /// <summary>
         /// Position of object by X axis
         /// </summary>
-        public int X { get { return Location.X; }
+        public int X { get { return xCoord; }
             set
             {
+                xCoord = value;
                 UpdateCollider();
-                Location = new Point(value, this.Y);
             }
         }
         /// <summary>
         /// Position of object by Y axis. REMARK: Y axis is inverted! To move object down, you need to add value instead subtract
         /// </summary>
-        public int Y { get { return Location.Y; }
+        public int Y { get { return yCoord; }
             set
             {
+                yCoord = value;
                 UpdateCollider();
-                Location = new Point(this.X, value);
             }
         }
+
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         internal int ColliderOffsetX { get; set; }
         internal int ColliderOffsetY { get; set; }
@@ -107,9 +114,7 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public GameObject()
         {
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
             IsCollidable = true;
-            this.DoubleBuffered = true;
         }
 
         /// <summary>
@@ -315,14 +320,14 @@ namespace craftersmine.GameEngine.System
 
         internal void CheckCollisions(List<GameObject> gameObjects)
         {
-            foreach (GameObject gObj in gameObjects)
+            for (int i = 0; i < gameObjects.Count; i++)
             {
-                if (this != gObj)
+                if (this != gameObjects[i])
                 {
-                    if (this.BoundingBox.IntersectsWith(gObj.BoundingBox))
+                    if (this.BoundingBox.IntersectsWith(gameObjects[i].BoundingBox))
                     {
                         this.IsCollided = true;
-                        this.OnCollide(gObj);
+                        this.OnCollide(gameObjects[i]);
                     }
                 }
             }
