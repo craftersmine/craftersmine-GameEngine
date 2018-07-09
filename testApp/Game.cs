@@ -234,14 +234,11 @@ namespace testApp
         {
             GameApplication.Log(LogEntryType.Info, "Mouse button up event called!");
         }
-<<<<<<< HEAD
 
         public override void OnMouseLeave()
         {
             base.OnMouseLeave();
         }
-=======
->>>>>>> 0e3e596b640ada89c399ea78bed76f5c92ffb495
     }
 
     public class Obj2 : GameObject
