@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E398B96-DA55-4D42-9EF4-484BF4F8CBD0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>craftersmine.GDK</RootNamespace>
+    <AssemblyName>craftersmine.GameEngine.GDK</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="craftersmine.Packager.Lib">
+      <HintPath>..\libs\craftersmine.Packager.Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\craftersmine.GameEngine.Content\craftersmine.GameEngine.Content.csproj">
+      <Project>{45e14932-e679-4cf6-9408-73f610bffebe}</Project>
+      <Name>craftersmine.GameEngine.Content</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Input\craftersmine.GameEngine.Input.csproj">
+      <Project>{543eaf2f-ba62-4b8b-bacc-3003b71dfc43}</Project>
+      <Name>craftersmine.GameEngine.Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Network\craftersmine.GameEngine.Network.csproj">
+      <Project>{637af39a-f790-4972-9b91-847201da4e26}</Project>
+      <Name>craftersmine.GameEngine.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Objects\craftersmine.GameEngine.Objects.csproj">
+      <Project>{e4b18ede-536b-4449-aeeb-9546235a86d0}</Project>
+      <Name>craftersmine.GameEngine.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.System\craftersmine.GameEngine.System.csproj">
+      <Project>{02380c18-d3ec-4759-a4b9-bceed9904721}</Project>
+      <Name>craftersmine.GameEngine.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Utils\craftersmine.GameEngine.Utils.csproj">
+      <Project>{3a2a3f01-1741-4b4b-8252-446f20a57c52}</Project>
+      <Name>craftersmine.GameEngine.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
