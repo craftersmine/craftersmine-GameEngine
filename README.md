@@ -11,3 +11,11 @@ Current features:
 - Animated objects
 - Multi-scened
 - Lightweight
+
+Used libraries:
+
+* This Engine uses [NAudio](https://github.com/naudio/NAudio) by Mark Heath and licensed under "Microsoft Public License"
+
+* This Engine uses [RazorGDI Control](https://github.com/hepper/RazorGDI) by Lincoln6Echo and licensed under "MIT License"
+
+* This Engine uses [XInput Wrapper](https://github.com/nikvoronin/XInput.Wrapper) by Nikolai Voronin (nikvoronin) and licensed under "MIT License"
