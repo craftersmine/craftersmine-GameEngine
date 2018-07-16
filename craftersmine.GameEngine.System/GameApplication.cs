@@ -21,6 +21,7 @@ namespace craftersmine.GameEngine.System
     {
         private static Timer gameTicker = new Timer();
         private static Timer gameDrawer = new Timer();
+        private static Timer gameCollisionUpdater = new Timer();
         private static GameWindow gameWnd;
         private static Timer tickrateCounter = new Timer();
         private static Logger _logger;
@@ -89,10 +90,13 @@ namespace craftersmine.GameEngine.System
                 gameTicker.Tick += GameTicker_Tick;
                 tickrateCounter.Tick += TickrateCounter_Tick;
                 gameDrawer.Tick += GameDrawer_Tick;
+                gameCollisionUpdater.Tick += GameCollisionUpdater_Tick;
                 gameTicker.Interval = 16;
                 tickrateCounter.Interval = 1500;
                 gameDrawer.Interval = 16;
+                gameCollisionUpdater.Interval = 16;
                 gameTicker.Start();
+                gameCollisionUpdater.Start();
                 gameDrawer.Start();
                 tickrateCounter.Start();
                 IsProcessActive = true;
@@ -103,6 +107,21 @@ namespace craftersmine.GameEngine.System
                 if (CrashHandler != null)
                     CrashHandler.Crash(ex);
                 else throw ex;
+            }
+        }
+
+        private static void GameCollisionUpdater_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (gameWnd.Tick > 10)
+                    if (gameWnd.CurrentScene != null)
+                        UpdateCollisions();
+            }
+            catch (Exception ex)
+            {
+                gameCollisionUpdater.Stop();
+                CrashHandler?.Crash(ex);
             }
         }
 
@@ -121,7 +140,7 @@ namespace craftersmine.GameEngine.System
             }
             catch (Exception ex)
             {
-                gameTicker.Stop();
+                gameDrawer.Stop();
                 CrashHandler?.Crash(ex);
             }
         }
@@ -170,6 +189,8 @@ namespace craftersmine.GameEngine.System
         {
             IsProcessActive = false;
             gameTicker.Stop();
+            gameDrawer.Stop();
+            gameCollisionUpdater.Stop();
             tickrateCounter.Stop();
             Log(LogEntryType.Info, "Game exited! Exit code: " + exitCode);
             Environment.Exit(exitCode);
@@ -236,6 +257,7 @@ namespace craftersmine.GameEngine.System
             if (tickTime > 0)
             {
                 gameTicker.Interval = tickTime;
+                gameCollisionUpdater.Interval = tickTime; 
             }
             else throw new ArgumentException("Tick time must be more than 0", "tickTime");
         }
@@ -298,7 +320,6 @@ namespace craftersmine.GameEngine.System
                     {
                         gameWnd.CurrentScene.OnUpdate();
                         CallGameObjectsUpdates();
-                        UpdateCollisions();
                         GameWindowBridge.CurrentTick = gameWnd.Tick;
                         OnGameTickEvent?.Invoke(null, null);
                     }
