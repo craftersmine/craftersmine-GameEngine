@@ -132,7 +132,7 @@ namespace craftersmine.GameEngine.Network
                     case "INITIALIZEHANDSHAKE":
                         OnInitializeHandshake?.Invoke(this, null);
                         break;
-                    case "REQOBJECTSIDSRESPONCE":
+                    case "REQOBJECTSIDSRESPONSE":
                         if (_gameWindow.CurrentScene != null)
                         {
                             string[] objectData = packetContents.Split('=');
