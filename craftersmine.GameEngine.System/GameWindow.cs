@@ -14,9 +14,6 @@ namespace craftersmine.GameEngine.System
     /// </summary>
     public class GameWindow : Form
     {
-        private bool drawIDbg;
-        private bool drawGObjColl;
-
         /// <summary>
         /// Current game tick
         /// </summary>

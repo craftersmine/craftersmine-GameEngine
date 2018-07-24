@@ -25,8 +25,6 @@ namespace craftersmine.GameEngine.System
         private static GameWindow gameWnd;
         private static Timer tickrateCounter = new Timer();
         private static Logger _logger;
-        private static int tickrateCounted = 0;
-        private static int framerateCounted = 0;
         private static int tickLast = 0;
         private static int frameLast = 0;
         private static int collUpdateLast = 0;
