@@ -52,6 +52,8 @@ namespace craftersmine.GameEngine.System
 
         public bool DrawUtilizationDebug { get; set; }
 
+        public int Frame { get; internal set; }
+
         /// <summary>
         /// Creates a new instance of <see cref="GameWindow"/>
         /// </summary>
