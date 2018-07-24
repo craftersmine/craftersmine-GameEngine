@@ -1,5 +1,7 @@
 # craftersmine GameEngine
 
+![Logo](https://github.com/craftersmine/craftersmine-GameEngine/raw/master/logo.png)
+
 Makes simple game development more simplest
 
 Jenkins CI Build Status:
