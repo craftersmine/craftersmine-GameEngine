@@ -27,6 +27,8 @@ namespace craftersmine.GameEngine.System
         private static Logger _logger;
         private static int tickrateCounted = 0;
         private static int framerateCounted = 0;
+        private static int tickLast = 0;
+        private static int frameLast = 0;
         private static int collUpdateLast = 0;
         private static PerformanceCounter cpuCounter;
         private static PerformanceCounter ramCounter;
@@ -134,11 +136,11 @@ namespace craftersmine.GameEngine.System
         {
             try
             {
+                gameWnd.Frame++;
                 if (gameWnd.Tick > 10)
                 {
                     if (gameWnd.CurrentScene != null)
                     {
-                        framerateCounted++;
                         gameWnd.CurrentScene.Draw();
                     }
                 }
@@ -152,12 +154,12 @@ namespace craftersmine.GameEngine.System
 
         private static void TickrateCounter_Tick(object sender, EventArgs e)
         {
-            CurrentGameTickrate = tickrateCounted;
-            tickrateCounted = 0;
-            CurrentGameFramerate = framerateCounted;
-            framerateCounted = 0;
+            CurrentGameTickrate = GetGameTick() - tickLast;
+            CurrentGameFramerate = GetFrameNumber() - frameLast;
             CurrentGameCollisionUpdateRate = GetCollisionUpdateTick() - collUpdateLast;
             collUpdateLast = GetCollisionUpdateTick();
+            frameLast = GetFrameNumber();
+            tickLast = GetGameTick();
         }
 
         /// <summary>
@@ -245,6 +247,12 @@ namespace craftersmine.GameEngine.System
         {
             return gameWnd.CollisionUpdate;
         }
+
+        public static int GetFrameNumber()
+        {
+            return gameWnd.Frame;
+        }
+
         /// <summary>
         /// Gets or sets is game objects colliders draws
         /// </summary>
@@ -321,7 +329,6 @@ namespace craftersmine.GameEngine.System
             try
             {
                 gameWnd.Tick++;
-                tickrateCounted++;
                 if (gameWnd.Tick == 10)
                     gameWnd.OnCreated();
                 else if (gameWnd.Tick > 10)
