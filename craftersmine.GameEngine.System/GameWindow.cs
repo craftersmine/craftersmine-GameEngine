@@ -54,6 +54,8 @@ namespace craftersmine.GameEngine.System
 
         public int Frame { get; internal set; }
 
+        public int CollisionUpdate { get; internal set; }
+
         /// <summary>
         /// Creates a new instance of <see cref="GameWindow"/>
         /// </summary>
