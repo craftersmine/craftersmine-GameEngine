@@ -27,6 +27,7 @@ namespace craftersmine.GameEngine.System
         private static Logger _logger;
         private static int tickrateCounted = 0;
         private static int framerateCounted = 0;
+        private static int collUpdateLast = 0;
         private static PerformanceCounter cpuCounter;
         private static PerformanceCounter ramCounter;
 
@@ -38,6 +39,10 @@ namespace craftersmine.GameEngine.System
         /// Gets current game framerate (FPS)
         /// </summary>
         public static int CurrentGameFramerate { get; internal set; }
+        /// <summary>
+        /// Gets current game collisions updates rate (UPS)
+        /// </summary>
+        public static int CurrentGameCollisionUpdateRate { get; internal set; }
         /// <summary>
         /// Gets is current game process is active
         /// </summary>
@@ -151,6 +156,8 @@ namespace craftersmine.GameEngine.System
             tickrateCounted = 0;
             CurrentGameFramerate = framerateCounted;
             framerateCounted = 0;
+            CurrentGameCollisionUpdateRate = GetCollisionUpdateTick() - collUpdateLast;
+            collUpdateLast = GetCollisionUpdateTick();
         }
 
         /// <summary>
@@ -234,6 +241,10 @@ namespace craftersmine.GameEngine.System
             return gameWnd.Tick;
         }
 
+        public static int GetCollisionUpdateTick()
+        {
+            return gameWnd.CollisionUpdate;
+        }
         /// <summary>
         /// Gets or sets is game objects colliders draws
         /// </summary>
@@ -334,6 +345,7 @@ namespace craftersmine.GameEngine.System
 
         private static void UpdateCollisions()
         {
+            gameWnd.CollisionUpdate++;
             if (gameWnd.CurrentScene != null)
             {
                 for (int i = 0; i < gameWnd.CurrentScene.GameObjects.Count; i++)
