@@ -8,8 +8,14 @@ using craftersmine.GameEngine.System;
 
 namespace craftersmine.GameEngine.Objects
 {
+    /// <summary>
+    /// Represents particle emitter
+    /// </summary>
     public class ParticleEmitter : GameObject
     {
+        /// <summary>
+        /// Creates new instance of <see cref="ParticleEmitter"/>
+        /// </summary>
         public ParticleEmitter()
         {
 

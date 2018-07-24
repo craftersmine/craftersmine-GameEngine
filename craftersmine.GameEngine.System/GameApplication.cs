@@ -241,11 +241,19 @@ namespace craftersmine.GameEngine.System
             return gameWnd.Tick;
         }
 
+        /// <summary>
+        /// Gets current collision update tick
+        /// </summary>
+        /// <returns><see cref="int"/> value of current tick</returns>
         public static int GetCollisionUpdateTick()
         {
             return gameWnd.CollisionUpdate;
         }
 
+        /// <summary>
+        /// Gets current drawed frame number
+        /// </summary>
+        /// <returns><see cref="int"/> value of current tick</returns>
         public static int GetFrameNumber()
         {
             return gameWnd.Frame;

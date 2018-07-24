@@ -10,11 +10,22 @@ using System.IO;
 
 namespace craftersmine.GameEngine.Network
 {
+    /// <summary>
+    /// Represents game network server. This class cannot be inherited
+    /// </summary>
     public sealed class GameServer
     {
         private WebSocketServer server;
+        /// <summary>
+        /// Gets current server logger
+        /// </summary>
         public static Utils.Logger Logger { get; internal set; }
 
+        /// <summary>
+        /// Creates new instance of game server
+        /// </summary>
+        /// <param name="boundAddress">Server bound address</param>
+        /// <param name="port">Server bound port</param>
         public GameServer(string boundAddress, int port)
         {
             Logger = new Utils.Logger(Path.Combine(Environment.CurrentDirectory, "logs"), "serverLog");
@@ -63,12 +74,20 @@ namespace craftersmine.GameEngine.Network
             server.AddWebSocketService<GameServerBehaviour>("/");
         }
 
+        /// <summary>
+        /// Starts server on bound address and port
+        /// </summary>
         public void StartServer()
         {
             Logger.Log(Utils.LogEntryType.Info, "Starting game server at " + server.Address.ToString() + ":" + server.Port);
             server.Start();
         }
 
+        /// <summary>
+        /// Stops currently running server
+        /// </summary>
+        /// <param name="closeStatusCode">Close status code</param>
+        /// <param name="closeReason">Close reason</param>
         public void StopServer(CloseStatusCode closeStatusCode, string closeReason)
         {
             Logger.Log(Utils.LogEntryType.Info, "Stopping server...");

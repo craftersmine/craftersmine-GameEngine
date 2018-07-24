@@ -19,38 +19,52 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public int Tick { get; internal set; }
         /// <summary>
-        /// Window title
+        /// Gets or sets window title
         /// </summary>
         public string Title { get { return this.Text; } set { this.Text = value; } }
         /// <summary>
-        /// <code>true</code> if application and game running, else <code>false</code>
+        /// Gets or sets <code>true</code> if application and game running, else <code>false</code>
         /// </summary>
         public bool IsActive { get; set; }
         /// <summary>
-        /// Height of window
+        /// Gets height of window
         /// </summary>
         public new int Height { get { return this.ClientSize.Height; } }
         /// <summary>
-        /// Width of window
+        /// Gets width of window
         /// </summary>
         public new int Width { get { return this.ClientSize.Width; } }
         /// <summary>
-        /// Current showing scene
+        /// Gets current showing scene
         /// </summary>
         public Scene CurrentScene { get; internal set; }
 
+        /// <summary>
+        /// Gets current texture interpolation mode
+        /// </summary>
         public InterpolationMode TextureInterpolation { get; internal set; }
         
+        /// <summary>
+        /// Gets or sets is game objects texture boundings is draws
+        /// </summary>
         public bool DrawGameObjectTextureBoundings { get; set; }
 
+        /// <summary>
+        /// Gets or sets is game objects collision boundings is draws
+        /// </summary>
         public bool DrawGameObjectCollisionBoundings { get; set; }
-
-        //public bool DrawInputDebug { get; set; }
-
+        
+        /// <summary>
+        /// Gets or sets is FPS/TPS/UPS counters is draws
+        /// </summary>
         public bool DrawUtilizationDebug { get; set; }
-
+        /// <summary>
+        /// Gets count of drawed frames
+        /// </summary>
         public int Frame { get; internal set; }
-
+        /// <summary>
+        /// Gets count of performed collision updates
+        /// </summary>
         public int CollisionUpdate { get; internal set; }
 
         /// <summary>
@@ -116,6 +130,10 @@ namespace craftersmine.GameEngine.System
             CurrentScene = scenes[id];
         }
 
+        /// <summary>
+        /// Sets texture interpolation mode
+        /// </summary>
+        /// <param name="mode">Texture interpolation mode</param>
         public void SetTextureInterpolationMode(InterpolationMode mode)
         {
             TextureInterpolation = mode;

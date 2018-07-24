@@ -36,11 +36,11 @@ namespace craftersmine.GameEngine.System
         public Texture TiledTextureCache { get; internal set; }
 
         /// <summary>
-        /// Game object identifier
+        /// Gets or sets game object identifier
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// Internal game object name
+        /// Gets or sets internal game object name
         /// </summary>
         public string InternalName { get; set; }
 
@@ -48,7 +48,7 @@ namespace craftersmine.GameEngine.System
         private int yCoord = 0;
 
         /// <summary>
-        /// Position of object by X axis
+        /// Gets or sets position of object by X axis
         /// </summary>
         public int X { get { return xCoord; }
             set
@@ -58,7 +58,7 @@ namespace craftersmine.GameEngine.System
             }
         }
         /// <summary>
-        /// Position of object by Y axis. REMARK: Y axis is inverted! To move object down, you need to add value instead subtract
+        /// Gets or sets position of object by Y axis. REMARK: Y axis is inverted! To move object down, you need to add value instead subtract
         /// </summary>
         public int Y { get { return yCoord; }
             set
@@ -68,7 +68,13 @@ namespace craftersmine.GameEngine.System
             }
         }
 
+        /// <summary>
+        /// Gets or sets width of game object
+        /// </summary>
         public int Width { get; set; }
+        /// <summary>
+        /// Gets or sets height of game object
+        /// </summary>
         public int Height { get; set; }
 
         internal int ColliderOffsetX { get; set; }
@@ -129,7 +135,7 @@ namespace craftersmine.GameEngine.System
             this.textureLayout = texture.TextureLayout;
         }
         /// <summary>
-        /// Applies <see cref="Texture"/> from object texture storage to this object at foreground layer if <paramref name="isBackground"/> false, else at background
+        /// Applies <see cref="Texture"/> from object texture storage to this object
         /// </summary>
         /// <param name="name"><see cref="Texture"/> name</param>
         public void ApplyAddedTexture(string name)

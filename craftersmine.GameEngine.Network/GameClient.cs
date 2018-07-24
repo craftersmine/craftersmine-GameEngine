@@ -8,19 +8,36 @@ using WebSocketSharp;
 
 namespace craftersmine.GameEngine.Network
 {
+    /// <summary>
+    /// Represents game network client. This class cannot be inherited
+    /// </summary>
     public sealed class GameClient
     {
         private WebSocket client;
         private GameWindow _gameWindow;
 
+        /// <summary>
+        /// Creates new network game client instance
+        /// </summary>
+        /// <param name="gameWindow"></param>
         public GameClient(GameWindow gameWindow)
         {
             _gameWindow = gameWindow;
         }
-
+        /// <summary>
+        /// Gets current connected server address
+        /// </summary>
         public string ServerAddress { get; internal set; }
+        /// <summary>
+        /// Gets current connected server port
+        /// </summary>
         public int ServerPort { get; internal set; }
 
+        /// <summary>
+        /// Connects client to server
+        /// </summary>
+        /// <param name="address">Server address</param>
+        /// <param name="port">Server port</param>
         public void Connect(string address, int port)
         {
             GameApplication.Log(Utils.LogEntryType.Connection, "Connecting to " + address + ":" + port + "...");
@@ -99,12 +116,18 @@ namespace craftersmine.GameEngine.Network
             string packetCtor = "$CGENG#PACKET:" + packetData + ":PACKETEND";
             client.SendAsync(packetCtor, new Action<bool>((s) => { }));
         }
-
+        /// <summary>
+        /// Sends packet to server
+        /// </summary>
+        /// <param name="packetData"></param>
         public void SendPacket(string packetData)
         {
             SendEnginePacket("USERPACKET@" + packetData);
         }
 
+        /// <summary>
+        /// Requests network objects from server and assignes it to client game objects
+        /// </summary>
         public void RequestObjectsIds()
         {
             if (_gameWindow.CurrentScene != null)
@@ -149,7 +172,15 @@ namespace craftersmine.GameEngine.Network
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void OnInitializeHandshakeEventDelegate(object sender, EventArgs e);
+        /// <summary>
+        /// Calls at handshake initialization with server
+        /// </summary>
         public static event OnInitializeHandshakeEventDelegate OnInitializeHandshake;
 
         private void Client_OnError(object sender, ErrorEventArgs e)

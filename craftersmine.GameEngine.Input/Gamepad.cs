@@ -576,8 +576,14 @@ namespace craftersmine.GameEngine.Input
             }
         }
 
+        /// <summary>
+        /// Max thumbstick value
+        /// </summary>
         public const float ThumbstickMaxValue = 32767.0f;
         //public const int ThumbstickMinValue = -32767;
+        /// <summary>
+        /// Max trigger value
+        /// </summary>
         public const float TriggerMaxValue = 255.0f;
         //public const int TriggerMinValue = -255;
 
@@ -702,6 +708,9 @@ namespace craftersmine.GameEngine.Input
         Fourth
     }
 
+    /// <summary>
+    /// Gamepad thumbstick or trigger to apply deadzone
+    /// </summary>
     public enum DeadZoneControl
     {
         /// <summary>

@@ -8,14 +8,28 @@ using System.IO;
 
 namespace craftersmine.GameEngine.Network
 {
+    /// <summary>
+    /// Represents web request helper. This class cannot be inherited
+    /// </summary>
     public sealed class WebRequestHelper
     {
+        /// <summary>
+        /// Makes GET request at specified URL
+        /// </summary>
+        /// <param name="url">URL with GET request</param>
+        /// <returns></returns>
         public static string MakeGetRequest(string url)
         {
             WebClient webClient = new WebClient();
             return webClient.DownloadString(url);
         }
 
+        /// <summary>
+        /// Makes POST request at specified URL
+        /// </summary>
+        /// <param name="url">URL for post request</param>
+        /// <param name="data">Data for request</param>
+        /// <returns></returns>
         public static string MakePostRequest(string url, string data)
         {
             WebRequest req = WebRequest.Create(url);

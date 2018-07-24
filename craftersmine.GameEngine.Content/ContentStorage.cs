@@ -42,6 +42,7 @@ namespace craftersmine.GameEngine.Content
         /// Loads <see cref="Texture"/> from package
         /// </summary>
         /// <param name="name">Name of <see cref="Texture"/></param>
+        /// <param name="textureLayout">Layout of texture</param>
         /// <returns><see cref="Texture"/></returns>
         public Texture LoadTexture(string name, TextureLayout textureLayout)
         {
@@ -144,13 +145,22 @@ namespace craftersmine.GameEngine.Content
                 throw new ContentLoadException("Unable to load \"" + name + "\" audio from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void ContentStorageCreatedEventDelegate(object sender, EventArgs e);
         /// <summary>
         /// Calls at <see cref="ContentStorage"/> was created
         /// </summary>
         public event ContentStorageCreatedEventDelegate ContentStorageCreated;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void ContentLoadingEventDelegate(object sender, ContentLoadingEventArgs e);
         /// <summary>
         /// Calls at loading any content from this <see cref="ContentStorage"/>

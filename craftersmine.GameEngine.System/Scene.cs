@@ -42,6 +42,9 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Gets current texture interpolation mode
+        /// </summary>
         public InterpolationMode TextureInterpolationMode { get; internal set; }
 
         /// <summary>
