@@ -116,7 +116,7 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
 
         private void Packer_PackingEvent(object sender, PackingEventArgs e)
         {
-            int percentage = (int)((e.TotalAllBytes / 100.0d) / e.CurrentFileByte);
+            int percentage = e.PackingPercentage;
             //UpdateProgress2(percentage);
         }
 
