@@ -130,6 +130,9 @@ namespace testApp
             obj2.X += (int)(obj2.InitialSpeed * sticks.RightStickAxisX);
             obj2.Y += (int)(obj2.InitialSpeed * sticks.RightStickAxisY * -1);
 
+            if (buttons.Back)
+                GameApplication.Exit(0);
+
             Keys mod = Keyboard.GetKeyModifiers();
 
             if (Keyboard.IsKeyDown(Keys.W))
