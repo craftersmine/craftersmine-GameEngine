@@ -68,6 +68,27 @@ namespace craftersmine.GameEngine.System
         public int CollisionUpdate { get; internal set; }
 
         /// <summary>
+        /// Gets or sets is game window frame is disabled
+        /// </summary>
+        public bool IsWindowFrameDisabled
+        {
+            get
+            {
+                if (FormBorderStyle == FormBorderStyle.FixedSingle)
+                    return true;
+                else if (FormBorderStyle == FormBorderStyle.None)
+                    return false;
+                else return false;
+            }
+            set
+            {
+                if (value == true)
+                    FormBorderStyle = FormBorderStyle.None;
+                else FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GameWindow"/>
         /// </summary>
         /// <param name="title">Window title</param>
