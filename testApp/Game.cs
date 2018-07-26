@@ -108,7 +108,7 @@ namespace testApp
             
             scene.AddRectangle(rectangleObject);
             scene.AddLabel(label);
-            //scene.PlayAudioChannel("aud");
+            scene.PlayAudioChannel("aud");
         }
 
         public override void OnUpdate()
