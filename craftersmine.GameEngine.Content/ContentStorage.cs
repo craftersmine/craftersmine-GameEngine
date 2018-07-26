@@ -168,6 +168,32 @@ namespace craftersmine.GameEngine.Content
                 throw new ContentLoadException("Unable to load \"" + name + "\" audio from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
             }
         }
+
+        /// <summary>
+        /// Loads <see cref="String"/> array of lines from package
+        /// </summary>
+        /// <param name="name">Name of strings file</param>
+        /// <returns><see cref="string"/> array</returns>
+        public string[] LoadStrings(string name)
+        {
+            ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Strings, PackageName = this.PackageName });
+            try
+            {
+                using (ZipFile pak = ZipFile.Read(PackagePath))
+                {
+                    MemoryStream ms = new MemoryStream();
+                    ms.Position = 0;
+                    pak[name + ".strings"].Extract(ms);
+                    byte[] raw = ms.ToArray();
+                    string[] outputStrings = Encoding.Default.GetString(raw).Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    return outputStrings;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ContentLoadException("Unable to load \"" + name + "\" strings from " + this.PackageName + "! Inner exception message: " + ex.Message, ex);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -230,6 +256,10 @@ namespace craftersmine.GameEngine.Content
         /// <summary>
         /// Wave audio content type
         /// </summary>
-        Audio
+        Audio,
+        /// <summary>
+        /// Strings content type
+        /// </summary>
+        Strings
     }
 }
