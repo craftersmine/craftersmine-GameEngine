@@ -157,8 +157,9 @@ namespace craftersmine.GameEngine.Content
                     MemoryStream ms = new MemoryStream();
                     ms.Position = 0;
                     pak[name + ".wad"].Extract(ms);
+                    byte[] raw = ms.ToArray();
                     //Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(audioDataRaw));
-                    Audio audio = new Audio(new NAudio.Wave.WaveFileReader(ms));
+                    Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(raw));
                     return audio;
                 }
             }

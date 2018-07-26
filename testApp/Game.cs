@@ -60,10 +60,10 @@ namespace testApp
             //gameClient.Connect("127.0.0.1", 2000);
             //this.Controls.Add(Program.labelDebug);
             Random rnd = new Random();
-            //scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
+            scene.AddAudioChannel(new craftersmine.GameEngine.Objects.AudioChannel("aud", cs.LoadAudio("aud")));
             //Program.labelDebug.Font = cs.LoadFont("andy", 9);
-            //scene.SetAudioChannelVolume("aud", 0.1f);
-            //scene.SetAudioChannelRepeat("aud", true);
+            scene.SetAudioChannelVolume("aud", 0.1f);
+            scene.SetAudioChannelRepeat("aud", true);
             Gamepad.SetDeadzone(Player.First, DeadZoneControl.LeftTrigger, 0.0f);
             scene.SetBackgroundColor(Color.Black);
             this.AddScene(scene);
