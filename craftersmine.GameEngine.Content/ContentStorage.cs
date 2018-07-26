@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using craftersmine.Packager.Lib.Core;
-using craftersmine.Packager.Lib.Core.Exceptions;
 using craftersmine.GameEngine.Utils;
+using Ionic.Zip;
+using Ionic;
 
 namespace craftersmine.GameEngine.Content
 {
@@ -16,7 +16,8 @@ namespace craftersmine.GameEngine.Content
     /// </summary>
     public sealed class ContentStorage
     {
-        private OnDemandPackage pak { get; set; }
+        private ZipFile Package { get; set; }
+        private string PackagePath { get; set; }
         /// <summary>
         /// Gets content package name
         /// </summary>
@@ -34,7 +35,7 @@ namespace craftersmine.GameEngine.Content
         
         private void CreateContentStorage()
         {
-            pak = new OnDemandPackage(Path.Combine(Environment.CurrentDirectory, "content", PackageName + ".cmpkg"));
+            PackagePath = Path.Combine(Environment.CurrentDirectory, "content", PackageName + ".gep");
             ContentStorageCreated?.Invoke(this, new EventArgs());
         }
 
@@ -49,10 +50,15 @@ namespace craftersmine.GameEngine.Content
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Texture, PackageName = this.PackageName });
             try
             {
-                byte[] imageRaw = pak.ReadBytes(name + ".tex");
-                Image image = ImageFromBytesConverter.ByteArrayToImage(imageRaw);
-                Texture tex = new Texture(image, textureLayout);
-                return tex;
+                using (ZipFile pak = ZipFile.Read(PackagePath))
+                {
+                    //byte[] imageRaw = pak.ReadBytes(name + ".tex");
+                    MemoryStream ms = new MemoryStream();
+                    ms.Position = 0;
+                    pak[name + ".tex"].Extract(ms);
+                    Texture tex = new Texture(Image.FromStream(ms), textureLayout);
+                    return tex;
+                }
             }
             catch (Exception ex)
             {
@@ -71,31 +77,39 @@ namespace craftersmine.GameEngine.Content
             try
             {
                 Texture texture = LoadTexture(name, TextureLayout.Stretch);
-                string[] animationMetadata = pak.ReadLines(name + ".amd");
-                int animFrmDuration = 0;
-                int animFrmCount = 0;
-                int frameWidth = 0;
-                foreach (var ln in animationMetadata)
+                using (ZipFile pak = ZipFile.Read(PackagePath))
                 {
-                    string[] split = ln.Split('=');
-                    switch (split[0].ToLower())
+                    //byte[] imageRaw = pak.ReadBytes(name + ".tex");
+                    MemoryStream ms = new MemoryStream();
+                    ms.Position = 0;
+                    pak[name + ".amd"].Extract(ms);
+                    StreamReader reader = new StreamReader(ms);
+                    string[] animationMetadata = reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    int animFrmDuration = 0;
+                    int animFrmCount = 0;
+                    int frameWidth = 0;
+                    foreach (var ln in animationMetadata)
                     {
-                        case "frameticktrigger":
-                            if (!int.TryParse(split[1], out animFrmDuration))
-                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
-                            break;
-                        case "framecount":
-                            if (!int.TryParse(split[1], out animFrmCount))
-                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
-                            break;
-                        case "framewidth":
-                            if (!int.TryParse(split[1], out frameWidth))
-                                throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
-                            break;
+                        string[] split = ln.Split('=');
+                        switch (split[0].ToLower())
+                        {
+                            case "frameticktrigger":
+                                if (!int.TryParse(split[1], out animFrmDuration))
+                                    throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                break;
+                            case "framecount":
+                                if (!int.TryParse(split[1], out animFrmCount))
+                                    throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                break;
+                            case "framewidth":
+                                if (!int.TryParse(split[1], out frameWidth))
+                                    throw new ContentLoadException("Unable to load animation metadata of " + name + " from " + this.PackageName + "! Invalid metadata parameter value: \"" + split[0] + "=" + split[1] + "\" must be numerical Int32 value");
+                                break;
+                        }
                     }
+                    Animation animation = new Animation(texture, animFrmCount, animFrmDuration, frameWidth);
+                    return animation;
                 }
-                Animation animation = new Animation(texture, animFrmCount, animFrmDuration, frameWidth);
-                return animation;
             }
             catch (Exception ex)
             {
@@ -109,16 +123,17 @@ namespace craftersmine.GameEngine.Content
         /// <param name="name">Name of <see cref="Font"/></param>
         /// <param name="fontSize">Font size in pt</param>
         /// <returns><see cref="Font"/></returns>
-        [Obsolete]
+        [Obsolete("Font loading from packages currently broken! Please create issue on GitHub if you want to help to fix this", true)]
         public Font LoadFont(string name, float fontSize)
         {
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Font, PackageName = this.PackageName });
             try
             {
-                byte[] fontDataRaw = pak.ReadBytes(name + ".fnt");
-                FontFamily fml = FontFromBytesConverter.FontFamilyFromBytes(fontDataRaw);
-                Font font = new Font(fml, fontSize);
-                return font;
+                //byte[] fontDataRaw = pak.ReadBytes(name + ".fnt");
+                //FontFamily fml = FontFromBytesConverter.FontFamilyFromBytes(fontDataRaw);
+                //Font font = new Font(fml, fontSize);
+                //return font;
+                throw new NotImplementedException("Font loading from packages currently broken! Please create issue on GitHub if you want to help to fix this");
             }
             catch (Exception ex)
             {
@@ -136,9 +151,16 @@ namespace craftersmine.GameEngine.Content
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Audio, PackageName = this.PackageName });
             try
             {
-                byte[] audioDataRaw = pak.ReadBytes(name + ".wad");
-                Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(audioDataRaw));
-                return audio;
+                //byte[] audioDataRaw = pak.ReadBytes(name + ".wad");
+                using (ZipFile pak = ZipFile.Read(PackagePath))
+                {
+                    MemoryStream ms = new MemoryStream();
+                    ms.Position = 0;
+                    pak[name + ".wad"].Extract(ms);
+                    //Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(audioDataRaw));
+                    Audio audio = new Audio(new NAudio.Wave.WaveFileReader(ms));
+                    return audio;
+                }
             }
             catch (Exception ex)
             {
