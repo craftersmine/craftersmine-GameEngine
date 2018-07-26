@@ -31,11 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.addBtn = new System.Windows.Forms.ToolStripButton();
-            this.removeBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.clearBtn = new System.Windows.Forms.ToolStripButton();
-            this.create = new System.Windows.Forms.ToolStripButton();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,6 +46,10 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addBtn = new System.Windows.Forms.ToolStripButton();
+            this.removeBtn = new System.Windows.Forms.ToolStripButton();
+            this.clearBtn = new System.Windows.Forms.ToolStripButton();
+            this.create = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -69,53 +69,10 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // addBtn
-            // 
-            this.addBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addBtn.Image = ((System.Drawing.Image)(resources.GetObject("addBtn.Image")));
-            this.addBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addBtn.Name = "addBtn";
-            this.addBtn.Size = new System.Drawing.Size(23, 22);
-            this.addBtn.Text = "toolStripButton1";
-            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
-            // 
-            // removeBtn
-            // 
-            this.removeBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.removeBtn.Enabled = false;
-            this.removeBtn.Image = ((System.Drawing.Image)(resources.GetObject("removeBtn.Image")));
-            this.removeBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.removeBtn.Name = "removeBtn";
-            this.removeBtn.Size = new System.Drawing.Size(23, 22);
-            this.removeBtn.Text = "toolStripButton2";
-            this.removeBtn.Click += new System.EventHandler(this.removeBtn_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // clearBtn
-            // 
-            this.clearBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.clearBtn.Image = ((System.Drawing.Image)(resources.GetObject("clearBtn.Image")));
-            this.clearBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.clearBtn.Name = "clearBtn";
-            this.clearBtn.Size = new System.Drawing.Size(23, 22);
-            this.clearBtn.Text = "toolStripButton3";
-            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
-            // 
-            // create
-            // 
-            this.create.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.create.Enabled = false;
-            this.create.Image = ((System.Drawing.Image)(resources.GetObject("create.Image")));
-            this.create.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.create.Name = "create";
-            this.create.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.create.Size = new System.Drawing.Size(108, 22);
-            this.create.Text = "Create Package";
-            this.create.Click += new System.EventHandler(this.create_Click);
             // 
             // listView1
             // 
@@ -189,47 +146,90 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(120, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // addBtn
+            // 
+            this.addBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addBtn.Image = global::craftersmine.GameEngine.Utilities.ContentPackager.Properties.Resources.plus;
+            this.addBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addBtn.Name = "addBtn";
+            this.addBtn.Size = new System.Drawing.Size(23, 22);
+            this.addBtn.Text = "toolStripButton1";
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
+            // 
+            // removeBtn
+            // 
+            this.removeBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.removeBtn.Enabled = false;
+            this.removeBtn.Image = global::craftersmine.GameEngine.Utilities.ContentPackager.Properties.Resources.minus;
+            this.removeBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.removeBtn.Name = "removeBtn";
+            this.removeBtn.Size = new System.Drawing.Size(23, 22);
+            this.removeBtn.Text = "toolStripButton2";
+            this.removeBtn.Click += new System.EventHandler(this.removeBtn_Click);
+            // 
+            // clearBtn
+            // 
+            this.clearBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.clearBtn.Image = global::craftersmine.GameEngine.Utilities.ContentPackager.Properties.Resources.eraser;
+            this.clearBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clearBtn.Name = "clearBtn";
+            this.clearBtn.Size = new System.Drawing.Size(23, 22);
+            this.clearBtn.Text = "toolStripButton3";
+            this.clearBtn.Click += new System.EventHandler(this.clearBtn_Click);
+            // 
+            // create
+            // 
+            this.create.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.create.Enabled = false;
+            this.create.Image = global::craftersmine.GameEngine.Utilities.ContentPackager.Properties.Resources.box;
+            this.create.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.create.Name = "create";
+            this.create.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.create.Size = new System.Drawing.Size(108, 22);
+            this.create.Text = "Create Package";
+            this.create.Click += new System.EventHandler(this.create_Click);
             // 
             // MainForm
             // 

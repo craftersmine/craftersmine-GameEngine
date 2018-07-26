@@ -50,7 +50,7 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
         private void create_Click(object sender, EventArgs e)
         {
             BuilderProgressForm builderProgressForm = new BuilderProgressForm();
-            builderProgressForm.ShowDialog();
+            //builderProgressForm.ShowDialog();
         }
 
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)

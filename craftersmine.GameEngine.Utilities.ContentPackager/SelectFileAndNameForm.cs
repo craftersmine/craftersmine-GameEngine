@@ -24,7 +24,7 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
         {
             StaticData.WizardContentAsset.AssetPath = textBox1.Text;
             StaticData.WizardContentAsset.AssetName = textBox2.Text;
-            if (StaticData.ContentAssets.ContainsKey(StaticData.WizardContentAsset.AssetName) && StaticData.WizardContentAsset.ContentType == ContentType.AnimationMetadata)
+            if (StaticData.WizardContentAsset.ContentType == ContentType.AnimationMetadata)
             {
                 StaticData.WizardContentAsset.AssetName += " [Animation]";
             }

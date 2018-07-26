@@ -8,9 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using craftersmine.Packager.Lib.Core;
-using craftersmine.Packager.Lib.Core.Exceptions;
 using System.Threading;
+using Ionic.Zip;
 
 namespace craftersmine.GameEngine.Utilities.ContentPackager
 {
@@ -23,7 +22,7 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
             InitializeComponent();
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
-                Filter = "craftersmine Package (*.cmpkg)|*.cmpkg",
+                Filter = "craftersmine GameEngine Package (*.gep)|*.gep",
                 Title = "Select file saving path..."
             };
             switch (saveFileDialog.ShowDialog())
@@ -46,102 +45,104 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
 
         public void Pack()
         {
-            Thread _workingThread = new Thread(new ThreadStart(() => {
-                try
-                {
-                    int totalProgress = StaticData.ContentAssets.Count * 2 + 2;
-                    int percentageCount = 0;
-                    int perc = 0;
-                    ChangeStatus("Preparing...");
-                    ChangePercentage("0%");
-                    Directory.CreateDirectory(tempDir);
-                    PackageFile packageFile = new PackageFile(Path.GetFileNameWithoutExtension(PackageFilePath));
-                    string packageDir = Path.GetDirectoryName(PackageFilePath);
-                    foreach (var entry in StaticData.ContentAssets)
-                    {
-                        string ext = ".unk";
-                        switch (entry.Value.ContentType)
-                        {
-                            case ContentType.Texture:
-                                ext = ".tex";
-                                break;
-                            case ContentType.AnimationMetadata:
-                                ext = ".amd";
-                                break;
-                            case ContentType.Animation:
-                                ext = ".tex";
-                                break;
-                            case ContentType.Font:
-                                ext = ".fnt";
-                                break;
-                            case ContentType.Strings:
-                                ext = ".strings";
-                                break;
-                            case ContentType.WaveAudio:
-                                ext = ".wad";
-                                break;
-                        }
-                        string filename = "unknown";
-                        filename = entry.Key.Replace(" [Animation]", "") + ext;
-                        string tempFilePath = Path.Combine(tempDir, filename);
-                        ChangeStatus("Copying " + entry.Value.AssetName + " to temporary folder...");
-                        File.Copy(entry.Value.AssetPath, tempFilePath);
-                        percentageCount++;
-                        ChangeStatus("Adding " + entry.Value.AssetName + " to package...");
-                        packageFile.AddFile(tempFilePath);
-                        percentageCount++;
-                        perc = (totalProgress / 100) * percentageCount;
-                        ChangePercentage(perc.ToString() + "%");
-                        UpdateProgress1(perc);
-                    }
-                    ChangeStatus("Packing package...");
-                    Packager.Lib.Core.Packager packer = new Packager.Lib.Core.Packager(packageDir, packageFile);
-                    packer.PackingEvent += Packer_PackingEvent;
-                    packer.PackingDoneEvent += Packer_PackingDoneEvent;
-                    packer.Pack();
-                }
-                catch (Exception)
-                {
-                    Directory.Delete(tempDir, true);
-                    ChangeStatus("Packing package... Failed!");
-                    ChangePercentage("100%");
-                    MessageBox.Show("Error while packing! Packing canceled!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (InvokeRequired)
-                        Invoke(new Action(() => { this.Close(); }));
-                    else this.Close();
-                }
-            }));
+            Thread _workingThread = new Thread(new ThreadStart(Packer));
             _workingThread.Start();
         }
 
-        private void Packer_PackingEvent(object sender, PackingEventArgs e)
+        private void Packer()
         {
-            int percentage = e.PackingPercentage;
-            //UpdateProgress2(percentage);
-        }
-
-        private void Packer_PackingDoneEvent(object sender, PackingDoneEventArgs e)
-        {
-            if (e.IsSuccessful)
+            try
             {
-                Directory.Delete(tempDir, true);
-                ChangeStatus("Packing package... Done!");
-                ChangePercentage("100%");
-                switch (MessageBox.Show("Packing successful! Operation complete!", "Complete!", MessageBoxButtons.OK, MessageBoxIcon.Information))
+                int percentageCount = 0;
+                ChangeStatus("Preparing...");
+                //ChangePercentage("0%");
+                Directory.CreateDirectory(tempDir);
+                ZipFile package = new ZipFile(PackageFilePath);
+                string packageDir = Path.GetDirectoryName(PackageFilePath);
+                foreach (var entry in StaticData.ContentAssets)
                 {
-                    case DialogResult.OK:
-                        if (InvokeRequired)
-                            Invoke(new Action(() => { this.Close(); }));
-                        else this.Close();
-                        break;
+                    string ext = ".unk";
+                    switch (entry.Value.ContentType)
+                    {
+                        case ContentType.Texture:
+                            ext = ".tex";
+                            break;
+                        case ContentType.AnimationMetadata:
+                            ext = ".amd";
+                            break;
+                        case ContentType.Animation:
+                            ext = ".tex";
+                            break;
+                        case ContentType.Font:
+                            ext = ".fnt";
+                            break;
+                        case ContentType.Strings:
+                            ext = ".strings";
+                            break;
+                        case ContentType.WaveAudio:
+                            ext = ".wad";
+                            break;
+                    }
+                    string filename = "unknown";
+                    filename = entry.Key.Replace(" [Animation]", "") + ext;
+                    string tempFilePath = Path.Combine(tempDir, filename);
+                    ChangeStatus("Copying " + entry.Value.AssetName + " to temporary folder...");
+                    File.Copy(entry.Value.AssetPath, tempFilePath);
+                    percentageCount++;
+                    ChangeStatus("Adding " + entry.Value.AssetName + " to package...");
+                    package.AddFile(tempFilePath, "");
                 }
+                ChangeStatus("Packing package...");
+                package.SaveProgress += Package_SaveProgress;
+                package.ZipError += Package_ZipError;
+                package.Save();
             }
-            else
+            catch (Exception ex)
             {
                 Directory.Delete(tempDir, true);
                 ChangeStatus("Packing package... Failed!");
-                ChangePercentage("100%");
-                switch (MessageBox.Show("Error while packing! Packing canceled!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error))
+                //ChangePercentage("100%");
+                MessageBox.Show("Error while packing! Packing canceled! Message: " + ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (InvokeRequired)
+                    Invoke(new Action(() => { this.Close(); }));
+                else this.Close();
+            }
+        }
+
+        private void Package_ZipError(object sender, ZipErrorEventArgs e)
+        {
+            Thread.Sleep(10);
+            Directory.Delete(tempDir, true);
+            ChangeStatus("Packing package... Failed!");
+            //ChangePercentage("100%");
+            switch (MessageBox.Show("Error while packing! Packing canceled! Message: " + e.Exception.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error))
+            {
+                case DialogResult.OK:
+                    if (InvokeRequired)
+                        Invoke(new Action(() => { this.Close(); }));
+                    else this.Close();
+                    break;
+            }
+        }
+
+        private void Package_SaveProgress(object sender, SaveProgressEventArgs e)
+        {
+            if (e.EventType != ZipProgressEventType.Saving_Started)
+            {
+                if (e.BytesTransferred > 0)
+                {
+                    int perc = (int)((e.TotalBytesToTransfer / 100) * e.BytesTransferred);
+                    //UpdateProgress1(perc);
+                    //ChangePercentage(perc.ToString() + "%");
+                }
+            }
+            if (e.EventType == ZipProgressEventType.Saving_Completed)
+            {
+                Thread.Sleep(10);
+                Directory.Delete(tempDir, true);
+                ChangeStatus("Packing package... Done!");
+                //ChangePercentage("100%");
+                switch (MessageBox.Show("Packing successful! Operation complete!", "Complete!", MessageBoxButtons.OK, MessageBoxIcon.Information))
                 {
                     case DialogResult.OK:
                         if (InvokeRequired)
@@ -180,16 +181,6 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
                     progressBar1.Value = perc;
                 }));
             else progressBar1.Value = perc;
-        }
-
-        private void UpdateProgress2(int perc)
-        {
-            if (InvokeRequired)
-                Invoke(new Action(() =>
-                {
-                    progressBar2.Value = perc;
-                }));
-            else progressBar2.Value = perc;
         }
     }
 }
