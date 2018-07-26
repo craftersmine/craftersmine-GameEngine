@@ -94,12 +94,30 @@ namespace craftersmine.GameEngine.System
         /// <param name="title">Window title</param>
         /// <param name="width">Width of window</param>
         /// <param name="height">Height of window</param>
+        [Obsolete("Use GameWindow(string title, WindowSize size) instead")]
         public GameWindow(string title, int width, int height)
         {
             this.FormClosing += GameWindow_FormClosing;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.ClientSize = new Size(width, height);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
+            Title = title;
+            SetBackgroundColor(Color.Black);
+        }
+        /// <summary>
+        /// Creates a new instance of <see cref="GameWindow"/>
+        /// </summary>
+        /// <param name="title">Window title</param>
+        /// <param name="size">Window size</param>
+        public GameWindow(string title, WindowSize size)
+        {
+            this.FormClosing += GameWindow_FormClosing;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.ClientSize = new Size(size.Width, size.Heigth);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
@@ -186,4 +204,40 @@ namespace craftersmine.GameEngine.System
             GameApplication.Exit(0);
         }
     }
+
+    /// <summary>
+    /// Represents window size. This class cannot be inherited
+    /// </summary>
+    public sealed class WindowSize
+    {
+        /// <summary>
+        /// Gets current width of window
+        /// </summary>
+        public int Width { get; internal set; }
+        /// <summary>
+        /// Gets current height of window
+        /// </summary>
+        public int Heigth { get; internal set; }
+
+        /// <summary>
+        /// Creates new window size from specified width and height
+        /// </summary>
+        /// <param name="width">Window width</param>
+        /// <param name="height">Window height</param>
+        public WindowSize(int width, int height)
+        {
+            Width = width;
+            Heigth = height;
+        }
+
+        /// <summary>
+        /// Creates new window size from exist preset
+        /// </summary>
+        /// <param name="preset">Window size exist preset</param>
+        public WindowSize(WindowSize preset) : this(preset.Width, preset.Heigth)
+        {
+
+        }
+    }
+
 }
