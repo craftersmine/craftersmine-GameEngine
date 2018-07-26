@@ -83,8 +83,8 @@ namespace craftersmine.GameEngine.Content
                     MemoryStream ms = new MemoryStream();
                     ms.Position = 0;
                     pak[name + ".amd"].Extract(ms);
-                    StreamReader reader = new StreamReader(ms);
-                    string[] animationMetadata = reader.ReadToEnd().Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    byte[] raw = ms.ToArray();
+                    string[] animationMetadata = Encoding.Default.GetString(raw).Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                     int animFrmDuration = 0;
                     int animFrmCount = 0;
                     int frameWidth = 0;
