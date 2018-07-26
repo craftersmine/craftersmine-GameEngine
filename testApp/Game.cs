@@ -26,7 +26,7 @@ namespace testApp
         Random rnd = new Random();
         RectangleObject rectangleObject = new RectangleObject(new Rectangle(300, 300, 150, 50), Color.BlueViolet, Color.FromArgb(127, Color.Violet), 2);
 
-        public Game(string title = "TestGameApp", int width = 1280, int height = 720) : base(title, width, height)
+        public Game(string title = "TestGameApp") : base(title, WindowSizePresets.HD)
         {
             this.SetBackgroundColor(Color.Black);
             cs = new ContentStorage("testassets");
