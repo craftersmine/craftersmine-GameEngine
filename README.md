@@ -20,3 +20,4 @@ Used libraries:
 * This Engine uses [RazorGDI Control](https://github.com/hepper/RazorGDI) by Lincoln6Echo and licensed under "MIT License"
 * This Engine uses [XInput Wrapper](https://github.com/nikvoronin/XInput.Wrapper) by Nikolai Voronin (nikvoronin) and licensed under "MIT License"
 * This Engine uses [WebSocket Sharp](https://github.com/sta/websocket-sharp) by sta and licensed under "MIT License"
+* This Engine uses [DotNetZip](https://github.com/haf/DotNetZip.Semverd) by Henrik/Dino Chisa and licensed under "Microsoft Public License"
