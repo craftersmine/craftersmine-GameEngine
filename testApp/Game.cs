@@ -52,7 +52,7 @@ namespace testApp
 
         public override void OnCreated()
         {
-            GameApplication.SetGameFrameTime(16);
+            GameApplication.SetGameFrameTime(1);
             GameApplication.SetGameTickTime(16);
             GameApplication.SetLogger(new Logger(Path.Combine(GameApplication.AppDataGameRoot, "Logs"), "testGame"));
             GameApplication.Log(LogEntryType.Info, "Initializing Game...");
