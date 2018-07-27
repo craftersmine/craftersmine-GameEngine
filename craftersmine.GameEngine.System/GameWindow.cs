@@ -67,6 +67,8 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public int CollisionUpdate { get; internal set; }
 
+        public WindowSize WindowSize { get; internal set; }
+
         /// <summary>
         /// Gets or sets is game window frame is disabled
         /// </summary>
@@ -114,6 +116,7 @@ namespace craftersmine.GameEngine.System
         /// <param name="size">Window size</param>
         public GameWindow(string title, WindowSize size)
         {
+            this.WindowSize = size;
             this.FormClosing += GameWindow_FormClosing;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
