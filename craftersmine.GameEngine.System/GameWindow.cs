@@ -241,6 +241,12 @@ namespace craftersmine.GameEngine.System
         {
 
         }
+
+        public Size GetSize()
+        {
+            return new Size(Width, Height);
+        }
+
     }
 
     /// <summary>
