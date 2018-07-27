@@ -35,6 +35,8 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public Texture TiledTextureCache { get; internal set; }
 
+        public Rectangle TextureBoundings { get { return new Rectangle(X, Y, Width, Height); } }
+
         /// <summary>
         /// Gets or sets game object identifier
         /// </summary>
