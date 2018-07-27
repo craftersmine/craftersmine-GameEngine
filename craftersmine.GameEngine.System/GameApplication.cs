@@ -161,6 +161,17 @@ namespace craftersmine.GameEngine.System
         }
 
         /// <summary>
+        /// Gets current game window size
+        /// </summary>
+        /// <returns></returns>
+        public static WindowSize GetGameWindowSize()
+        {
+            if (gameWnd != null)
+                return gameWnd.WindowSize;
+            else return WindowSize.Empty;
+        }
+
+        /// <summary>
         /// Sets game crash handler
         /// </summary>
         /// <param name="crashHandler"><see cref="GameCrashHandler"/> instance</param>
