@@ -97,6 +97,6 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>echo Copying test assets into target directory....
-xcopy "$(SolutionDir)\testAppAssets\content\*.cmpkg" "$(TargetDir)\content\*.cmpkg" /Y</PostBuildEvent>
+xcopy "$(SolutionDir)\testAppAssets\content\*.gep" "$(TargetDir)\content\*.gep" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
