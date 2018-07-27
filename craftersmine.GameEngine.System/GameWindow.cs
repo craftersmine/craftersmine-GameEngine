@@ -220,7 +220,7 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Gets current height of window
         /// </summary>
-        public int Heigth { get; internal set; }
+        public int Height { get; internal set; }
 
         /// <summary>
         /// Creates new window size from specified width and height
@@ -230,14 +230,14 @@ namespace craftersmine.GameEngine.System
         public WindowSize(int width, int height)
         {
             Width = width;
-            Heigth = height;
+            Height = height;
         }
 
         /// <summary>
         /// Creates new window size from exist preset
         /// </summary>
         /// <param name="preset">Window size exist preset</param>
-        public WindowSize(WindowSize preset) : this(preset.Width, preset.Heigth)
+        public WindowSize(WindowSize preset) : this(preset.Width, preset.Height)
         {
 
         }
