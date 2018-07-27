@@ -120,7 +120,7 @@ namespace craftersmine.GameEngine.System
             this.FormClosing += GameWindow_FormClosing;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.ClientSize = new Size(size.Width, size.Heigth);
+            this.ClientSize = size.GetSize();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
