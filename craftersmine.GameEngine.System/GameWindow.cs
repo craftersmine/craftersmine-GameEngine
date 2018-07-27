@@ -247,6 +247,7 @@ namespace craftersmine.GameEngine.System
             return new Size(Width, Height);
         }
 
+        public readonly static WindowSize Empty = new WindowSize(0, 0);
     }
 
     /// <summary>
