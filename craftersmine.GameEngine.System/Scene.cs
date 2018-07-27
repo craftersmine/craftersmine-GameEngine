@@ -31,6 +31,7 @@ namespace craftersmine.GameEngine.System
 
         private SolidBrush tintBrush;
         private Rectangle tinter;
+        internal Rectangle CameraBounds;
 
         /// <summary>
         /// Gets scene background texture
@@ -390,9 +391,12 @@ namespace craftersmine.GameEngine.System
                 {
                     if (rect.Rect != null)
                     {
-                        if (rect.FillColor != Color.Transparent || rect.FillColor.A > 0)
-                            BaseCanvas.RazorGFX.FillRectangle(rect.FillBrush, rect.Rect);
-                        BaseCanvas.RazorGFX.DrawRectangle(rect.BorderPen, rect.Rect);
+                        if (rect.Rect.IntersectsWith(CameraBounds))
+                        {
+                            if (rect.FillColor != Color.Transparent || rect.FillColor.A > 0)
+                                BaseCanvas.RazorGFX.FillRectangle(rect.FillBrush, rect.Rect);
+                            BaseCanvas.RazorGFX.DrawRectangle(rect.BorderPen, rect.Rect);
+                        }
                     }
                     else GameApplication.Log(Utils.LogEntryType.Warning, "GameEngine unable to draw rectangle!");
                 }
@@ -424,14 +428,13 @@ namespace craftersmine.GameEngine.System
         {
             if (gameObject != null)
             {
-                Rectangle textureBounds = new Rectangle(gameObject.X, gameObject.Y, gameObject.Width, gameObject.Height);
-                if (gameObject.CurrentTexture != null)
+                if (gameObject.TextureBoundings.IntersectsWith(CameraBounds))
                 {
                     switch (gameObject.CurrentTexture.TextureLayout)
                     {
                         case TextureLayout.Default:
                         case TextureLayout.Stretch:
-                            BaseCanvas.RazorGFX.DrawImage(gameObject.CurrentTexture.TextureImage, textureBounds);
+                            BaseCanvas.RazorGFX.DrawImage(gameObject.CurrentTexture.TextureImage, gameObject.TextureBoundings);
                             break;
                         case TextureLayout.Center:
                             int xCenter = (gameObject.Width / 2) - (gameObject.CurrentTexture.TextureImage.Width / 2) + gameObject.X;
@@ -441,17 +444,17 @@ namespace craftersmine.GameEngine.System
                         case TextureLayout.Tile:
                             if (!gameObject.IsTiledTextureCached)
                             {
-                                Texture tiledTex = PrepareTiledTexture(gameObject.CurrentTexture, textureBounds);
+                                Texture tiledTex = PrepareTiledTexture(gameObject.CurrentTexture, gameObject.TextureBoundings);
                                 gameObject.IsTiledTextureCached = true;
                                 gameObject.TiledTextureCache = tiledTex;
-                                BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache.TextureImage, textureBounds);
+                                BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache.TextureImage, gameObject.TextureBoundings);
                             }
-                            else BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache.TextureImage, textureBounds);
+                            else BaseCanvas.RazorGFX.DrawImage(gameObject.TiledTextureCache.TextureImage, gameObject.TextureBoundings);
                             break;
                     }
                 }
                 if (GameApplication.DrawTextureBoundings)
-                    BaseCanvas.RazorGFX.DrawRectangle(texBoundingsRects, new Rectangle(gameObject.X, gameObject.Y, gameObject.Width, gameObject.Height));
+                    BaseCanvas.RazorGFX.DrawRectangle(texBoundingsRects, gameObject.TextureBoundings);
                 if (GameApplication.DrawColliderBoundings)
                     BaseCanvas.RazorGFX.DrawRectangle(collBoundingsRects, gameObject.BoundingBox);
             }

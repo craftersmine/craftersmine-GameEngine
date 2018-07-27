@@ -152,6 +152,7 @@ namespace craftersmine.GameEngine.System
         {
             scene.Visible = false;
             scene.Size = this.ClientSize;
+            scene.CameraBounds = new Rectangle(scene.Location, scene.Size);
             scene.TextureInterpolationMode = TextureInterpolation;
             scenes.Add(scene.Id, scene);
             scene.OnCreate();
