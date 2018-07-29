@@ -54,6 +54,7 @@ namespace craftersmine.GameEngine.System
         public Scene()
         {
             this.BaseCanvas = new RazorPainterControl();
+            this.BaseCanvas.Dock = DockStyle.Fill;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
             this.Controls.Add(BaseCanvas);
