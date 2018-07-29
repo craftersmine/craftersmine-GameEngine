@@ -67,6 +67,11 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Updates current camera bounds. Try to fix rendering if you don't see any of object texture. If all works you don't need to call it
         /// </summary>
+        public void UpdateCameraBounds()
+        {
+            this.CameraBounds = new Rectangle(this.Location, this.Size);
+        }
+
         private void BaseCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             Rectangle clickPoint = new Rectangle(e.X, e.Y, 1, 1);
