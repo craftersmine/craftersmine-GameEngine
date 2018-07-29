@@ -381,6 +381,11 @@ namespace craftersmine.GameEngine.System
         /// <summary>
         /// Calls draw method of scene
         /// </summary>
+        public void CallDraw()
+        {
+            Draw();
+        }
+
         internal void Draw()
         {
             lock (BaseCanvas.RazorLock)
