@@ -54,10 +54,8 @@ namespace craftersmine.GameEngine.System
         public Scene()
         {
             this.BaseCanvas = new RazorPainterControl();
-            this.BaseCanvas.BackColor = Color.Transparent;
             this.DoubleBuffered = true;
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor | ControlStyles.UserPaint, true);
-            this.BaseCanvas.BackgroundImage = new Bitmap(this.Width, this.Height);
             this.Controls.Add(BaseCanvas);
             this.BaseCanvas.MouseClick += BaseCanvas_MouseClick;
             this.BaseCanvas.MouseUp += BaseCanvas_MouseUp;
