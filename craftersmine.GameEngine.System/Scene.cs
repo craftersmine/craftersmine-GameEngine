@@ -64,6 +64,9 @@ namespace craftersmine.GameEngine.System
             this.BaseCanvas.MouseMove += BaseCanvas_MouseMove;
         }
 
+        /// <summary>
+        /// Updates current camera bounds. Try to fix rendering if you don't see any of object texture. If all works you don't need to call it
+        /// </summary>
         private void BaseCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             Rectangle clickPoint = new Rectangle(e.X, e.Y, 1, 1);
@@ -370,6 +373,9 @@ namespace craftersmine.GameEngine.System
                 Rectangles.Remove(rectangle);
         }
 
+        /// <summary>
+        /// Calls draw method of scene
+        /// </summary>
         internal void Draw()
         {
             lock (BaseCanvas.RazorLock)

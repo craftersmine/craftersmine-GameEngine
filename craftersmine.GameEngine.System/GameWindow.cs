@@ -67,6 +67,9 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public int CollisionUpdate { get; internal set; }
 
+        /// <summary>
+        /// Gets current Game Window size
+        /// </summary>
         public WindowSize WindowSize { get; internal set; }
 
         /// <summary>
@@ -243,6 +246,10 @@ namespace craftersmine.GameEngine.System
 
         }
 
+        /// <summary>
+        /// Converts <see cref="WindowSize"/> into <see cref="Size"/> and returns it
+        /// </summary>
+        /// <returns></returns>
         public Size GetSize()
         {
             return new Size(Width, Height);
