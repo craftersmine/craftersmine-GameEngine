@@ -249,7 +249,9 @@ namespace craftersmine.GameEngine.System
         /// <returns><see cref="int"/> value of current tick</returns>
         public static int GetGameTick()
         {
-            return gameWnd.Tick;
+            if (gameWnd != null)
+                return gameWnd.Tick;
+            else return 0;
         }
 
         /// <summary>
