@@ -319,6 +319,15 @@ namespace craftersmine.GameEngine.System
                 names.Add(tex.Key);
             return names.ToArray();
         }
+
+        public string[] GetAddedAnimationsNames()
+        {
+            List<string> names = new List<string>();
+            foreach (var anim in _animations)
+                names.Add(anim.Key);
+            return names.ToArray();
+        }
+
         internal void InternalUpdate()
         {
             UpdateCollider();
