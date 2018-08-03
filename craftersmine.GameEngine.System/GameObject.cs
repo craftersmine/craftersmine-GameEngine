@@ -311,7 +311,14 @@ namespace craftersmine.GameEngine.System
         {
 
         }
-        
+
+        public string[] GetAddedTexturesNames()
+        {
+            List<string> names = new List<string>();
+            foreach (var tex in _textures)
+                names.Add(tex.Key);
+            return names.ToArray();
+        }
         internal void InternalUpdate()
         {
             UpdateCollider();
