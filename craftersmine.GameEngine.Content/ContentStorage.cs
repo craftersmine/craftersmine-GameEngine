@@ -16,7 +16,6 @@ namespace craftersmine.GameEngine.Content
     /// </summary>
     public sealed class ContentStorage
     {
-        private ZipFile Package { get; set; }
         private string PackagePath { get; set; }
         /// <summary>
         /// Gets content package name
@@ -52,7 +51,6 @@ namespace craftersmine.GameEngine.Content
             {
                 using (ZipFile pak = ZipFile.Read(PackagePath))
                 {
-                    //byte[] imageRaw = pak.ReadBytes(name + ".tex");
                     MemoryStream ms = new MemoryStream();
                     ms.Position = 0;
                     pak[name + ".tex"].Extract(ms);
@@ -79,7 +77,6 @@ namespace craftersmine.GameEngine.Content
                 Texture texture = LoadTexture(name, TextureLayout.Stretch);
                 using (ZipFile pak = ZipFile.Read(PackagePath))
                 {
-                    //byte[] imageRaw = pak.ReadBytes(name + ".tex");
                     MemoryStream ms = new MemoryStream();
                     ms.Position = 0;
                     pak[name + ".amd"].Extract(ms);
@@ -151,14 +148,12 @@ namespace craftersmine.GameEngine.Content
             ContentLoading?.Invoke(this, new ContentLoadingEventArgs() { ContentFileName = name, ContentType = ContentType.Audio, PackageName = this.PackageName });
             try
             {
-                //byte[] audioDataRaw = pak.ReadBytes(name + ".wad");
                 using (ZipFile pak = ZipFile.Read(PackagePath))
                 {
                     MemoryStream ms = new MemoryStream();
                     ms.Position = 0;
                     pak[name + ".wad"].Extract(ms);
                     byte[] raw = ms.ToArray();
-                    //Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(audioDataRaw));
                     Audio audio = new Audio(WaveFileReaderFromBytesConverter.ByteArrayToWaveFileReader(raw));
                     return audio;
                 }
