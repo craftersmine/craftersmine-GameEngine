@@ -387,10 +387,10 @@ namespace craftersmine.GameEngine.System
 
         private static void CallGameObjectsUpdates()
         {
-            foreach (GameObject gObj in gameWnd.CurrentScene.GameObjects)
+            for (int o = 0; o < gameWnd.CurrentScene.GameObjects.Count; o++)
             {
-                gObj.OnUpdate();
-                gObj.InternalUpdate();
+                gameWnd.CurrentScene.GameObjects[o].OnUpdate();
+                gameWnd.CurrentScene.GameObjects[o].OnUpdate();
             }
         }
     }
