@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "craftersmine.GameEngine.GDK
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{F77346DB-DB2F-482C-8D3D-F2A1A949F660}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "craftersmine.GameEngine.Utilities.GameObjectEditor", "craftersmine.GameEngine.Utilities.GameObjectEditor\craftersmine.GameEngine.Utilities.GameObjectEditor.csproj", "{7F540AFC-1992-4D2E-8DC2-21015068A270}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{3E398B96-DA55-4D42-9EF4-484BF4F8CBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E398B96-DA55-4D42-9EF4-484BF4F8CBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E398B96-DA55-4D42-9EF4-484BF4F8CBD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F540AFC-1992-4D2E-8DC2-21015068A270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F540AFC-1992-4D2E-8DC2-21015068A270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F540AFC-1992-4D2E-8DC2-21015068A270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F540AFC-1992-4D2E-8DC2-21015068A270}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{422EADE1-CCD0-46A8-9B27-42AEB4890C48} = {E320A887-44AD-4847-9F47-64C8311CE9B5}
 		{873C5BBF-608E-4536-B7D2-126FF01A785C} = {488232BC-D704-4143-AD93-4A402A973609}
 		{3E398B96-DA55-4D42-9EF4-484BF4F8CBD0} = {E320A887-44AD-4847-9F47-64C8311CE9B5}
+		{7F540AFC-1992-4D2E-8DC2-21015068A270} = {E320A887-44AD-4847-9F47-64C8311CE9B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22319D8A-0F14-4D08-8718-984C735D2CF9}

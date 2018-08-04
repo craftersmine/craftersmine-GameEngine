@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7F540AFC-1992-4D2E-8DC2-21015068A270}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>craftersmine.GE.Utilities.GameObjectEditor</RootNamespace>
+    <AssemblyName>craftersmine.GameEngine.Utilities.GameObjectEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGDI, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\RazorGDI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditorContentStorage.cs" />
+    <Compile Include="EditorGameObject.cs" />
+    <Compile Include="Exporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exporter.Designer.cs">
+      <DependentUpon>Exporter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EditorScene.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SelectFromPackageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectFromPackageForm.Designer.cs">
+      <DependentUpon>SelectFromPackageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetBoundingBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetBoundingBoxForm.Designer.cs">
+      <DependentUpon>SetBoundingBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetInterpolationModeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetInterpolationModeForm.Designer.cs">
+      <DependentUpon>SetInterpolationModeForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Exporter.resx">
+      <DependentUpon>Exporter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SelectFromPackageForm.resx">
+      <DependentUpon>SelectFromPackageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetBoundingBoxForm.resx">
+      <DependentUpon>SetBoundingBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetInterpolationModeForm.resx">
+      <DependentUpon>SetInterpolationModeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\craftersmine.GameEngine.Content\craftersmine.GameEngine.Content.csproj">
+      <Project>{45e14932-e679-4cf6-9408-73f610bffebe}</Project>
+      <Name>craftersmine.GameEngine.Content</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.System\craftersmine.GameEngine.System.csproj">
+      <Project>{02380c18-d3ec-4759-a4b9-bceed9904721}</Project>
+      <Name>craftersmine.GameEngine.System</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\craftersmine.GameEngine.Utils\craftersmine.GameEngine.Utils.csproj">
+      <Project>{3A2A3F01-1741-4B4B-8252-446F20A57C52}</Project>
+      <Name>craftersmine.GameEngine.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\noTexture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\animation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\boundingbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\gitwiki.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\loadpackage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\texture.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
