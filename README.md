@@ -6,9 +6,7 @@ Makes simple game development more simplest
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
 
-Jenkins CI Build Status:
-
-![Build Status](http://craftersmine-srv.ddns.net:8080/job/craftersmine%20GameEngine/badge/icon)
+![Build Status](http://craftersmine-srv.ddns.net:8080/job/craftersmine%20GameEngine/badge/icon) [![Latest Version](https://img.shields.io/github/tag/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/releases) [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/releases) [![License](https://img.shields.io/github/license/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/blob/master/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/commits/master)
 
 Current features:
 - Support of XInput Gamepads
