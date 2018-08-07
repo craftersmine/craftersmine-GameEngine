@@ -2,17 +2,18 @@
 
 ![Logo](https://github.com/craftersmine/craftersmine-GameEngine/raw/master/logo.png)
 
-Makes simple game development more simplest
+Makes simple 2D game development more simplest
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-c-sharp.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-electricity.svg)](https://forthebadge.com)
 
-![Build Status](http://craftersmine-srv.ddns.net:8080/job/craftersmine%20GameEngine/badge/icon) [![Latest Version](https://img.shields.io/github/tag/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/tags) [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/releases) [![License](https://img.shields.io/github/license/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/blob/master/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/commits/master)
+![Build Status](http://craftersmine-srv.ddns.net:8080/job/craftersmine%20GameEngine/badge/icon) [![Latest Version](https://img.shields.io/github/tag/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/tags) [![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/releases) [![License](https://img.shields.io/github/license/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/blob/master/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/craftersmine/craftersmine-GameEngine.svg)](https://github.com/craftersmine/craftersmine-GameEngine/commits/master) ![2D game engine](https://img.shields.io/badge/game%20engine-2D-green.svg)
 
 Current features:
 - Support of XInput Gamepads
 - Animated objects
 - Multi-scened
 - Lightweight
+- Fast rendering
 
 Used libraries:
 
