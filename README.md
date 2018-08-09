@@ -16,6 +16,8 @@ Makes simple 2D game development more simplest
 - Fast rendering
 
 ### Quick Links:
+* [Contributor Covenant Code of Conductt](https://github.com/craftersmine/craftersmine-GameEngine/blob/master/CODE_OF_CONDUCT.md)
+* [Contributing](https://github.com/craftersmine/craftersmine-GameEngine/blob/master/CONTRIBUTING.md)
 * [Getting Started](https://github.com/craftersmine/craftersmine-GameEngine/wiki/Getting-started)
 * [WIKI](https://github.com/craftersmine/craftersmine-GameEngine/wiki)
 
