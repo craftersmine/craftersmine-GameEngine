@@ -311,6 +311,15 @@ namespace craftersmine.GameEngine.System
         }
 
         /// <summary>
+        /// Calls at engine draw call
+        /// </summary>
+        /// <param name="graphics">Renderer graphics drawer instance</param>
+        public virtual void OnDraw(Graphics graphics)
+        {
+
+        }
+
+        /// <summary>
         /// Removes tint from scene
         /// </summary>
         public void RemoveTint()
