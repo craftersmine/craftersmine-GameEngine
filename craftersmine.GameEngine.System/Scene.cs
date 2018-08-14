@@ -401,56 +401,119 @@ namespace craftersmine.GameEngine.System
             Draw();
         }
 
+        #region Draw Methods
+
+
+
+        internal void _prepareCanvas()
+        {
+            BaseCanvas.RazorGFX.InterpolationMode = TextureInterpolationMode;
+            BaseCanvas.RazorGFX.Clear(this.BackColor);
+        }
+
+        internal void _drawBg()
+        {
+            if (this.BackgroundTexture != null)
+            {
+                DrawTexture(BackgroundTexture, 0, 0, this.Width, this.Height);
+            }
+        }
+
+        internal void _drawGameObjects()
+        {
+            foreach (var gObj in GameObjects)
+            {
+                if (gObj.CurrentTexture != null)
+                {
+                    DrawGameObjectTexture(gObj);
+                }
+            }
+        }
+
+        internal void _drawRects()
+        {
+            foreach (var rect in Rectangles)
+            {
+                if (rect.Rect != null)
+                {
+                    if (rect.Rect.IntersectsWith(CameraBounds))
+                    {
+                        if (rect.FillColor != Color.Transparent || rect.FillColor.A > 0)
+                            BaseCanvas.RazorGFX.FillRectangle(rect.FillBrush, rect.Rect);
+                        BaseCanvas.RazorGFX.DrawRectangle(rect.BorderPen, rect.Rect);
+                    }
+                }
+                else GameApplication.Log(Utils.LogEntryType.Warning, "GameEngine unable to draw rectangle!");
+            }
+        }
+
+        internal void _drawUi()
+        {
+            foreach (var label in Labels)
+            {
+                if (label.Text != null || label.Text != "" || label.Text != string.Empty)
+                {
+                    if (!label.Bounds.IsEmpty)
+                        if (label.LabelColor != Color.Transparent || label.LabelColor.A > 0)
+                        {
+                            BaseCanvas.RazorGFX.DrawString(label.Text, label.Font, label.LabelBrush, label.Bounds);
+                        }
+                }
+            }
+        }
+
+        internal void _tint()
+        {
+            if (tinter.Width != 0 && tinter.Height != 0)
+            {
+                BaseCanvas.RazorGFX.FillRectangle(tintBrush, tinter);
+            }
+        }
+
+        internal void _drawDebug()
+        {
+            if (GameApplication.DrawUtilizationDebugger)
+            {
+                string ctor = $"Current Game Tick: {GameApplication.GetGameTick()}{Environment.NewLine}Game Tickrate: {GameApplication.CurrentGameTickrate} tps{Environment.NewLine}Game Framerate: {GameApplication.CurrentGameFramerate} fps{Environment.NewLine}Game Collisions UPS: {GameApplication.CurrentGameCollisionUpdateRate} ups";
+                BaseCanvas.RazorGFX.DrawString(ctor, new Font("Segoe UI", 8.0f), dbgText, 0, 0);
+            }
+        }
+
+        internal Rectangle _lighting = new Rectangle();
+
+        internal void _calcLights()
+        {
+            if (GlobalLightingValue > 0.0f)
+            {
+
+            }
+        }
+
         internal void Draw()
         {
             lock (BaseCanvas.RazorLock)
             {
-                BaseCanvas.RazorGFX.InterpolationMode = TextureInterpolationMode;
-                BaseCanvas.RazorGFX.Clear(this.BackColor);
-                if (this.BackgroundTexture != null)
-                {
-                    DrawTexture(BackgroundTexture, 0, 0, this.Width, this.Height);
-                }
-                foreach (var gObj in GameObjects)
-                {
-                    if (gObj.CurrentTexture != null)
-                    {
-                        DrawGameObjectTexture(gObj);
-                    }
-                }
-                foreach (var rect in Rectangles)
-                {
-                    if (rect.Rect != null)
-                    {
-                        if (rect.Rect.IntersectsWith(CameraBounds))
-                        {
-                            if (rect.FillColor != Color.Transparent || rect.FillColor.A > 0)
-                                BaseCanvas.RazorGFX.FillRectangle(rect.FillBrush, rect.Rect);
-                            BaseCanvas.RazorGFX.DrawRectangle(rect.BorderPen, rect.Rect);
-                        }
-                    }
-                    else GameApplication.Log(Utils.LogEntryType.Warning, "GameEngine unable to draw rectangle!");
-                }
-                foreach (var label in Labels)
-                {
-                    if (label.Text != null || label.Text != "" || label.Text != string.Empty)
-                    {
-                        if (!label.Bounds.IsEmpty)
-                            if (label.LabelColor != Color.Transparent || label.LabelColor.A > 0)
-                            {
-                                BaseCanvas.RazorGFX.DrawString(label.Text, label.Font, label.LabelBrush, label.Bounds);
-                            }
-                    }
-                }
-                if (tinter.Width != 0 && tinter.Height != 0)
-                {
-                    BaseCanvas.RazorGFX.FillRectangle(tintBrush, tinter);
-                }
-                if (GameApplication.DrawUtilizationDebugger)
-                {
-                    string ctor = $"Current Game Tick: {GameApplication.GetGameTick()}{Environment.NewLine}Game Tickrate: {GameApplication.CurrentGameTickrate} tps{Environment.NewLine}Game Framerate: {GameApplication.CurrentGameFramerate} fps{Environment.NewLine}Game Collisions UPS: {GameApplication.CurrentGameCollisionUpdateRate} ups";
-                    BaseCanvas.RazorGFX.DrawString(ctor, new Font("Segoe UI", 8.0f), dbgText, 0, 0);
-                }
+                // Prepare Canvas to draw
+                _prepareCanvas();
+                // Draw bg texture
+                _drawBg();
+                // Draw GameObjects textures
+                _drawGameObjects();
+                // Draw Rectangles
+                _drawRects();
+                // Call Scene OnDraw method
+                OnDraw(BaseCanvas.RazorGFX);
+                // Call Lightning calc and draw
+                _calcLights();
+
+                // Call Tint Scene pseudo-shader
+                _tint();
+                // Call UI draw
+                _drawUi();
+                // Call Debugger draw
+                _drawDebug();
+
+                // ------ RENDER ------
                 BaseCanvas.RazorPaint();
             }
         }
@@ -539,5 +602,9 @@ namespace craftersmine.GameEngine.System
                     break;
             }
         }
+
+
+
+        #endregion
     }
 }
