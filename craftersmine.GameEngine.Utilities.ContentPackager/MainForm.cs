@@ -13,10 +13,16 @@ namespace craftersmine.GameEngine.Utilities.ContentPackager
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm(string preLoad)
         {
             this.InitializeComponent();
             StaticData.ContentAssetAddedEvent += new StaticData.ContentAssetAddedEventDelegate(this.StaticData_ContentAssetAdded);
+            FilePath = preLoad;
+            if (FilePath != string.Empty)
+            {
+                LoadProject();
+                this.UpdateList();
+            }
         }
 
         private void addBtn_Click(object sender, EventArgs e)

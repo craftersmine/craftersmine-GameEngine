@@ -23,7 +23,7 @@ namespace craftersmine.GE.Utilities.GameObjectEditor
 
         public static Dictionary<string, string> SaveData = new Dictionary<string, string>();
 
-        public MainForm()
+        public MainForm(string preOpen)
         {
             InitializeComponent();
             scene.SetBackgroundColor(Color.LightBlue);
@@ -41,6 +41,12 @@ namespace craftersmine.GE.Utilities.GameObjectEditor
             SaveData.Add("COLLSET", "0,0,0,0");
             SaveData.Add("ID", "0");
             SaveData.Add("INTNAME", "");
+            ObjectFilePath = preOpen;
+            if (ObjectFilePath != string.Empty)
+            {
+                string[] readed = File.ReadAllLines(ObjectFilePath);
+                ParseData(readed);
+            }
         }
 
         private void redrawCaller_Tick(object sender, EventArgs e)
@@ -326,7 +332,6 @@ namespace craftersmine.GE.Utilities.GameObjectEditor
             {
                 case DialogResult.OK:
                     redrawCaller.Stop();
-                    SaveData.Clear();
                     string[] loaded = File.ReadAllLines(openFileDialog.FileName);
                     if (loaded[0] == "GAMEOBJDATA=1")
                     {
@@ -344,6 +349,7 @@ namespace craftersmine.GE.Utilities.GameObjectEditor
 
         private void ParseData(string[] data)
         {
+            SaveData.Clear();
             foreach (var ln in data)
             {
                 string[] splittedLine = ln.Split('=');
