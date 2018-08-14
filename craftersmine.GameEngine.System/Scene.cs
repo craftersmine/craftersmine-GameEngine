@@ -47,6 +47,8 @@ namespace craftersmine.GameEngine.System
         /// Gets current texture interpolation mode
         /// </summary>
         public InterpolationMode TextureInterpolationMode { get; internal set; }
+        
+        public float GlobalLightingValue { get; internal set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="Scene"/>
@@ -266,6 +268,19 @@ namespace craftersmine.GameEngine.System
             else _audioChannels[name].ChannelVolume = volume;
         }
 
+        public void SetGlobalLightingValue(float value)
+        {
+            if (value >= 0.0f && value <= 1.0f)
+            {
+                GlobalLightingValue = value;
+            }
+            else if (value > 1.0f)
+                GlobalLightingValue = 1.0f;
+            else if (value < 0.0f)
+                GlobalLightingValue = 0.0f;
+            else throw new ArgumentException("Invalid value of global lighting value", nameof(value));
+        }
+
         internal void StopAllAudioChannels()
         {
             foreach (var chl in _audioChannels)
@@ -285,6 +300,7 @@ namespace craftersmine.GameEngine.System
         public virtual void OnCreate()
         {
             BaseCanvas.Size = new Size(this.Width, this.Height);
+            _lighting = new Rectangle(Point.Empty, BaseCanvas.Size);
         }
         /// <summary>
         /// Calls at game update

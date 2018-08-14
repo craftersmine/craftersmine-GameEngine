@@ -51,6 +51,10 @@ namespace craftersmine.GameEngine.System
 
         private int xCoord = 0;
         private int yCoord = 0;
+        
+        public bool IsIlluminatingLight { get; set; }
+        public Color IlluminationColor { get; set; }
+        public LightCookieType LightCookieType { get; set; }
 
         /// <summary>
         /// Gets or sets position of object by X axis
@@ -359,5 +363,12 @@ namespace craftersmine.GameEngine.System
                 }
             }
         }
+    }
+
+    public enum LightCookieType
+    {
+        Default,
+        Circle,
+        Square
     }
 }
