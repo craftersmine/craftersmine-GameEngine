@@ -316,6 +316,10 @@ namespace craftersmine.GameEngine.System
 
         }
 
+        /// <summary>
+        /// Gets added textures names
+        /// </summary>
+        /// <returns></returns>
         public string[] GetAddedTexturesNames()
         {
             List<string> names = new List<string>();
@@ -324,6 +328,10 @@ namespace craftersmine.GameEngine.System
             return names.ToArray();
         }
 
+        /// <summary>
+        /// Gets added animations names
+        /// </summary>
+        /// <returns></returns>
         public string[] GetAddedAnimationsNames()
         {
             List<string> names = new List<string>();
