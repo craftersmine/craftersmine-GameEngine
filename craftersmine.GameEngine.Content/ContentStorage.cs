@@ -29,6 +29,7 @@ namespace craftersmine.GameEngine.Content
         public ContentStorage(string packageName)
         {
             PackageName = packageName;
+            PackageName.Replace('/', Path.DirectorySeparatorChar);
             CreateContentStorage();
         }
         
