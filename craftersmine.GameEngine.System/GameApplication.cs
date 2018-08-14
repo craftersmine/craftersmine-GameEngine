@@ -28,8 +28,6 @@ namespace craftersmine.GameEngine.System
         private static int tickLast = 0;
         private static int frameLast = 0;
         private static int collUpdateLast = 0;
-        private static PerformanceCounter cpuCounter;
-        private static PerformanceCounter ramCounter;
 
         /// <summary>
         /// Gets current game tickrate (TPS)
@@ -47,10 +45,6 @@ namespace craftersmine.GameEngine.System
         /// Gets is current game process is active
         /// </summary>
         public static bool IsProcessActive { get; internal set; }
-
-        //public static int CPUUtilization { get { return (int)cpuCounter.NextValue(); } }
-        
-        //public static int RAMUsage { get { return (int)GC.GetTotalMemory(true); } }
 
         /// <summary>
         /// Gets Game Version setted in AssemblyInfo.cs
@@ -82,8 +76,6 @@ namespace craftersmine.GameEngine.System
         {
             try
             {
-                cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-                ramCounter = new PerformanceCounter("Memory", "Available MBytes");
                 AppDataGameRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), applicationDataFolder);
                 if (!Directory.Exists(AppDataGameRoot))
                     Directory.CreateDirectory(AppDataGameRoot);
