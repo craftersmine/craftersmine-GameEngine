@@ -210,13 +210,12 @@ namespace craftersmine.GameEngine.System
             gameDrawer.Stop();
             gameCollisionUpdater.Stop();
             tickrateCounter.Stop();
-            if (gameWnd.CurremtScene != null)
+            if (gameWnd.CurrentScene != null)
             {
                 for (int i = 0; i < gameWnd.CurrentScene.GameObjects.Count; i++)
                 {
                     gameWnd.CurrentScene.GameObjects[i].OnDestroy();
                 }
-                gameWnd.CurrentScene.OnDestroy();
             }
             Log(LogEntryType.Info, "Game exited! Exit code: " + exitCode);
             Environment.Exit(exitCode);
