@@ -29,7 +29,6 @@ namespace craftersmine.GameEngine.System
         private static int tickLast = 0;
         private static int frameLast = 0;
         private static int collUpdateLast = 0;
-        internal static ContentStorage engineContent = null;
 
         /// <summary>
         /// Gets current game tickrate (TPS)
@@ -82,7 +81,7 @@ namespace craftersmine.GameEngine.System
                 if (!Directory.Exists(AppDataGameRoot))
                     Directory.CreateDirectory(AppDataGameRoot);
                 LoadAssemblyData();
-                engineContent = new ContentStorage(@"engine\system");
+                GameEngineContent.SystemContent = new ContentStorage(@"engine\system");
                 gameWnd = gameWindow;
                 gameWnd.KeyDown += GameWnd_KeyDown;
                 gameWnd.KeyUp += GameWnd_KeyUp;

@@ -55,6 +55,7 @@
     <Compile Include="AudioChannel.cs" />
     <Compile Include="GameApplication.cs" />
     <Compile Include="GameCrashHandler.cs" />
+    <Compile Include="GameEngineContent.cs" />
     <Compile Include="GameObject.cs">
       <SubType>Component</SubType>
     </Compile>
