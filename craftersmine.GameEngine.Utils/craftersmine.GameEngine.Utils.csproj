@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontFromBytesConverter.cs" />
+    <Compile Include="ImageResizer.cs" />
     <Compile Include="LoopWaveStream.cs" />
     <Compile Include="WaveFileReaderFromBytesConverter.cs" />
     <Compile Include="ImageFromBytesConverter.cs" />
