@@ -481,6 +481,7 @@ namespace craftersmine.GameEngine.System
             }
         }
 
+        // TODO: Optimize FPS on tint and untint
         internal void _tint()
         {
             if (tinter.Width != 0 && tinter.Height != 0)
