@@ -11,6 +11,7 @@ using System.Diagnostics;
 using craftersmine.GameEngine.Content;
 using craftersmine.GameEngine.Objects;
 using RazorGDI;
+using craftersmine.GameEngine.Utils;
 
 namespace craftersmine.GameEngine.System
 {
@@ -32,6 +33,10 @@ namespace craftersmine.GameEngine.System
         private SolidBrush tintBrush;
         private Rectangle tinter;
         internal Rectangle CameraBounds;
+        
+        private Bitmap lightingBuffer;
+        private Graphics lightingDrawHelper;
+        private Color lightingDarkestColor;
 
         /// <summary>
         /// Gets scene background texture
@@ -47,7 +52,7 @@ namespace craftersmine.GameEngine.System
         /// Gets current texture interpolation mode
         /// </summary>
         public InterpolationMode TextureInterpolationMode { get; internal set; }
-        
+
         public float GlobalLightingValue { get; internal set; }
 
         /// <summary>
@@ -63,6 +68,7 @@ namespace craftersmine.GameEngine.System
             this.BaseCanvas.MouseClick += BaseCanvas_MouseClick;
             this.BaseCanvas.MouseUp += BaseCanvas_MouseUp;
             this.BaseCanvas.MouseMove += BaseCanvas_MouseMove;
+            SetGlobalLightingValue(0.05f);
         }
 
         /// <summary>
@@ -279,6 +285,8 @@ namespace craftersmine.GameEngine.System
             else if (value < 0.0f)
                 GlobalLightingValue = 0.0f;
             else throw new ArgumentException("Invalid value of global lighting value", nameof(value));
+
+            lightingDarkestColor = Color.FromArgb((int)(GlobalLightingValue * 255), Color.Black);
         }
 
         internal void StopAllAudioChannels()
@@ -300,7 +308,9 @@ namespace craftersmine.GameEngine.System
         public virtual void OnCreate()
         {
             BaseCanvas.Size = new Size(this.Width, this.Height);
-            _lighting = new Rectangle(Point.Empty, BaseCanvas.Size);
+            lightingBuffer = new Bitmap(BaseCanvas.Width, BaseCanvas.Height);
+            lightingDrawHelper = Graphics.FromImage(lightingBuffer);
+            lightingDrawHelper.Clear(lightingDarkestColor);
         }
         /// <summary>
         /// Calls at game update
@@ -488,14 +498,63 @@ namespace craftersmine.GameEngine.System
             }
         }
 
-        internal Rectangle _lighting = new Rectangle();
-
+        // TODO: Make lights, global ligting, and optimize
+        [Obsolete("Work In Progress!!!", true)]
         internal void _calcLights()
         {
-            if (GlobalLightingValue > 0.0f)
+            // Reset buffer
+            lightingDrawHelper.Clear(lightingDarkestColor);
+            // Calc lights for any object
+            foreach (var gObj in GameObjects)
             {
+                if (gObj.IsIlluminatingLight)
+                {
+                    Point objCenterPoint = new Point(gObj.X / 2, gObj.Y / 2);
+                    int lWidth = gObj.LightWidth;
+                    int lHeight = gObj.LightHeight;
+                    int lX = objCenterPoint.X - lWidth / 2;
+                    int lY = objCenterPoint.Y - lHeight / 2;
+                    Bitmap cookieData = null;
+                    switch (gObj.LightCookieType)
+                    {
+                        case LightCookieType.Default:
+                        case LightCookieType.Circle:
+                            cookieData = (Bitmap)GameEngineContent.LightCookieCircle.TextureImage;
+                            break;
+                        case LightCookieType.Square:
+                            cookieData = (Bitmap)GameEngineContent.LightCookieSquare.TextureImage;
+                            break;
+                        case LightCookieType.Custom:
+                            cookieData = (Bitmap)gObj.CustomLightCookie.TextureImage;
+                            break;
+                    }
+                    if (cookieData != null)
+                    {
+                        cookieData = ImageResizer.ResizeImage(cookieData, lWidth, lHeight);
+                        for (int xCookie = 0; xCookie < cookieData.Width; xCookie++)
+                        {
+                            for (int yCookie = 0; yCookie < cookieData.Height; yCookie++)
+                            {
+                                int lXn = xCookie + lX;
+                                int lYn = yCookie + lY;
+                                float lAlpha = lightingDarkestColor.A / 255.0f;
+                                float lAlphaCookie = cookieData.GetPixel(xCookie, yCookie).A / 255.0f;
+                                float lAlphaN = (lAlpha + lAlphaCookie) * gObj.LightIntensity;
+                                if (lAlphaN > 1.0f)
+                                    lAlphaN = 1.0f;
+                                if (lAlphaN < 0.0f)
+                                    lAlphaN = lAlphaCookie;
 
+                                lightingBuffer.SetPixel(lXn, lYn, Color.FromArgb((int)(lAlphaN * 255.0f), gObj.IlluminationColor));
+                            }
+                        }
+                    }
+                    else GameApplication.Log(Utils.LogEntryType.Warning, "Unable to draw light of \"@" + gObj.InternalName + "\"! No light cookie found!");
+                }
             }
+
+            // Draw on canvas
+            BaseCanvas.RazorGFX.DrawImage(lightingBuffer, Point.Empty);
         }
 
         internal void Draw()
@@ -513,7 +572,7 @@ namespace craftersmine.GameEngine.System
                 // Call Scene OnDraw method
                 OnDraw(BaseCanvas.RazorGFX);
                 // Call Lightning calc and draw
-                _calcLights();
+                //_calcLights();
 
                 // Call Tint Scene pseudo-shader
                 _tint();

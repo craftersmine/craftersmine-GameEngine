@@ -53,8 +53,12 @@ namespace craftersmine.GameEngine.System
         private int yCoord = 0;
         
         public bool IsIlluminatingLight { get; set; }
-        public Color IlluminationColor { get; set; }
-        public LightCookieType LightCookieType { get; set; }
+        public Color IlluminationColor { get; set; } = Color.White;
+        public LightCookieType LightCookieType { get; set; } = LightCookieType.Default;
+        public Texture CustomLightCookie { get; set; }
+        internal int LightHeight { get; set; }
+        internal int LightWidth { get; set; }
+        public float LightIntensity { get; set; } = 1.0f;
 
         /// <summary>
         /// Gets or sets position of object by X axis
@@ -246,6 +250,12 @@ namespace craftersmine.GameEngine.System
             UpdateCollider();
         }
 
+        public void SetLightDimentions(int width, int height)
+        {
+            LightWidth = width;
+            LightHeight = height;
+        }
+
         internal void UpdateCollider()
         {
             BoundingBox = new Rectangle(this.X + ColliderOffsetX, this.Y + ColliderOffsetY, ColliderWidth, ColliderHeight);
@@ -256,7 +266,7 @@ namespace craftersmine.GameEngine.System
         /// </summary>
         public virtual void OnCreate()
         {
-
+            SetLightDimentions(Width, Height);
         }
         /// <summary>
         /// Calls at object destroy
@@ -377,6 +387,7 @@ namespace craftersmine.GameEngine.System
     {
         Default,
         Circle,
-        Square
+        Square,
+        Custom
     }
 }
